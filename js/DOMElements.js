@@ -178,7 +178,7 @@ class Spacer extends HTMLElement{
             if(parseInt(this.amount.slice(-1)) >= 0) return this.amount +  "ch"
             return this.amount
         }
-        return this.style.paddingLeft ? this.style.paddingLeft : "1ch"
+        return this.style.paddingLeft ?? "1ch"
     }
     get amount(){
         return this.getAttribute("amount")
