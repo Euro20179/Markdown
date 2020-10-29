@@ -96,6 +96,14 @@ class Rainbow extends HTMLElement{
         if(this.absolute){
             this.style.position = "absolute"
         }
+        this.style.display = this.display
+    }
+    get display(){
+        if(this.getAttribute("inline") != null)
+            return "inline"
+        else if(this.style.display)
+            return this.style.display
+        return "inline-block"
     }
     get position(){
         if(this.style.position){
