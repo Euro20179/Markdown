@@ -350,6 +350,15 @@ class Time extends HTMLElement{
     }
 }
 
+class Variables extends HTMLElement{
+    connectedCallback(){
+        for(let attr of this.getAttributeNames()){
+            this.innerHTML = this.innerHTML.replaceAll(`%${attr}%`, this.getAttribute(attr))
+        }
+    }
+}
+
+customElements.define("c-variables", Variables)
 customElements.define("c-time", Time)
 customElements.define('c-upsidedown', Upsidedown)
 customElements.define('c-circled', Circled)
