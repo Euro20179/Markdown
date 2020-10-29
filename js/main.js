@@ -17,8 +17,8 @@ textEditor.style.color = document.getElementById("text-editor-text-color").value
 preview.style.backgroundColor = document.getElementById("preview-color").value;
 preview.style.color = document.getElementById("preview-text-color").value;
 const urlParams = new URLSearchParams(location.search.replace("*", "#"));
-for (let queary in urlParams) {
-    let [q, value] = urlParams[queary];
+for (let queary of urlParams) {
+    let [q, value] = queary;
     switch (q) {
         case "editor":
             textEditor.style.backgroundColor = value;

@@ -189,16 +189,70 @@ class Shadow extends HTMLElement{
         this.style.textShadow = `${this.left} ${this.down} ${this.blur} ${this.color}`
     }
     get left(){
-        return this.getAttribute("left") ? this.getAttribute("left") : ".2em"
+        return this.getAttribute("left") ?? ".2em"
     }
     get down(){
-        return this.getAttribute("down") ? this.getAttribute("down") : ".2em"
+        return this.getAttribute("down") ?? ".2em"
     }
     get blur(){
-        return this.getAttribute("blur") ? this.getAttribute("blur") : "2px"
+        return this.getAttribute("blur") ?? "2px"
     }
     get color(){
-        return this.getAttribute("color") ? this.getAttribute("color") : "lightgrey"
+        return this.getAttribute("color") ?? "lightgrey"
+    }
+}
+class Alert extends HTMLElement{
+    connectedCallback(){
+        this.onclick = ()=>{
+            alert(this.alert)
+        }
+    }
+    get alert(){
+        return this.getAttribute("alert") ?? this.textContent
+    }
+}
+
+class Confirm extends HTMLElement{
+    connectedCallback(){
+        this.onclick = ()=>{
+            if(confirm(this.prompt)){
+                if(this.getAttribute("onconfirm")){
+                    Function(this.getAttribute("onconfirm"))()
+                }
+            }
+            else{
+                if(this.getAttribute("onreject")){
+                    Function(this.getAttribute("onreject"))()
+                }
+            }
+        }
+    }
+    get prompt(){
+        return this.getAttribute("prompt") ?? this.textContent
+    }
+}
+
+class Prompt extends HTMLElement{
+    connectedCallback(){
+        this.onclick = ()=>{
+            let value = prompt(this.prompt)
+            if(value){
+                this.oninput(value)
+            }
+            else{
+                if(this.getAttribute("onreject")){
+                    Function(this.getAttribute("onreject"))()
+                }
+            }
+        }
+    }
+    get oninput(){
+        return this.getAttribute("oninput") ? Function(this.getAttribute("oninput")) : value=>{
+            this.innerHTML = value;
+        }
+    }
+    get prompt(){
+        return this.getAttribute("prompt") ?? this.textContent
     }
 }
 
@@ -211,3 +265,6 @@ customElements.define("c-random", Rand)
 customElements.define("c-unicode", Unicode)
 customElements.define("c-spacer", Spacer)
 customElements.define("c-shadow", Shadow)
+customElements.define("c-alert", Alert)
+customElements.define("c-confirm", Confirm)
+customElements.define("c-prompt", Prompt)
