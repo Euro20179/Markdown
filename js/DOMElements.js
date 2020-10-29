@@ -1,0 +1,213 @@
+class Upsidedown extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+            }
+            else if(Close){
+                if(char in upsideDown) newStr += upsideDown[char];
+                else newStr += char;
+                continue;
+            }
+            else if(char == ">" && !Close){
+                Close = true;
+            }
+            newStr += char;
+        }
+        this.innerHTML = newStr;
+    }
+}
+class Circled extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+            }
+            else if(Close){
+                if(char in circleLetters) newStr += String.fromCharCode(circleLetters[char])
+                else newStr += char;
+                continue;
+            }
+            else if(char == ">"){
+                Close = true;
+            }
+            newStr += char;
+        }
+        this.innerHTML = newStr;
+    }
+}
+class threeDGlasses extends HTMLElement{
+    connectedCallback(){
+        this.style.textShadow = this.textShadow
+        this.style.color = this.color
+    }
+    get textShadow(){
+        if(this.style.textShadow){
+            return this.style.textShadow
+        }
+        return ".3em .2em red"
+    }
+    get color(){
+        if(this.style.color){
+            return this.style.color;
+        }
+        return "blue"
+    }
+}
+class Unicode extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        let currCode = "";
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+                newStr += String.fromCodePoint(parseInt(currCode)) + " "
+                currCode = ""
+            }
+            else if(char === " " && Close && currCode){
+                newStr += String.fromCodePoint(parseInt(currCode)) + " "
+                currCode = ""
+                continue;
+            }
+            else if(Close){
+                if(parseInt(char) >= 0) currCode += parseInt(char)
+                else newStr += char
+                continue;
+            }
+            else if(char == ">"){
+                Close = true;
+            }
+            newStr += char;
+        }
+        newStr += String.fromCodePoint(currCode) + " "
+        this.innerHTML = newStr;
+    }
+}
+class Rainbow extends HTMLElement{
+    connectedCallback(){
+        this.style.backgroundImage = `linear-gradient(${this.direction}, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)`
+        this.style.color = this.color
+        this.style.position = this.position
+        if(this.absolute){
+            this.style.position = "absolute"
+        }
+    }
+    get position(){
+        if(this.style.position){
+            return this.style.position
+        }
+        return "static"
+    }
+    get absolute(){
+        return this.getAttribute("absolute") != null
+    }
+    get color(){
+        if(this.style.color){
+            return this.style.color
+        }
+        return "black"
+    }
+    get direction(){
+        if (this.getAttribute("direction")){
+            return this.getAttribute("direction")
+        }
+        return "to right"
+    }
+    get spin(){
+        if(this.getAttribute('spin')){
+            return this.getAttribute('spin')
+        }
+        return false;
+    }
+    set direction(val="0deg"){
+        this.setAttribute('direction', val)
+    }
+}
+
+class Choose extends HTMLElement{
+    connectedCallback(){
+        if(this.items){
+            const items = this.items.split("|")
+            this.innerHTML = this.innerHTML.replaceAll("$1", items[~~(items.length * Math.random())])
+        }
+    }
+    get items(){
+        return this.getAttribute("items")
+    }
+}
+
+class Rand extends HTMLElement{
+    connectedCallback(){
+        if(!this.answer){
+            this.genNumber()
+        }
+        this.innerHTML = this.innerHTML.replace(/(?:\{value\}|\$1)/g, this.answer)
+    }
+    genNumber(){
+        this.answer = (Math.random() * (this.max - this.min) + this.min).toFixed(this.round)
+    }
+    get max(){
+        const _max = this.getAttribute("max")
+        return _max ? parseInt(_max) : 100
+    }
+    get min(){
+        const _min = this.getAttribute("min")
+        return _min ? parseInt(_min) : 1
+    }
+    get round(){
+        const _round = this.getAttribute("round")
+        return _round ? parseInt(_round) : 0
+    }
+}
+
+class Spacer extends HTMLElement{
+    connectedCallback(){
+        this.style.paddingLeft = this.padding
+        this.style.backgroundColor = this.color
+    }
+    get color(){
+        return this.style.backgroundColor ? this.style.backgroundColor : this.getAttribute("color")
+    }
+    get padding(){
+        if(this.getAttribute("amount")){
+            if(parseInt(this.amount.slice(-1)) >= 0) return this.amount +  "ch"
+            return this.amount
+        }
+        return this.style.paddingLeft ? this.style.paddingLeft : "1ch"
+    }
+    get amount(){
+        return this.getAttribute("amount")
+    }
+}
+class Shadow extends HTMLElement{
+    connectedCallback(){
+        this.style.textShadow = `${this.left} ${this.down} ${this.blur} ${this.color}`
+    }
+    get left(){
+        return this.getAttribute("left") ? this.getAttribute("left") : ".2em"
+    }
+    get down(){
+        return this.getAttribute("down") ? this.getAttribute("down") : ".2em"
+    }
+    get blur(){
+        return this.getAttribute("blur") ? this.getAttribute("blur") : "2px"
+    }
+    get color(){
+        return this.getAttribute("color") ? this.getAttribute("color") : "lightgrey"
+    }
+}
+
+customElements.define('c-upsidedown', Upsidedown)
+customElements.define('c-circled', Circled)
+customElements.define('c-rainbow', Rainbow)
+customElements.define("c-3d", threeDGlasses)
+customElements.define("c-choose", Choose)
+customElements.define("c-random", Rand)
+customElements.define("c-unicode", Unicode)
+customElements.define("c-spacer", Spacer)
+customElements.define("c-shadow", Shadow)

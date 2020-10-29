@@ -1,0 +1,246 @@
+body{
+    font-size:18px;
+    font-family:arial;
+}
+
+html,
+body{
+    height: 100%;
+}
+
+.main-content{
+    display:flex;
+    height:100%;
+}
+
+.text-editor{
+    padding:30px;
+    border:0;
+    background: #ffffff;
+    border: 1px solid #adadad;
+    width:50%;
+}
+
+.preview{
+    overflow-y:auto;
+    background-color:#f1f1f1;
+    border:1px solid #adadad;
+    width:50%;
+    font-family:initial;
+}
+
+.editing-button, div.editing-bar input{
+  background-color: white;
+  border: 1px solid black;
+  font-size:1.1em;
+  padding-bottom: 5px;
+}
+.editing-button:hover{
+  background-color: lightgreen;
+}
+.editing-bar input[type=color]:hover{
+  cursor:pointer;
+}
+.editing-bar select{
+  background-color: white;
+}
+.editing-bar{
+  padding-left:1.2%;
+  background-color:#fafafa;
+}
+
+.editing-bar .bar-section-off{
+  visibility: hidden;
+}
+.bar-section-on fieldset{
+  background-color: #c1e2cf;
+  margin-right:1vw;
+  margin-left:.2vw;
+}
+
+.bar-section-on fieldset button:hover{
+  cursor: pointer;
+}
+
+span.divider{
+  border:1px solid black;
+  padding-bottom: 1ex;
+  padding-top:1ex;
+  margin:10px;
+}
+
+span.divider[dashed]{
+  border-style:dashed;
+}
+
+.bar-section button{
+  border:2px outset black;
+  border-radius: 5px;
+  padding:5px;
+}
+
+.darkmode .text-editor{
+  background-color: #5c5c5c;
+  color:white;
+}
+
+.darkmode .editing-bar{
+  background-color: grey;
+  border-bottom:2px solid black
+}
+.darkmode .bar-section-on fieldset{
+  background-color: #3e853e;
+}
+
+.darkmode .bar-section-on button{
+  background-color:#474747;
+  color:white;
+}
+
+.darkmode .bar-section-on label, .darkmode .bar-section-on span{
+  background-color:transparent;
+}
+.darkmode .bar-section-on input, select{
+  background-color: #e6e5e5;
+}
+
+.bar-section-on button{
+  border-style:outset;
+}
+
+.darkmode{
+  background-color: black;
+}
+
+.darkmode #text-more{
+  background-color: transparent;
+}
+
+.bar-section-off{
+  visibility: hidden;
+  height: 0;
+  user-select: none;
+}
+
+.bar-section-title.title-off{
+  background-color: initial;
+}
+.bar-section-title{
+  border:2px inset orange;
+  font-size:1.6em;
+  margin-left:.2vw;
+}
+.bar-section-on{
+  visibility: visible;
+  height: initial;
+}
+.bar-section-title.title-on{
+  background-color: lightblue;
+}
+.bar-section-title:hover{
+  cursor: pointer;
+}
+.darkmode .bar-section-title{
+  background-color: black;
+  color:white
+}
+.darkmode .bar-section-title.title-on{
+  background-color: #1055bd;
+}
+
+.darkmode .editing-button:hover,
+.darkmode .img-button:hover{
+  background-color: #dbd8d8;
+  color: black;
+}
+
+.editing-bar-off{
+  visibility: hidden;
+  height:0;
+  overflow:hidden;
+}
+.editing-bar-off *{
+  visibility: hidden;
+  height:0;
+  overflow:hidden;
+}
+
+.darkmode{
+  color:white
+}
+
+.context-menu{
+  width: 150px;
+  box-shadow: 3px 3px 5px #888888;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  border-radius: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  position: fixed;
+  visibility: hidden;
+}
+
+.context-menu-item{
+  height:20px;
+  padding-bottom: 1ch;
+}
+
+.context-menu-item:hover{
+  background-color:#b1dffa;
+  color:black;
+}
+
+input[type=number]{
+  width:75px;
+  height:25px;
+}
+
+.img-button{
+  vertical-align: middle;
+}
+
+.img-button.light{
+  visibility: visible;
+  border:2px outset black;
+  background-color:white;
+  width:1.7em;
+  display:inline;
+}
+.img-button.light:hover{
+  background-color:lightgreen;
+}
+.darkmode .img-button.light{
+  visibility: hidden;
+  width:0;
+  display: none;
+}
+
+.img-button.dark{
+  border:2px outset white;
+  background-color: #474747;
+  visibility: hidden;
+  width:0;
+  display:none;
+}
+
+.darkmode .img-button.dark{
+  visibility: visible;
+  width:1.7em;
+  display:inline;
+}
+
+.img-button{
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.bar-section-off .img-button.dark{
+  display:none;
+}
+.bar-section-off .img-button.light{
+  display:none;
+}

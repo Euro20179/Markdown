@@ -1,0 +1,54 @@
+.editing-button.popup-button-trigger:hover + .editing-button.popup-button{
+    display:inline;
+    visibility: visible;
+}
+
+.editing-button.popup-button:hover{
+    display:inline;
+    visibility: visible;
+}
+
+.editing-button.popup-button{
+    display: none;
+    visibility: hidden;
+}
+
+.hider{
+    display: inline;
+    cursor: pointer;
+}
+.hider-option{
+    visibility: hidden;
+    width:0;
+    height:0;
+    display:none;
+}
+.hider .hider-option.hider-visible,
+.hider:hover .hider-option{
+    visibility: visible;
+    width:initial;
+    height:initial;
+    display:initial;
+}
+.hider-visible,
+.hider-option:active,
+.hider-option:hover,
+.hider-option:hover ~ .hider-option{
+    visibility: visible;
+}
+
+.darkmode #border-hider-display:hover,
+.darkmode #shadow-hider-display:hover,
+.darkmode #spacer-hider-display:hover,
+.darkmode #underline-hider-display:hover,
+.darkmode #ol-ul-span-hider:hover{
+    color:blue;
+}
+
+#border-hider-display:hover,
+#shadow-hider-display:hover,
+#spacer-hider-display:hover,
+#underline-hider-display:hover,
+#ol-ul-span-hider:hover{
+    color:rgb(233, 15, 233);
+}
