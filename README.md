@@ -140,9 +140,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * (R): registered copyright
 * \ulmarker:1\cool\\: sets unordered list marker at the 1st level to cool
 * \olmarker:2\TYPE:lower-alpha\\: sets ordered list marker at the 2nd level to the lower-alpha type
-* \UPPER\ uppercase letters
-* \LOWER\ lowercase letters
-* \NUMBERS\ numbers
 * \EMOJI\: random "emoji"
 * 1\/2 makes it look like 1⁄2
 * "summary"...details
@@ -178,7 +175,7 @@ replace:(search)
 ```
 OR
 ```
-match:(regex)
+replace:(regex)
 (replacement)
 re\
 ```
