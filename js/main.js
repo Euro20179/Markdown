@@ -86,7 +86,7 @@ function addBorder() {
     let line = document.getElementById('border-line-types').value;
     let color = document.getElementById('border-color').value;
     let direction = document.getElementById('border-direction').value;
-    startEndTypeInTextArea(`{b${direction}'${size}${unit} ${line} ${color}'`, '}');
+    startEndTypeInTextArea(`|${direction}[${size}${unit} ${line} ${color}]`, '|');
 }
 function addSpace() {
     let color = document.getElementById("space-color").value;
@@ -418,7 +418,7 @@ textEditor.addEventListener('keydown', e => {
                 e.preventDefault();
                 break;
             case "F":
-                startEndTypeInTextArea("{f'' ", "}", { cursor: 3, defaultCursor: 3 });
+                startEndTypeInTextArea('f[]"', '"', { cursor: 2, defaultCursor: 2 });
                 e.preventDefault();
                 break;
             case "E":
@@ -437,12 +437,12 @@ textEditor.addEventListener('keydown', e => {
                 if (parseInt(currTextSize.slice(-1)) >= 0) {
                     currTextSize += currTextUnit;
                 }
-                startEndTypeInTextArea(`{s${currTextSize} `, "}");
+                startEndTypeInTextArea(`s[${currTextSize}]"`, '"');
                 e.preventDefault();
                 break;
             case "Z":
                 const currColorSelected = document.getElementById("text-color").value;
-                startEndTypeInTextArea(`{${currColorSelected}:`, "}");
+                startEndTypeInTextArea(`#[${currColorSelected.split("#")[1]}]`, '#');
                 e.preventDefault();
                 break;
             case "B":

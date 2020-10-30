@@ -191,7 +191,13 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)\{#:?(.+?)(?::| )(.+?)\}(?:\[(.*?)\])?/g,
+        /(?<!\\)\{#:?(.+?)(?::| )(.+?)\}(?:\[(.+?)\])?/g,
+        (_, color, content, title) => {
+            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-f]{6}|[0-f]{8})/) ? "#" + color : color}">${content}</span>`;
+        }
+    ],
+    [
+        /(?<!\\)#\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
         (_, color, content, title) => {
             return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-f]{6}|[0-f]{8})/) ? "#" + color : color}">${content}</span>`;
         }
@@ -201,12 +207,45 @@ const regexes = [
         "<span style='font-size:$1'>$2</span>"
     ],
     [
+        /(?<!\\)s\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
+        "<span style='font-size:$1' title='$3'>$2</span>"
+    ],
+    [
         /(?<!\\)\{f(?:"|')(.+?)(?:"|')(?::| )?(.*?)\}/g,
         "<span style='font-family:$1'>$2</span>"
     ],
     [
+        /(?<!\\)f\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
+        "<span title='$3' style='font-family:$1'>$2</span>"
+    ],
+    [
         /(?<!\\)(\[|\|)\=([0-9]+)(?: ?out ?| ?outof ?)([0-9]+)\=(?:\]|\|)(?:\[(.+?)\])?/g,
         (_, meterOrProgress, value, max, title) => `<${meterOrProgress === '|' ? "meter" : "progress"} value="${value}" max="${max}" title="${title ? title : ""}"></${meterOrProgress === '|' ? "meter" : "progress"}>`
+    ],
+    [
+        /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\]"(.+?)"(?:\[(.+)\])?/g,
+        (_, bType, bDecoration, text, title) => {
+            let borderType = "";
+            switch (bType) {
+                case "^":
+                    borderType = "border-top";
+                    break;
+                case "v":
+                    borderType = "border-bottom";
+                    break;
+                case "l":
+                case "<":
+                    borderType = "border-left";
+                    break;
+                case ">":
+                    borderType = "border-right";
+                    break;
+                default:
+                    borderType = "border";
+                    break;
+            }
+            return `<span title="${title}" style="${borderType}: ${bDecoration}">${text}</span>`;
+        }
     ],
     [
         /(?<!\\)\{b('|")(.*?)\1 ?(.*?)\}/g,
