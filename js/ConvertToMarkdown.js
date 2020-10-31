@@ -320,7 +320,7 @@ const regexes = [
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
     [
-        /(?<!\\)([A-z]+|[#0-f]{6,8})(?:-{3,}|<hr>)/g,
+        /(?<!\\)([A-z]+|#[0-f]{8}|#[0-f]{6}|#[0-f]{3})(?:-{3,}|<hr>)/g,
         '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
     [
