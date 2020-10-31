@@ -51,14 +51,14 @@
             <fieldset>
                 <label class="option-item" title="(F6)"><input type="checkbox" id="darkmode" onclick="DarkMode=!DarkMode;setDarkMode()" title="F6" checked>Dark Mode?</label>
                 <span class="divider"></span>
-                <label>Text Editor</label>
-                <label class="option-item"><input type="color" value="#000000" id="text-editor-color" oninput="document.getElementById('text-editor').style.backgroundColor = this.value;if(TextEditorColorInversion){document.getElementById('text-editor-text-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('text-editor-text-color').dispatchEvent(new Event('input'))}">Background</label>
-                <label class="option-item"><input type="color" value="#ffffff" id="text-editor-text-color" oninput="document.getElementById('text-editor').style.color = this.value;if(TextEditorColorInversion){document.getElementById('text-editor-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('text-editor-color').dispatchEvent(new Event('input'))}">Text</label>
+                <label>Text Editor&emsp;</label>
+                <label class="option-item">Background<input type="color" value="#000000" id="text-editor-color" oninput="document.getElementById('text-editor').style.backgroundColor = this.value;if(TextEditorColorInversion){document.getElementById('text-editor-text-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('text-editor-text-color').dispatchEvent(new Event('input'))}"></label>
+                <label class="option-item">Text<input type="color" value="#ffffff" id="text-editor-text-color" oninput="document.getElementById('text-editor').style.color = this.value;if(TextEditorColorInversion){document.getElementById('text-editor-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('text-editor-color').dispatchEvent(new Event('input'))}"></label>
                 <label class="option-item"><input type="checkbox" checked id="text-editor-color-inversion" onclick="TextEditorColorInversion = !TextEditorColorInversion">Invert Colors</label>
                 <span class="divider"></span>
-                <label>Preview</label>
-                <label class="option-item"><input type="color" value="#ffffff" id="preview-color" oninput="document.querySelector('.preview').style.backgroundColor = this.value;if(PreviewColorInversion){document.getElementById('preview-text-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('preview-text-color').dispatchEvent(new Event('input'))}">Background</label>
-                <label class="option-item"><input type="color" value="#000000" id="preview-text-color" oninput="document.querySelector('.preview').style.color = this.value;if(PreviewColorInversion){document.getElementById('preview-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('preview-color').dispatchEvent(new Event('input'))}">Text</label>
+                <label>Preview&emsp;</label>
+                <label class="option-item">Background<input type="color" value="#ffffff" id="preview-color" oninput="document.querySelector('.preview').style.backgroundColor = this.value;if(PreviewColorInversion){document.getElementById('preview-text-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('preview-text-color').dispatchEvent(new Event('input'))}"></label>
+                <label class="option-item">Text<input type="color" value="#000000" id="preview-text-color" oninput="document.querySelector('.preview').style.color = this.value;if(PreviewColorInversion){document.getElementById('preview-color').value='#' + invertHex(this.value.split('#')[1]);document.getElementById('preview-color').dispatchEvent(new Event('input'))}"></label>
                 <label class="option-item"><input type="checkbox" checked id="preview-color-inversion" onclick="PreviewColorInversion = !PreviewColorInversion">Invert Colors</label>
             </fieldset>
         </div>

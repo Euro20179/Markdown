@@ -171,7 +171,6 @@ textEditor.addEventListener("click", e => {
             const editingBar = document.getElementById("editing-bar");
             editingBar.classList.value = "editing-bar-off";
             textEditor.style.width = "100%";
-            textEditor.style.height = "100%";
             preview.style.display = "none";
             EditMode = true;
         }
@@ -179,7 +178,6 @@ textEditor.addEventListener("click", e => {
             const editingBar = document.getElementById("editing-bar");
             editingBar.classList.value = "editing-bar";
             textEditor.style.width = "50%";
-            textEditor.style.height = "100%";
             preview.style.display = "initial";
             EditMode = false;
         }
