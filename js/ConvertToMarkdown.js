@@ -321,7 +321,7 @@ const regexes = [
     ],
     [
         /(?<!\\)([A-z]+|[#0-f]{6,8})(?:-{3,}|<hr>)/g,
-        '<hr style="background-color:$1;color:$1" />'
+        '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
     [
         /(?<![\\#])(#{1,6}) ?(.+) \[#(.+?)\]/g,
