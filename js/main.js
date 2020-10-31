@@ -136,10 +136,16 @@ function addToCurrElem(e) {
     }
 }
 document.addEventListener("keydown", e => {
-    if (e.altKey && e.key == "q") {
+    if (e.key == "Escape" && (PreviewMode || EditMode)) {
+        if (PreviewMode)
+            setPreviewMode();
+        else
+            setEditMode();
+    }
+    else if (e.altKey && e.key == "q") {
         printMe(preview);
     }
-    if (e.altKey && e.shiftKey && e.ctrlKey) {
+    else if (e.altKey && e.shiftKey && e.ctrlKey) {
         switch (e.key) {
             case "S":
                 saveFile();
@@ -165,44 +171,48 @@ document.getElementById("preview-search-count").addEventListener("keydown", (e) 
     }
 });
 let EditMode = false;
+function setEditMode() {
+    if (!EditMode) {
+        const editingBar = document.getElementById("editing-bar");
+        editingBar.classList.value = "editing-bar-off";
+        textEditor.style.width = "100%";
+        preview.style.display = "none";
+    }
+    else {
+        const editingBar = document.getElementById("editing-bar");
+        editingBar.classList.value = "editing-bar";
+        textEditor.style.width = "50%";
+        preview.style.display = "initial";
+    }
+    EditMode = !EditMode;
+}
+let PreviewMode = false;
+function setPreviewMode() {
+    if (!PreviewMode) {
+        const editingBar = document.getElementById('editing-bar');
+        editingBar.classList.value = "editing-bar-off";
+        preview.style.width = "100%";
+        preview.style.height = "100%";
+        textEditor.style.display = "none";
+    }
+    else {
+        const editingBar = document.getElementById('editing-bar');
+        editingBar.classList.value = "editing-bar";
+        preview.style.width = "50%";
+        preview.style.height = "100%";
+        textEditor.style.display = "initial";
+    }
+    PreviewMode = !PreviewMode;
+}
 textEditor.addEventListener("click", e => {
     if (e.altKey || (e.ctrlKey && e.shiftKey)) {
-        if (!EditMode) {
-            const editingBar = document.getElementById("editing-bar");
-            editingBar.classList.value = "editing-bar-off";
-            textEditor.style.width = "100%";
-            preview.style.display = "none";
-            EditMode = true;
-        }
-        else {
-            const editingBar = document.getElementById("editing-bar");
-            editingBar.classList.value = "editing-bar";
-            textEditor.style.width = "50%";
-            preview.style.display = "initial";
-            EditMode = false;
-        }
+        setEditMode();
         e.preventDefault();
     }
 });
-let PreviewMode = false;
 preview.addEventListener("click", e => {
     if (e.altKey || (e.ctrlKey && e.shiftKey)) {
-        if (!PreviewMode) {
-            const editingBar = document.getElementById('editing-bar');
-            editingBar.classList.value = "editing-bar-off";
-            preview.style.width = "100%";
-            preview.style.height = "100%";
-            textEditor.style.display = "none";
-            PreviewMode = true;
-        }
-        else {
-            const editingBar = document.getElementById('editing-bar');
-            editingBar.classList.value = "editing-bar";
-            preview.style.width = "50%";
-            preview.style.height = "100%";
-            textEditor.style.display = "initial";
-            PreviewMode = false;
-        }
+        setPreviewMode();
         e.preventDefault();
     }
 });
