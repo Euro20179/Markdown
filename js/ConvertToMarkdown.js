@@ -360,19 +360,19 @@ const regexes = [
         '<a title="$3" href="$2">$1</a>'
     ],
     [
-        /(?<!\\)(?:\[(.+?)\])?\^\^_(.*?)_\^\^(?:\[(.+?)\])?/g,
+        /(?<!\\)(?:\[(.+?)\])?\^\^_(.+?)_\^\^(?:\[(.+?)\])?/g,
         '<span style="text-decoration:overline double $1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)(?:\[(.+?)\])?\^_(.*?)_\^(?:\[(.+?)\])?/g,
+        /(?<!\\)(?:\[(.+?)\])?\^_(.+?)_\^(?:\[(.+?)\])?/g,
         '<span style="text-decoration:overline $1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)(?:\[(.+?)\])?\^\.(.*?)\.\^(?:\[(.+?)\])?/g,
+        /(?<!\\)(?:\[(.+?)\])?\^\.(.+?)\.\^(?:\[(.+?)\])?/g,
         '<span style="text-decoration:overline dotted $1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)(?:\[(.+?)\])?\^~(.*?)~\^(?:\[(.+?)\])?/g,
+        /(?<!\\)(?:\[(.+?)\])?\^~(.+?)~\^(?:\[(.+?)\])?/g,
         '<span style="text-decoration:overline wavy $1" title="$3">$2</span>'
     ],
     [
@@ -415,7 +415,7 @@ const regexes = [
         /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/g,
         (_, PC, contents) => {
             let Pro = PC === "PRO";
-            return `<span style="color:${Pro ? "green" : "red"}>${Pro ? "✓" : "☒"} ${contents}</span>`;
+            return `<span style="color:${Pro ? "green" : "red"}">${Pro ? "✓" : "☒"} ${contents}</span>`;
         }
     ],
     [
