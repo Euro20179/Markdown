@@ -168,7 +168,7 @@
             <button title="command text (yes they are different) (ctrl + shift + ;)" class="editing-button" onclick="startEndTypeInTextArea('{cmd:', '}')"><cmd>A</cmd></button>
             <button title="samp text (yes they are different)" class="editing-button" onclick="startEndTypeInTextArea('{samp:', '}')"><samp>A</samp></button>
             <span class="divider"></span>
-            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:0;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
+            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
             <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
             <span class="divider"></span>
             <button class="editing-button" onclick="let more = document.getElementById('text-more');if(more.style.visibility === 'visible'){more.style.visibility = 'hidden';more.style.height=0;more.style.marginTop='0%';more.style.display='none'}else{more.style.visibility = 'visible';more.style.height='initial';more.style.marginTop='1%';more.style.display='block'}" id="more-button">More</button>
