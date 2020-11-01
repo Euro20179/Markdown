@@ -300,10 +300,6 @@ const regexes = [
         "↔"
     ],
     [
-        /(?<!\\)\|(\*|>)/g,
-        (_, type) => type === "*" ? "⚑" : "🚩"
-    ],
-    [
         /(?<!\\):reg:([a-z]):/g,
         ":regional&lowbar;indicator_$1:"
     ],
