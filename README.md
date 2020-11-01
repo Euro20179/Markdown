@@ -72,6 +72,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * |=>
 * |\v
 * |\^
+* +-->
+* <--+
 
 ---
 
