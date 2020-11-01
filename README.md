@@ -54,11 +54,12 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 ### Align
 
-* |->center<-|
-* |->right|
-* {->2em indented 2em left}
-* {indented 2em right <-2em}
-* {->2em indented 2em both <-2em}
+* |(margin optional)->center<-(margin optional)|
+* |->right( &lt;margin optional)|
+* |(margin optional> )left<-|
+* 2em-->indented 2em left
+* indented 2em right<--2em
+* 2em-->indendted 2em right and left<--2em
 
 ---
 

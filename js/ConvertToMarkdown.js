@@ -304,15 +304,15 @@ const regexes = [
         ":regional&lowbar;indicator_$1:"
     ],
     [
-        /(?<!\\)\{(?:->|lindent) ?([^ \n\}]*) (.+?) (?:<-|rindent)(.*?)\}/g,
+        /(?<!\\)^(.+?)-->(.+)<--(.*?)$/gm,
         "<span style='display:block;margin-left:$1;margin-right:$3'>$2</span>"
     ],
     [
-        /(?<!\\)\{(?:->|lindent) ?([^ \n\}]*) (.+?)\}/g,
+        /(?<!\\)^(.+?)-->(.+?)$/gm,
         "<span style='display:block;margin-left:$1'>$2</span>"
     ],
     [
-        /(?<!\\)\{(.+?) (?:<-|rindent)([^ \n\}]*)\}/g,
+        /(?<!\\)(.+?)<--(.+?)$/gm,
         "<span style='display:block;margin-right:$2'>$1</span>"
     ],
     [
@@ -392,16 +392,16 @@ const regexes = [
         "<u style='text-decoration:underline $1' title='$3'>$2</u>"
     ],
     [
-        /(?<!\\)\|->(.+?)<-\|/g,
-        "<center>$1</center>"
+        /(?<!\\)\|(?:(.*?))?->(.+?)<-(?:(.*?))?\|/g,
+        "<center style='margin-left:$1;margin-right:$3'>$2</center>"
     ],
     [
-        /(?<!\\)\|->(.+?)\|/g,
-        "<p style='text-align:right'>$1</p>"
+        /(?<!\\)\|->(.+?)(?: <(.*?))?\|/g,
+        "<p style='text-align:right;margin-right:$2'>$1</p>"
     ],
     [
-        /(?<!\\)\|(.+?)<-\|/g,
-        "<p style='text-align:left'>$1</p>"
+        /(?<!\\)\|(?:(.*?)> )?(.+?)<-\|/g,
+        "<p style='text-align:left;margin-left:$1'>$2</p>"
     ],
     [
         /(?<!\\)\{shadow:?(?:('|")(.+?)\1)? ?(.*?)\}/g,
