@@ -244,3 +244,9 @@ input[type=number]{
 .bar-section-off .img-button.light{
   display:none;
 }
+
+#unicode-character-copy-area::selection{
+  color:transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
