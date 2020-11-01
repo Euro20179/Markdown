@@ -412,6 +412,10 @@ const regexes = [
         '<span class="$2">$3</span>'
     ],
     [
+        /(?<!\\)(?:.|class)\[(.+?)\]"(.*?)"/g,
+        '<span class="$1">$2</span>'
+    ],
+    [
         /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/g,
         (_, PC, contents) => {
             let Pro = PC === "PRO";
