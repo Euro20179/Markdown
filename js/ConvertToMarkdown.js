@@ -444,6 +444,10 @@ const regexes = [
         "<marquee direction='$1' height='$3' width='$2' scrollamount='$4'>$5</marquee>"
     ],
     [
+        /(?<!\\)\[([0-9-]+?)\]\*(.+?)\*/g,
+        '<span style="transform:skewX($1deg);display:inline-flex">$2</span>'
+    ],
+    [
         /(?<!\\)\{(?:white)?space:? ?(?:([^\n ]+))?(?:(?: a:?)?(.+?))?\}/g,
         "<c-spacer color='$1' amount='$2'></c-spacer>"
     ],
