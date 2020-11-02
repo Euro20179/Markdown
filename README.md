@@ -51,6 +51,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * .\[class]"text here will be in a span with the class of class}
 * {cmd: text}: puts text in a cmd element
 * {samp: text}: puts text in a samp element
+* |line-height text| makes the text have spacing of line-height
+* \SPACING:line-height\ the whole page will have lineheight of line-height
 
 ### Align
 
