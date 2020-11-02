@@ -213,13 +213,13 @@ const regexes = [
     [
         /(?<!\\)\{#:?(.+?)(?::| )(.+?)\}(?:\[(.+?)\])?/g,
         (_, color, content, title) => {
-            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-f]{6}|[0-f]{8})/) ? "#" + color : color}">${content}</span>`;
+            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
         }
     ],
     [
         /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         (_, color, content, title) => {
-            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-f]{6}|[0-f]{8})/) ? "#" + color : color}">${content}</span>`;
+            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
         }
     ],
     [
@@ -336,7 +336,7 @@ const regexes = [
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
     [
-        /(?<!\\)([A-z]+|#[0-f]{8}|#[0-f]{6}|#[0-f]{3})(?:-{3,}|<hr>)/g,
+        /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})(?:-{3,}|<hr>)/g,
         '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
     [
