@@ -1,7 +1,13 @@
 class Upsidedown extends HTMLElement{
     connectedCallback(){
-        this.style.transform = "rotate(180deg)"
-        this.style.display = "inline-block"
+        this.style.transform = this.transform
+        this.style.display = this.display
+    }
+    get display(){
+        return this.style.display || "inline-block"
+    }
+    get transform(){
+        return this.style.transform || "rotate(180deg)"
     }
 }
 class Circled extends HTMLElement{
@@ -343,6 +349,19 @@ class Variables extends HTMLElement{
     }
 }
 
+class Rotate extends HTMLElement{
+    connectedCallback(){
+        this.style.display = this.display
+        this.style.transform = `rotate(${this.rotate})`
+    }
+    get display(){
+        return this.style.display || "inline-block"
+    }
+    get rotate(){
+        return this.getAttribute("rotate") || "0deg"
+    }
+}
+
 customElements.define("c-variables", Variables)
 customElements.define("c-time", Time)
 customElements.define('c-upsidedown', Upsidedown)
@@ -357,3 +376,4 @@ customElements.define("c-shadow", Shadow)
 customElements.define("c-alert", Alert)
 customElements.define("c-confirm", Confirm)
 customElements.define("c-prompt", Prompt)
+customElements.define("c-rotate", Rotate)
