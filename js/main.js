@@ -426,7 +426,7 @@ textEditor.addEventListener('keydown', e => {
                 e.preventDefault();
                 break;
             case "F":
-                startEndTypeInTextArea('f[]"', '"', { cursor: 2, defaultCursor: 2 });
+                startEndTypeInTextArea('f[]', '|', { cursor: 2, defaultCursor: 2 });
                 e.preventDefault();
                 break;
             case "E":
@@ -445,12 +445,12 @@ textEditor.addEventListener('keydown', e => {
                 if (parseInt(currTextSize.slice(-1)) >= 0) {
                     currTextSize += currTextUnit;
                 }
-                startEndTypeInTextArea(`s[${currTextSize}]"`, '"');
+                startEndTypeInTextArea(`s[${currTextSize}]`, '|');
                 e.preventDefault();
                 break;
             case "Z":
                 const currColorSelected = document.getElementById("text-color").value;
-                startEndTypeInTextArea(`#[${currColorSelected.split("#")[1]}]`, '#');
+                startEndTypeInTextArea(`#[${currColorSelected.split("#")[1]}]`, '|');
                 e.preventDefault();
                 break;
             case "B":
