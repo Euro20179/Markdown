@@ -340,8 +340,8 @@ const regexes = [
         '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
     [
-        /(?<![\\#])(#{1,6}) ?(.+) \[#(.+?)\]/g,
-        (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}`
+        /(?<![\\#])(#{1,6}) ?(.+) \[#?(.+?)\]/g,
+        (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
     ],
     [
         /(?<!\\)\[(\.)?([0-9]+)->([0-9]+)\](?:\{?([0-9]+)\})?/g,
