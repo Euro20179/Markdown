@@ -396,11 +396,11 @@ const regexes = [
         "<center style='margin-left:$1;margin-right:$3'>$2</center>"
     ],
     [
-        /(?<!\\)\|->(.+?)(?: <(.*?))?\|/g,
+        /(?<!\\)\|->(.+?)(?: ?<(.*?))?\|/g,
         "<p style='text-align:right;margin-right:$2'>$1</p>"
     ],
     [
-        /(?<!\\)\|(?:(.*?)> )?(.+?)<-\|/g,
+        /(?<!\\)\|(?:(.*?)> ?)?(.+?)<-\|/g,
         "<p style='text-align:left;margin-left:$1'>$2</p>"
     ],
     [
