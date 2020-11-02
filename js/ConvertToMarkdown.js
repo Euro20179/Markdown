@@ -412,6 +412,10 @@ const regexes = [
         '<span class="$2">$3</span>'
     ],
     [
+        /(?<!\\)\|(.+?) (.*?)\|/g,
+        "<p style='line-height:$1'>$2</p>"
+    ],
+    [
         /(?<!\\)(?:.|class)\[(.+?)\]"(.*?)"/g,
         '<span class="$1">$2</span>'
     ],
