@@ -217,7 +217,7 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\)#\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
+        /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         (_, color, content, title) => {
             return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-f]{6}|[0-f]{8})/) ? "#" + color : color}">${content}</span>`;
         }
@@ -227,7 +227,7 @@ const regexes = [
         "<span style='font-size:$1'>$2</span>"
     ],
     [
-        /(?<!\\)s\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
+        /(?<!\\)s\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         "<span style='font-size:$1' title='$3'>$2</span>"
     ],
     [
@@ -235,7 +235,7 @@ const regexes = [
         "<span style='font-family:$1'>$2</span>"
     ],
     [
-        /(?<!\\)f\[(.+?)\]"(.+?)"(?:\[(.+?)\])?/g,
+        /(?<!\\)f\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         "<span title='$3' style='font-family:$1'>$2</span>"
     ],
     [

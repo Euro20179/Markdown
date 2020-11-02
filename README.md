@@ -19,11 +19,11 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * any text below \\FONT:font\\ will be that font
 * any text below \\SIZE:size\\ will be that size
 * {f'font' any text in here will be font}
-* f\[font]"text in here will be font"\[title (optional)]
+* f\[font]text in here will be font|\[title (optional)]
 * {ssize any text in here will be of size size}
-* s\[size]"text will be size"\[title (optional)]
+* s\[size]text will be size|\[title (optional)]
 * {#color any text in here will be color}\[title (optional)]
-* #\[color]"text here will be color"\[title (optional)]
+* #\[color]text here will be color|\[title (optional)]
 * {bg:color any text in here will have a background color of color}\[title (optional)]
 * {cursor:type:text} any text will have a cursor of type
 <br>
