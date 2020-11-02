@@ -615,7 +615,7 @@ ${include}::selection{
                     return `<div style="${value}">`;
                 case "LINEHEIGHT":
                 case "SPACING":
-                    return `<style>p{line-height:${value}}</style>`;
+                    return `<div style='line-height:${value}>`;
             }
         }
     ],
