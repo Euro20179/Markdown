@@ -106,6 +106,13 @@ const regexes = [
         }
     ],
     [
+        /(?<!\\)\\(?:DEF(?:INE)?)?EMOJI ?:(.+?): ?(.+?)\\/g,
+        (_, name, value) => {
+            EMOJIS[name] = value;
+            return "";
+        }
+    ],
+    [
         /(?<!\\):([a-z0-9_]+):/g,
         (_, name) => {
             if (EMOJIS[name])
