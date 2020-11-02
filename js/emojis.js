@@ -1257,6 +1257,4 @@ const imgEmotes = {
     css: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmaxcdn.icons8.com%2FShare%2Ficon%2FLogos%2Fcss31600.png&f=1&nofb=1",
     autohotkey: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.warer.com%2Fmedia%2Fauto_hotkey-logo.png&f=1&nofb=1",
 };
-const hiddenEmotes = {
-    spooky_scary_skeletons: "<img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2Fimages%2Fdfea95af83f35a6ed84129a62c41b87e%2Ftenor.gif&f=1&nofb=1' width='80m'>",
-};
+const hiddenEmotes = {};
