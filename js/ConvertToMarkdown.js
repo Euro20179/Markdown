@@ -108,7 +108,7 @@ const regexes = [
     [
         /(?<!\\)\\(?:DEF(?:INE)?)?EMOJI ?:(.+?): ?(.+?)\\/g,
         (_, name, value) => {
-            EMOJIS[name] = value;
+            userDefinedEmotes[name] = value;
             return "";
         }
     ],
@@ -121,6 +121,8 @@ const regexes = [
                 return `<img src="${imgEmotes[name]}" align="absmiddle" style="width:1em">`;
             else if (hiddenEmotes[name])
                 return hiddenEmotes[name];
+            else if (userDefinedEmotes[name])
+                return userDefinedEmotes[name];
             return `:${name}:`;
         }
     ],

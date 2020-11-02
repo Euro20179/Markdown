@@ -1,22 +1,7 @@
 class Upsidedown extends HTMLElement{
     connectedCallback(){
-        let newStr = "";
-        let Close = true;
-        for(let char of this.innerHTML){
-            if(char == "<"){
-                Close = false;
-            }
-            else if(Close){
-                if(char in upsideDown) newStr += upsideDown[char];
-                else newStr += char;
-                continue;
-            }
-            else if(char == ">" && !Close){
-                Close = true;
-            }
-            newStr += char;
-        }
-        this.innerHTML = newStr;
+        this.style.transform = "rotate(180deg)"
+        this.style.display = "inline-block"
     }
 }
 class Circled extends HTMLElement{
