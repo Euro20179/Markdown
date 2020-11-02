@@ -602,6 +602,10 @@ ${include}::selection{
         '<BLANK id="$1"></BLANK>'
     ],
     [
+        /(?<!\\)([^\s<]+)<->(.+)/g,
+        '<span style="letter-spacing:$1">$2</span>'
+    ],
+    [
         /(?<!\\)\\(FONT|SIZE|COLOR|CUSTOM|LINHEIGHT|SPACING)(?::| )(.*)\\/g,
         (_, type, value) => {
             switch (type) {

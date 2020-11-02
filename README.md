@@ -53,6 +53,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * {samp: text}: puts text in a samp element
 * |line-height text| makes the text have spacing of line-height
 * \SPACING:line-height\ the whole page will have lineheight of line-height
+* spaceing<->text
+    * spaces the letters in the words
 
 ### Align
 
@@ -200,7 +202,7 @@ re\
 searches through the input and makes the string "red" red
 
 ```
-\replace:.red.
+\replace:(.red.)
 {bg:red $1}
 re\
 ```
