@@ -388,7 +388,7 @@ class Textbox extends HTMLElement{
     }
     get resize(){
         if(this.getAttribute("width") || this.getAttribute("height")){
-            return "none"
+            return this.style.resize || "none"
         }
         return this.style.resize || "both"
     }

@@ -123,6 +123,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * c-confirm: has confirm when clicked
 * c-prompt: has prompt when clicked
 * c-rotate: rotates text
+* c-textbox: textbox
 
 ### includes
 * Start each of these with \\INDLUDE:
