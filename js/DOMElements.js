@@ -362,6 +362,39 @@ class Rotate extends HTMLElement{
     }
 }
 
+class Textbox extends HTMLElement{
+    connectedCallback(){
+        this.style.overflow = this.overflow;
+        this.style.width = this.width;
+        this.style.height = this.height;
+        this.style.display = this.display;
+        this.style.border = this.border;
+        this.style.resize = this.resize;
+    }
+    get overflow(){
+        return this.style.overflow || "auto"
+    }
+    get width(){
+        return this.getAttribute("width") ?? ""
+    }
+    get height(){
+        return this.getAttribute("height") ?? ""
+    }
+    get display(){
+        return this.style.display || "inline-block"
+    }
+    get border(){
+        return this.style.border || "1px solid black"
+    }
+    get resize(){
+        if(this.getAttribute("width") || this.getAttribute("height")){
+            return "none"
+        }
+        return this.style.resize || "both"
+    }
+}
+
+customElements.define("c-textbox", Textbox)
 customElements.define("c-variables", Variables)
 customElements.define("c-time", Time)
 customElements.define('c-upsidedown', Upsidedown)

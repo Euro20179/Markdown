@@ -351,6 +351,10 @@ const regexes = [
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
     [
+        /(?<!\\)(?:\[([0-9]+.{2,4})?(?::|x)([0-9]+.{2,4})?])?\[(.*?)](.+?)\|/g,
+        "<c-textbox width='$1' height='$2' style='$3'>$4</c-textbox>"
+    ],
+    [
         /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})(?:-{3,}|<hr>)/g,
         '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
