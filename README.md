@@ -49,7 +49,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 * {shadow'.2em .2em 0px grey' any text here will have a text shadow}
 * {.'class' any text here will be in a span with the class of class}
-* .\[class]"text here will be in a span with the class of class}
+* .\[class]text here will be in a span with the class of class|
 * {cmd: text}: puts text in a cmd element
 * {samp: text}: puts text in a samp element
 * |line-height text| makes the text have spacing of line-height
