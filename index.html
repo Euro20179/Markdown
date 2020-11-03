@@ -90,13 +90,15 @@
         </div>
         <div id="file" class="bar-section">
             <fieldset>
+                <label>File Name <input type="text" value="Markdown" oninput="document.querySelector('title').innerHTML = this.value" id="file-name"></label>
+                <span class="divider"></span>
                 <button class="editing-button" onclick="document.getElementById('fileReader').click()" title="put text from a text file into the editor, (ctrl + shift + alt + o)">Import Text File</button>
                 <input type="file" id="fileReader" value="hi" style="user-select: none;cursor: inherit;display:none;">
                 <span class="divider"></span>
                 <a href="" id="download"><button class="editing-button" onclick="saveFile()" title="save generated html, (ctrl + shift + alt + s)">&#128190; HTML</button></a>
                 <button class="editing-button" onclick="savePDF()" title="save generated html as a pdf file, (ctrl + shift + alt + p)">&#128190; PDF</button>
                 <a href="" id="download-plain"><button class="editing-button" onclick="savePlain()" title="save text you have inputed, (ctrl + shift + alt + b)">&#128190; Plain</button></a>
-                <button class="editing-button" onclick="document.getElementById('preview').printMe()" title="prints the preview, (Alt + q)">🖨️ Print</button>
+                <button class="editing-button" onclick="printMe(document.getElementById('preview'))" title="prints the preview, (Alt + q)">🖨️ Print</button>
                 <span class="divider"></span>
                 <button class="editing-button" onclick="preview.innerHTML = convert(textEditor.value, custom=cusotmMdChkbx.checked)" title="(F1)">Convert (F1)</button>
             </fieldset>

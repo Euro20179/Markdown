@@ -37,7 +37,8 @@ function saveFile() {
     const downloadB = document.getElementById("download");
     let file = new Blob([preview.innerHTML], { type: "text/markdown" });
     downloadB.href = URL.createObjectURL(file);
-    downloadB.download = "converted.md";
+    const fileName = document.getElementById("file-name").value;
+    downloadB.download = `${fileName}.md`;
 }
 function savePDF() {
     html2pdf()
@@ -56,7 +57,8 @@ function savePlain() {
     const downloadB = document.getElementById("download-plain");
     let file = new Blob([textEditor.value], { type: "text/markdown" });
     downloadB.href = URL.createObjectURL(file);
-    downloadB.download = "Plain.md";
+    const fileName = document.getElementById("file-name").value;
+    downloadB.download = `${fileName}-plain.txt`;
 }
 function printMe(elem) {
     var myframe = document.createElement('IFRAME');
