@@ -108,7 +108,9 @@ const regexes = [
     [
         /(?<!\\)\\(?:DEF(?:INE)?)?EMOJI ?:(.+?): ?(.+?)\\/g,
         (_, name, value) => {
-            userDefinedEmotes[name] = value;
+            if (!(name in userDefinedEmotes)) {
+                userDefinedEmotes[name] = value;
+            }
             return "";
         }
     ],
