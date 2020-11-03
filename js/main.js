@@ -665,4 +665,3 @@ textEditor.addEventListener("scroll", (e) => {
     let percent = textEditor.scrollTop / (textEditor.scrollHeight - textEditor.clientHeight);
     preview.scrollTop = percent * (preview.scrollHeight - preview.clientHeight);
 });
-document.querySelector("body").removeChild(document.getElementById("loading"));
