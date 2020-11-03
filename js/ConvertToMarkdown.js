@@ -316,15 +316,19 @@ const regexes = [
     ],
     [
         /(?<!\\)^(.+?)-->(.+)<--(.*?)$/gm,
-        "<span style='display:block;margin-left:$1;margin-right:$3'>$2</span>"
+        "<span style='display:inline-block;margin-left:$1;margin-right:$3'>$2</span>"
     ],
     [
         /(?<!\\)^(.+?)-->(.+?)$/gm,
-        "<span style='display:block;margin-left:$1'>$2</span>"
+        "<span style='display:inline-block;margin-left:$1'>$2</span>"
+    ],
+    [
+        /(?<!\\)^(.+?)->(.+?)$/gm,
+        "<span style='display:inline-block;text-indent:$1'>$2</span>"
     ],
     [
         /(?<!\\)(.+?)<--(.+?)$/gm,
-        "<span style='display:block;margin-right:$2'>$1</span>"
+        "<span style='display:inline-block;margin-right:$2'>$1</span>"
     ],
     [
         /(?<!\\)\\(\^|_)\[(.*?)\](?:\[(.*?)\])?/g,
