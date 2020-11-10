@@ -12,6 +12,9 @@ let currTypingElem = [];
 let extraElemTextLength = 0;
 let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
+if (localStorage.getItem("textEditorValue")) {
+    textEditor.value = localStorage.getItem("textEditorValue");
+}
 textEditor.style.backgroundColor = document.getElementById("text-editor-color").value;
 textEditor.style.color = document.getElementById("text-editor-text-color").value;
 preview.style.backgroundColor = document.getElementById("preview-color").value;
@@ -622,6 +625,7 @@ textEditor.addEventListener('input', (e) => {
         //matches the variable things like [VAR:x=y]
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
     }
+    save().then(() => { });
 });
 //when ctrl + right click, opens color picker
 textEditor.addEventListener("contextmenu", (e) => {
@@ -665,3 +669,6 @@ textEditor.addEventListener("scroll", (e) => {
     let percent = textEditor.scrollTop / (textEditor.scrollHeight - textEditor.clientHeight);
     preview.scrollTop = percent * (preview.scrollHeight - preview.clientHeight);
 });
+async function save() {
+    localStorage.setItem("textEditorValue", textEditor.value);
+}
