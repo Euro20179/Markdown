@@ -41,17 +41,22 @@ function saveFile() {
     downloadB.download = `${fileName}.md`;
 }
 function savePDF() {
-    html2pdf()
-        .set({
-        image: { type: "png" },
-        html2canvas: { scale: 2 },
-        jsPDF: {
-            unit: "in",
-            orientation: "landscape"
-        },
-    })
-        .from(preview)
-        .save();
+    (new Promise((resolve, reject) => {
+        html2pdf()
+            .set({
+            image: { type: "png" },
+            html2canvas: { scale: 2 },
+            jsPDF: {
+                unit: "in",
+                orientation: "landscape"
+            },
+        })
+            .from(preview)
+            .save();
+        resolve("success");
+    })).then(value => {
+        console.log("saved");
+    });
 }
 function savePlain() {
     const downloadB = document.getElementById("download-plain");

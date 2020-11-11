@@ -1,0 +1,30 @@
+.context-menu-container.hidden{
+    display:none;
+    position: absolute;
+}
+
+.context-menu-container.visible{
+    display:inline;
+    color:white;
+    z-index: 100;
+    border:2px solid white;
+    position: absolute;
+    background-color:#c4f5c4;
+    overflow: auto;
+    height:20vh;
+}
+.context-menu-item{
+    color:black;
+    cursor: pointer;
+    transition: color 75ms, font-size 75ms, background-color 75ms;
+}
+.context-menu-item:hover{
+    color:blue;
+    background-color:white;
+    font-size:1.1rem
+}
+
+.context-menu-header{
+    text-align: center;
+    color:black;
+}

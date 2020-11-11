@@ -3,6 +3,8 @@ const preview = document.querySelector('.preview');
 const cusotmMdChkbx = document.getElementById("custom");
 const fileReader = document.getElementById("fileReader");
 const contextMenuColorpicker = document.getElementById("context-menu-color-picker");
+const contextMenu = document.getElementById("context-menu");
+let contextOn = false;
 let InterprateLive = document.getElementById("live-interprate").checked;
 let Preview = document.getElementById("previews").checked;
 let tabs = [];
@@ -211,6 +213,10 @@ textEditor.addEventListener("click", e => {
     if (e.altKey || (e.ctrlKey && e.shiftKey)) {
         setEditMode();
         e.preventDefault();
+    }
+    if (contextOn) {
+        contextMenu.classList.replace("visible", "hidden");
+        contextOn = false;
     }
 });
 preview.addEventListener("click", e => {
@@ -632,6 +638,14 @@ textEditor.addEventListener("contextmenu", (e) => {
     if (e.ctrlKey) {
         contextMenuColorpicker.click();
         e.preventDefault();
+        return;
+    }
+    if (e.altKey && textEditor.selectionStart - textEditor.selectionEnd < 0) {
+        contextMenu.classList.replace("hidden", "visible");
+        contextMenu.style.top = String(e.clientY) + "px";
+        contextMenu.style.left = String(e.clientX) + "px";
+        e.preventDefault();
+        contextOn = true;
     }
 });
 //triggers when a file is added to the page
@@ -671,4 +685,42 @@ textEditor.addEventListener("scroll", (e) => {
 });
 async function save() {
     localStorage.setItem("textEditorValue", textEditor.value);
+}
+function findMatchingRegexes(log = true) {
+    return (new Promise((resolve, reject) => {
+        let matches = [];
+        const selection = textEditor.value.slice(textEditor.selectionStart, textEditor.selectionEnd);
+        for (let regex of regexes) {
+            let r = regex[0];
+            if (selection.match(r)) {
+                if (log)
+                    console.log(selection, r, typeof regex[1] == 'function' ? regex[1].toString() : regex[1]);
+                matches.push([selection, r, regex[1]]);
+            }
+        }
+        matches[0] ? resolve(matches) : reject("no matches");
+    })).then(value => {
+        return value;
+    })
+        .catch(reason => {
+        console.log(reason);
+        return [];
+    });
+}
+function findFirstMatchingRegex() {
+    return (new Promise((resolve, reject) => {
+        const matches = findMatchingRegexes(false)[0];
+        if (!matches) {
+            reject("no match");
+        }
+        matches[2] = typeof matches[2] == "function" ? matches[2].toString() : matches[2];
+        console.log(matches[0], matches[1], matches[2]);
+        resolve(matches);
+    })).then((value) => {
+        return value;
+    })
+        .catch((reason) => {
+        console.log(reason);
+        return [];
+    });
 }

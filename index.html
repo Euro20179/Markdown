@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="./css/normalize.css">
     <link rel="shortcut icon" type="image/png" href="./imgs/fav.png">
     <link rel="stylesheet" type="text/css" href="./css/hidden-buttons.css">
+    <link rel="stylesheet" type="text/css" href="./css/contextmenu.css">
 </head>
 <body ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
     <div class="editing-bar" id="editing-bar" style="visibility: visible;">
@@ -377,6 +378,11 @@
     <div class="main-content">
         <textarea class="text-editor" style="resize:horizontal" id="text-editor" spellcheck placeholder="# text here" autofocus>\FONT: arial\</textarea>
         <div class="preview" style="resize: horizontal;overflow: auto;width:50%" id="preview"></div>
+    </div>
+    <div class="context-menu-container hidden" id="context-menu">
+        <h4 class="context-menu-header">Debug Menu</h4>
+        <div class="context-menu-item" onclick="findFirstMatchingRegex()">Log first regex match</div>
+        <div class="context-menu-item" onclick="findMatchingRegexes()">Log regex matches</div>
     </div>
     <input type="color" id="context-menu-color-picker" class="context-menu-item" style="display:none;z-index:2" oninput="addTextTypeInTextArea(contextMenuColorpicker.value.split('#')[1], 'select')">
     <script src="https://cdn.jsdelivr.net/npm/mathjs@7.5.1/dist/math.min.js" defer></script>
