@@ -189,6 +189,14 @@ const regexes = [
         "&#8646;"
     ],
     [
+        /(?<!\\)<_/g,
+        "&le;"
+    ],
+    [
+        /(?<!\\)_>/g,
+        "&ge;"
+    ],
+    [
         /(?<!\\)> ?''(.*)''(?:\[(.+?)\])?/g,
         (_, quote, author = null) => {
             if (author) {
@@ -685,7 +693,7 @@ ${include}::selection{
         }
     ],
     [
-        /(?<!\\)\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$/g,
+        /(?<!\\)(?:solve|math|MATH|SOLVE): ?\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$/g,
         (_, re, expr, settings) => {
             if (re == "unit") {
                 try {
@@ -713,6 +721,36 @@ ${include}::selection{
     [
         /(?<!\\)\*\[(.+?)\] (.*)/g,
         "<li marker='$1&nbsp;'>$2</li>"
+    ],
+    [
+        /(?<!\\)\/?-\n/g,
+        "&shy;"
+    ],
+    [
+        /(?<!\\)~=/g,
+        "&asymp;"
+    ],
+    [
+        /(?<!\\)\+-/g,
+        "&plusmn;"
+    ],
+    [
+        /(?<!\\)\.\/\./g,
+        "&divide;"
+    ],
+    [
+        /(?<!\\)\/=/g,
+        "&ne;"
+    ],
+    [
+        /(?<!\\)\[(.*?)\]\*([0-9]+)/g,
+        (_, chars, count) => {
+            let newString = chars;
+            for (let i = 1; i < count; i++) {
+                newString += chars;
+            }
+            return newString;
+        }
     ],
     [
         /(?<!\\)\\count:([^\n]+)((?:\n)re)?\\/g,

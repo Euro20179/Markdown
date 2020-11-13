@@ -173,6 +173,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \[word]part of speech (optional): (definition)
 * \EMOJI :name: value\
     * defines a custom emoji
+* \[text]\*number
+    * makes it so that text is duplicated by number
 
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100

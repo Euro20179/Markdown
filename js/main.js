@@ -4,6 +4,7 @@ const cusotmMdChkbx = document.getElementById("custom");
 const fileReader = document.getElementById("fileReader");
 const contextMenuColorpicker = document.getElementById("context-menu-color-picker");
 const contextMenu = document.getElementById("context-menu");
+const useMathJaxCheckbox = document.getElementById("mathjax");
 let contextOn = false;
 let InterprateLive = document.getElementById("live-interprate").checked;
 let Preview = document.getElementById("previews").checked;
@@ -16,6 +17,9 @@ let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
 if (localStorage.getItem("textEditorValue")) {
     textEditor.value = localStorage.getItem("textEditorValue");
+    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+    if (useMathJaxCheckbox.checked)
+        mathJax();
 }
 textEditor.style.backgroundColor = document.getElementById("text-editor-color").value;
 textEditor.style.color = document.getElementById("text-editor-text-color").value;
@@ -47,6 +51,47 @@ function setDarkMode() {
     }
     else
         body.classList.remove("darkmode");
+}
+function mathJax() {
+    // TeX-AMS_HTML
+    MathJax.Hub.Config({
+        jax: [
+            'input/TeX',
+            'output/HTML-CSS',
+            'output/PreviewHTML',
+        ],
+        extensions: [
+            'tex2jax.js',
+            'AssistiveMML.js',
+            'a11y/accessibility-menu.js',
+        ],
+        TeX: {
+            extensions: [
+                'AMSmath.js',
+                'AMSsymbols.js',
+                'noErrors.js',
+                'noUndefined.js',
+            ]
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\\(', '\\)'],
+            ],
+            displayMath: [
+                ['$$', '$$'],
+                ['\\[', '\\]'],
+            ],
+            processEscapes: true
+        },
+        showMathMenu: false,
+        showProcessingMessages: false,
+        messageStyle: 'none',
+        skipStartupTypeset: true,
+        positionToHash: false
+    });
+    // set specific container to render, can be delayed too
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview']);
 }
 function turnOffAllOtherTabs(currTab) {
     for (let tab of tabs) {
@@ -269,6 +314,14 @@ textEditor.addEventListener('keydown', e => {
                 setDarkMode();
                 e.preventDefault();
                 break;
+            case "F9":
+                useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                else
+                    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                e.preventDefault();
+                break;
             case "F4":
                 document.getElementById("custom").click();
                 e.preventDefault();
@@ -280,6 +333,8 @@ textEditor.addEventListener('keydown', e => {
             case "F1":
                 textEditor.style.cursor = "wait";
                 preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
                 textEditor.style.cursor = "initial";
                 e.preventDefault();
                 break;
@@ -622,6 +677,8 @@ cusotmMdChkbx.addEventListener('click', e => {
     if (InterprateLive) {
         let value = textEditor.value;
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+        if (useMathJaxCheckbox.checked)
+            mathJax();
     }
 });
 //updates the preview when the texteditor value changes
@@ -630,6 +687,8 @@ textEditor.addEventListener('input', (e) => {
         let { value } = e.target;
         //matches the variable things like [VAR:x=y]
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+        if (useMathJaxCheckbox.checked)
+            mathJax();
     }
     save().then(() => { });
 });
@@ -654,6 +713,8 @@ fileReader.addEventListener("change", (e) => {
     fr.onload = () => {
         textEditor.value = fr.result;
         preview.innerHTML = convert(fr.result, cusotmMdChkbx.checked);
+        if (useMathJaxCheckbox.checked)
+            mathJax();
     };
     fr.readAsText(fileReader.files[0]);
 });
