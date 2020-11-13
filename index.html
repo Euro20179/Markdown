@@ -346,6 +346,7 @@
                     <option value="PLACEHOLDER" title="&lt;placeholder> element">Placeholder</option>
                     <option value="LIMARKER" title="&lt;li marker=''> element">Li Maker</option>
                     <option value="CMD" title="&lt;cmd> element">Cmd element</option>
+                    <option value="SPIN" title="$lt;spin speed=''">spin element</option>
                 </optgroup>
                 <optgroup label="Element Styling">
                     <option value="KBD" title="makes the kbd element nicer">Kbd</option>
@@ -372,6 +373,7 @@
                 <option value="c-prompt prompt=''">prompt</option>
                 <option value="c-rotate rotate='20deg'">rotate</option>
                 <option value="c-textbox width='100px' height='100px'">textbox</option>
+                <option value='spin speed="1000ms"'>spin (must have INCLUDE:SPIN)</option>
             </select>
             </fieldset>
         </div>
@@ -389,10 +391,10 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjs@7.5.1/dist/math.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
     <script src="./js/emojis.js" defer></script>
+    <script src="./js/utility.js" defer></script>
     <script src="./js/ConvertToMarkdown.js" defer></script>
     <script src="./js/main.js" defer></script>
     <script src="./js/DOMElements.js" defer></script>
-    <script src="./js/utility.js" defer></script>
     <script src="./js/html2pdf.js" defer></script>
     <script>
         let TextEditorColorInversion = document.getElementById("text-editor-color-inversion").checked;

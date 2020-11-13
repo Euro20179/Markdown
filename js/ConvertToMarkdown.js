@@ -8,63 +8,6 @@ math.config({
     // 'number' (default), 'BigNumber', or 'Fraction'
     precision: 64 // Number of significant digits for BigNumbers
 });
-const upsideDown = {
-    a: "\u0250",
-    b: "q",
-    c: "\u0254",
-    d: "p",
-    e: "\u01DD",
-    f: "\u025f",
-    g: "\u0183",
-    h: "\u0265",
-    i: "\u1D09",
-    j: "\u027E",
-    k: "\u029E",
-    l: "l",
-    m: "\u026f",
-    n: "u",
-    o: "o",
-    p: "d",
-    q: "b",
-    r: "\u0279",
-    s: "s",
-    t: "\u0287",
-    u: "n",
-    v: "\u028c",
-    w: "\u028d",
-    x: "x",
-    y: "\u028e",
-    z: "z",
-    A: "\u2200",
-    B: "B",
-    C: "\u0186",
-    D: "D",
-    E: "\u018e",
-    F: "\u2132",
-    G: "\u2141",
-    H: "H",
-    I: "I",
-    J: "\u017f",
-    K: "\ua7b0",
-    L: "\u025e",
-    M: "\u019c",
-    N: "N",
-    O: "O",
-    P: "\u0500",
-    Q: "Q",
-    R: "\u1d1a",
-    S: "S",
-    T: "\ua7b1",
-    U: "\u2229",
-    V: "\u0245",
-    W: "\u028d",
-    X: "X",
-    Y: "\u2144",
-    Z: "Z",
-    " ": " ",
-    "!": "¡",
-    "?": "¿"
-};
 const circleLetters = {
     A: 9398,
     " ": 32,
@@ -129,8 +72,16 @@ const regexes = [
         }
     ],
     [
+        /(?<!\\)\|(?:(.*?))?->(.+?)<-(?:(.*?))?\|/g,
+        "<center style='margin-left:$1;margin-right:$3'>$2</center>"
+    ],
+    [
         /(?<!\\)([0-9\.]+)\/\/([0-9\.]+)/g,
         "$1⁄$2"
+    ],
+    [
+        /(?<!\\)<spin speed="(.*?)">/g,
+        "<spin style='animation-duration: $1'>"
     ],
     [
         /(?<!\\)--->/g,
@@ -423,10 +374,6 @@ const regexes = [
         "<u style='text-decoration:underline $1' title='$3'>$2</u>"
     ],
     [
-        /(?<!\\)\|(?:(.*?))?->(.+?)<-(?:(.*?))?\|/g,
-        "<center style='margin-left:$1;margin-right:$3'>$2</center>"
-    ],
-    [
         /(?<!\\)\|->(.+?)(?: ?<(.*?))?\|/g,
         "<p style='text-align:right;margin-right:$2'>$1</p>"
     ],
@@ -534,7 +481,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\INCLUDE:(LIMARKER|SOFTBLINK|BLINK|PLACEHOLDER|KBD|SAMP|CMD)\\/g,
+        /(?<!\\)\\INCLUDE:(LIMARKER|SOFTBLINK|BLINK|PLACEHOLDER|KBD|SAMP|CMD|SPIN)\\/g,
         (_, include) => {
             switch (include) {
                 case "LIMARKER":
@@ -629,6 +576,24 @@ ${include}{
 ${include}::selection{
     background-color:white;
 }</style>`;
+                case "SPIN":
+                    return `<style>
+spin{
+transform: rotate(0deg);
+display:inline-block;
+animation-name: spin-animation;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+}
+
+@keyframes spin-animation{
+0%{
+transform: rotate(0deg);
+}
+100%{
+transform: rotate(360deg);
+}
+</style>`;
             }
         }
     ],
@@ -687,7 +652,7 @@ ${include}::selection{
         "</div>"
     ],
     [
-        /(?<!\\)(?:solve|math|MATH|SOLVE): ?\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$/g,
+        /(?<!\\)\$\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$\$/g,
         (_, re, expr, settings) => {
             if (re == "unit") {
                 try {
@@ -739,11 +704,7 @@ ${include}::selection{
     [
         /(?<!\\)\[(.*?)\]\*([0-9]+)/g,
         (_, chars, count) => {
-            let newString = chars;
-            for (let i = 1; i < count; i++) {
-                newString += chars;
-            }
-            return newString;
+            return chars.multiply(Number(count));
         }
     ],
     [

@@ -136,3 +136,10 @@ function addTextTypeInTextArea(text, selectType = "end") {
     el.setRangeText(text, el.selectionStart, el.selectionEnd, selectType);
     preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
 }
+String.prototype.multiply = function (times) {
+    let newString = this;
+    for (let i = 1; i < times; i++) {
+        newString += this;
+    }
+    return newString;
+};
