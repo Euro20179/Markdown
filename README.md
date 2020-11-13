@@ -180,6 +180,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \RAND\\: random number from 1 to 100
 * \RAND{50 56}\\: random number from 1 to 56
 * \[VAR:x=2]: will replace any \[x] with 2
+* &lt;evaluate>javascript&lt;/evaluate>
+    * evaluates the code every times preview updates
 
 ### Find
 

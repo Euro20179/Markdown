@@ -27,6 +27,12 @@ for (let x = 1; x < 52; x++) {
 }
 const regexes = [
     [
+        /(?<!\\)<evaluate>\s?(.+?)\s?(?:<\/evaluate>)/g,
+        (_, evaluate) => {
+            return eval(evaluate);
+        }
+    ],
+    [
         /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
         (_, one = null, two = null) => {
             if (!one) {
