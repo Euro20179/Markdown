@@ -687,12 +687,6 @@ ${include}::selection{
         "</div>"
     ],
     [
-        /(?<!\\)\\THEME:(.*)\\/g,
-        (_, theme) => {
-            return `<link rel="stylesheet" type="text/css" href="./Themes/${theme}.css" id="_theme">`;
-        }
-    ],
-    [
         /(?<!\\)(?:solve|math|MATH|SOLVE): ?\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$/g,
         (_, re, expr, settings) => {
             if (re == "unit") {
