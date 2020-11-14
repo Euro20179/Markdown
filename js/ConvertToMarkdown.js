@@ -487,7 +487,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\INCLUDE:(LIMARKER|SOFTBLINK|BLINK|PLACEHOLDER|KBD|SAMP|CMD|SPIN)\\/g,
+        /(?<!\\)\\INCLUDE:(.*?)\\/g,
         (_, include) => {
             switch (include) {
                 case "LIMARKER":
@@ -600,6 +600,36 @@ transform: rotate(0deg);
 transform: rotate(360deg);
 }
 </style>`;
+                case "RAINBOW":
+                    return `<style>
+rainbow{
+animation: rainbow-an 2000ms linear infinite;
+color: blue;
+}
+@keyframes rainbow-an{
+0%{
+color: #f00;
+}
+16%{
+color: #ffff00;
+}
+32%{
+color: #00ff00;
+}
+48%{
+color: #00ffff;
+}
+64%{
+color: #0000ff;
+}
+80%{
+color: #ff00ff;
+}
+100%{
+color: #f00;
+}
+}
+</style>`;
             }
         }
     ],
@@ -686,10 +716,6 @@ transform: rotate(360deg);
     [
         /(?<!\\)\*\[(.+?)\] (.*)/g,
         "<li marker='$1&nbsp;'>$2</li>"
-    ],
-    [
-        /(?<!\\)\/?-\n/g,
-        "&shy;"
     ],
     [
         /(?<!\\)~=/g,

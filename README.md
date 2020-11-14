@@ -111,6 +111,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ### builtins
 * c-3d: makes the text have that stereotypical red blue 3d look
 * c-rainbow: gives the text a rainbow background
+    * not to be confused with \INCLUDE:RAINBOW\
 * c-upsidedown: makes the text upsidedown
 * c-circled: makes the text circled
 * c-unicode: when given any string of numbers it will convert it to unicode
@@ -134,6 +135,9 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * BLINK: annoying
 * SOFTBLINK: blink but smooth transition
 * PLACEHOLDER: kinda just grey unslectable text
+* SPIN: css for a spin element
+* RAINBOW: css for a rainbow element
+    * not to be confused with &lt;c-rainbow>
 * KBD: css for the kbd element
 * SAMP: css for the samp element
 * CMD: css for a cmd element (same css as SAMP)
