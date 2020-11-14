@@ -174,7 +174,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * 1\/2 makes it look like 1⁄2
 * "summary"...details
 * "text"\[title]
-* \\;comment\\
 * \[word]part of speech (optional): (definition)
 * \EMOJI :name: value\
     * defines a custom emoji
