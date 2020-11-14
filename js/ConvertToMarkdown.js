@@ -337,7 +337,7 @@ const regexes = [
     ],
     [
         /(?<!\\)#\[(.*?)\]/g,
-        "<span id='$1'></span>"
+        "<div id='$1'></div>"
     ],
     [
         /(?<!\\|!)\[(.*?)\]\((.+?)(?:\s(.*?))?\)/g,
@@ -487,9 +487,10 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\INCLUDE:(.*?)\\/g,
-        (_, include) => {
-            switch (include) {
+        /(?<!\\)\\include(?:\{(.*?)\}|(?::|  )(.*?)\\)/g,
+        (_, include, include2) => {
+            include = include2 ?? include;
+            switch (include.toUpperCase()) {
                 case "LIMARKER":
                     return `
 <style>
@@ -642,9 +643,10 @@ color: #f00;
         '<span style="letter-spacing:$1">$2</span>'
     ],
     [
-        /(?<!\\)\\(FONT|SIZE|COLOR|CUSTOM|LINHEIGHT|SPACING)(?::| )(.*)\\/g,
-        (_, type, value) => {
-            switch (type) {
+        /(?<!\\)\\(font|size|color|custom|lineheight|spacing)(?:\{(.*)\}|(?::| )(.*)\\)/gi,
+        (_, type, value, value2) => {
+            value = value2 ?? value;
+            switch (type.toUpperCase()) {
                 case "FONT":
                     return `<div style='font-family:${value}'>`;
                 case "SIZE":
@@ -660,31 +662,25 @@ color: #f00;
         }
     ],
     [
-        /(?<!\\)\\SECTION (.*?)\\/g,
-        "<div id='$1'>"
+        /(?<!\\)\\END(F|S|#|C|L)(?:\{(.*?)\}| (.*?)\\)/gi,
+        (_, type, newValue, newValue2) => {
+            newValue = newValue2 ?? newValue;
+            switch (type.toUpperCase()) {
+                case "F":
+                    return `</div><div style="font-family: ${newValue}">`;
+                case "S":
+                    return `</div><div style="font-size: ${newValue}">`;
+                case "#":
+                    return `</div><div style="color: ${newValue}">`;
+                case "C":
+                    return `</div><div style="${newValue}">`;
+                case "L":
+                    return `</div><div style="line-height: ${newValue}">`;
+            }
+        }
     ],
     [
-        /(?<!\\)\\ENDF(?:ONT)? (.*)\\/g,
-        "</div><div style='font-family:$1'>"
-    ],
-    [
-        /(?<!\\)\\ENDS(?:IZE)? (.*)\\/g,
-        "</div><div style='font-size:$1'>"
-    ],
-    [
-        /(?<!\\)\\END(?:#|COLOR) (.*)\\/g,
-        "</div><div style='color:$1'>"
-    ],
-    [
-        /(?<!\\)\\ENDC(?:USTOM) (.*)\\/g,
-        "</div><div style='$1'>"
-    ],
-    [
-        /(?<!\\)\\ENDSECTION (.*)\\/g,
-        "</div><div id='$1'>"
-    ],
-    [
-        /(?<!\\)\\END.*?\\/g,
+        /(?<!\\)\\END(?:.*?\\|\{.*?\})/g,
         "</div>"
     ],
     [

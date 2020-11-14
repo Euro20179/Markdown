@@ -609,7 +609,7 @@ textEditor.addEventListener('keydown', e => {
                 e.preventDefault();
                 break;
             case "F":
-                addTextTypeInTextArea("\\FONT: arial\\\n");
+                addTextTypeInTextArea("\\font{arial}\n");
                 e.preventDefault();
                 break;
             case "U":

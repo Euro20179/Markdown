@@ -2,22 +2,6 @@
 function invertHex(hex) {
     return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase();
 }
-String.prototype.formatUnicorn = String.prototype.formatUnicorn ||
-    function () {
-        "use strict";
-        var str = this.toString();
-        if (arguments.length) {
-            var t = typeof arguments[0];
-            var key;
-            var args = ("string" === t || "number" === t) ?
-                Array.prototype.slice.call(arguments)
-                : arguments[0];
-            for (key in args) {
-                str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
-            }
-        }
-        return str;
-    };
 //importing files
 function dropHandler(e) {
     e.preventDefault();

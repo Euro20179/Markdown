@@ -35,6 +35,9 @@ body{
   font-size:1.1em;
   padding-bottom: 5px;
 }
+.editing-button{
+  border-radius: 4px;
+}
 .editing-button:hover{
   background-color: lightgreen;
 }

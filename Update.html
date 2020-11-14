@@ -101,11 +101,19 @@
             <ul>
                 <li>Not to be confused with &lt;c-rainbow></li>
             </ul>
+            <li>Better way to do \FONT:font\ and \INCLUDE:include\</li>
+            <ul>
+                <li>\font{font}</li>
+                <li>\include{include}</li>
+                <li>\END\ and \SECTION\ also work this way</li>
+            </ul>
         </ul>
         <h3 class="changed">Changes</h3>
         <ul>
             <li>$$2 + 2$$ is now, solve: $$$2 + 2$$$</li>
+            <li>#[id] now returns a div element instead of a span element</li>
         </ul>
+        <li>Rounded Buttons</li>
         <h3 class="fixed">Fixes</h3>
         <ul>
             <li>When the page is loaded the text is converted</li>
@@ -113,6 +121,11 @@
         <h3 class="removed">Removed</h3>
         <ul>
             <li>\THEME:theme\</li>
+            <li>\SECTION\</li>
+            <ul>
+                <li>Reduntant of #[id]</li>
+            </ul>
+            <li>\ENDSECTION\</li>
         </ul>
     </div>
     <hr>

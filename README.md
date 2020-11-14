@@ -111,7 +111,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ### builtins
 * c-3d: makes the text have that stereotypical red blue 3d look
 * c-rainbow: gives the text a rainbow background
-    * not to be confused with \INCLUDE:RAINBOW\
+    * not to be confused with \include{rainbow}
 * c-upsidedown: makes the text upsidedown
 * c-circled: makes the text circled
 * c-unicode: when given any string of numbers it will convert it to unicode
@@ -128,8 +128,9 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * c-textbox: textbox
 
 ### includes
-* Start each of these with \\INDLUDE:
-    * and end with \\
+* 2 ways to use this
+    * \INCLUDE: (item)\
+    * \include{item}
 * SHADOW: shadow element
 * LIMARKER: allows you to do &lt;li marker="marker"> for a custom marker
 * BLINK: annoying
