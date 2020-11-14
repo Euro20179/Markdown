@@ -185,92 +185,7 @@ function addToCurrElem(e) {
         extraElemTextLength = 0;
     }
 }
-document.addEventListener("keydown", e => {
-    if (e.key == "Escape" && (PreviewMode || EditMode)) {
-        if (PreviewMode)
-            setPreviewMode();
-        else
-            setEditMode();
-    }
-    else if (e.altKey && e.key == "q") {
-        printMe(preview);
-    }
-    else if (e.altKey && e.shiftKey && e.ctrlKey) {
-        switch (e.key) {
-            case "S":
-                saveFile();
-                document.getElementById("download").click();
-                e.preventDefault();
-                break;
-            case "B":
-                savePlain();
-                document.getElementById("download-plain").click();
-                e.preventDefault();
-                break;
-            case "P":
-                savePDF();
-                e.preventDefault();
-                break;
-        }
-    }
-});
-document.getElementById("preview-search-count").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        document.getElementById("count-of-button").click();
-        e.preventDefault();
-    }
-});
-let EditMode = false;
-function setEditMode() {
-    if (!EditMode) {
-        const editingBar = document.getElementById("editing-bar");
-        editingBar.classList.value = "editing-bar-off";
-        textEditor.style.width = "100%";
-        preview.style.display = "none";
-    }
-    else {
-        const editingBar = document.getElementById("editing-bar");
-        editingBar.classList.value = "editing-bar";
-        textEditor.style.width = "50%";
-        preview.style.display = "initial";
-    }
-    EditMode = !EditMode;
-}
-let PreviewMode = false;
-function setPreviewMode() {
-    if (!PreviewMode) {
-        const editingBar = document.getElementById('editing-bar');
-        editingBar.classList.value = "editing-bar-off";
-        preview.style.width = "100%";
-        preview.style.height = "100%";
-        textEditor.style.display = "none";
-    }
-    else {
-        const editingBar = document.getElementById('editing-bar');
-        editingBar.classList.value = "editing-bar";
-        preview.style.width = "50%";
-        preview.style.height = "100%";
-        textEditor.style.display = "initial";
-    }
-    PreviewMode = !PreviewMode;
-}
-textEditor.addEventListener("click", e => {
-    if (e.altKey || (e.ctrlKey && e.shiftKey)) {
-        setEditMode();
-        e.preventDefault();
-    }
-    if (contextOn) {
-        contextMenu.classList.replace("visible", "hidden");
-        contextOn = false;
-    }
-});
-preview.addEventListener("click", e => {
-    if (e.altKey || (e.ctrlKey && e.shiftKey)) {
-        setPreviewMode();
-        e.preventDefault();
-    }
-});
-textEditor.addEventListener('keydown', e => {
+function keyPresses(e) {
     if (AutoCompleteElements) {
         //starts the element
         if (e.key == "<") {
@@ -618,6 +533,94 @@ textEditor.addEventListener('keydown', e => {
                 break;
         }
     }
+}
+document.addEventListener("keydown", e => {
+    if (e.key == "Escape" && (PreviewMode || EditMode)) {
+        if (PreviewMode)
+            setPreviewMode();
+        else
+            setEditMode();
+    }
+    else if (e.altKey && e.key == "q") {
+        printMe(preview);
+    }
+    else if (e.altKey && e.shiftKey && e.ctrlKey) {
+        switch (e.key) {
+            case "S":
+                saveFile();
+                document.getElementById("download").click();
+                e.preventDefault();
+                break;
+            case "B":
+                savePlain();
+                document.getElementById("download-plain").click();
+                e.preventDefault();
+                break;
+            case "P":
+                savePDF();
+                e.preventDefault();
+                break;
+        }
+    }
+    else if (document.activeElement == textEditor) {
+        keyPresses(e);
+    }
+});
+document.getElementById("preview-search-count").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        document.getElementById("count-of-button").click();
+        e.preventDefault();
+    }
+});
+let EditMode = false;
+function setEditMode() {
+    if (!EditMode) {
+        const editingBar = document.getElementById("editing-bar");
+        editingBar.classList.value = "editing-bar-off";
+        textEditor.style.width = "100%";
+        preview.style.display = "none";
+    }
+    else {
+        const editingBar = document.getElementById("editing-bar");
+        editingBar.classList.value = "editing-bar";
+        textEditor.style.width = "50%";
+        preview.style.display = "initial";
+    }
+    EditMode = !EditMode;
+}
+let PreviewMode = false;
+function setPreviewMode() {
+    if (!PreviewMode) {
+        const editingBar = document.getElementById('editing-bar');
+        editingBar.classList.value = "editing-bar-off";
+        preview.style.width = "100%";
+        preview.style.height = "100%";
+        textEditor.style.display = "none";
+    }
+    else {
+        const editingBar = document.getElementById('editing-bar');
+        editingBar.classList.value = "editing-bar";
+        preview.style.width = "50%";
+        preview.style.height = "100%";
+        textEditor.style.display = "initial";
+    }
+    PreviewMode = !PreviewMode;
+}
+textEditor.addEventListener("click", e => {
+    if (e.altKey || (e.ctrlKey && e.shiftKey)) {
+        setEditMode();
+        e.preventDefault();
+    }
+    if (contextOn) {
+        contextMenu.classList.replace("visible", "hidden");
+        contextOn = false;
+    }
+});
+preview.addEventListener("click", e => {
+    if (e.altKey || (e.ctrlKey && e.shiftKey)) {
+        setPreviewMode();
+        e.preventDefault();
+    }
 });
 //when changing the settings for the space insert, this changes the A next to it
 function updateSpaceButton() {
@@ -690,7 +693,7 @@ textEditor.addEventListener('input', (e) => {
         if (useMathJaxCheckbox.checked)
             mathJax();
     }
-    save().then(() => { });
+    save().then();
 });
 //when ctrl + right click, opens color picker
 textEditor.addEventListener("contextmenu", (e) => {
