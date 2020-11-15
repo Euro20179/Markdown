@@ -387,7 +387,7 @@ function keyPresses(e) {
     }
     //ctrl + shift + key
     else if (e.ctrlKey && e.shiftKey && !e.altKey) {
-        switch (e.key) {
+        switch (e.key.toUpperCase()) {
             case "U":
                 typeInTextarea('^__^', 2);
                 e.preventDefault();
@@ -513,7 +513,7 @@ function keyPresses(e) {
     }
     //alt + shift + ctrl + key
     else if (e.altKey && e.shiftKey && e.ctrlKey) {
-        switch (e.key) {
+        switch (e.key.toUpperCase()) {
             case "O":
                 document.getElementById('fileReader').click();
                 e.preventDefault();
@@ -545,7 +545,7 @@ document.addEventListener("keydown", e => {
         printMe(preview);
     }
     else if (e.altKey && e.shiftKey && e.ctrlKey) {
-        switch (e.key) {
+        switch (e.key.toUpperCase()) {
             case "S":
                 saveFile();
                 document.getElementById("download").click();
