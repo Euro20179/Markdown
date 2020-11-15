@@ -24,7 +24,7 @@ body{
 .preview{
     overflow-y:auto;
     background-color:#f1f1f1;
-    border:1px solid #adadad;
+    outline:1px solid #adadad;
     width:50%;
     font-family:initial;
 }
