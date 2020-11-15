@@ -223,7 +223,7 @@ const regexes = [
         (_, meterOrProgress, value, max, title) => `<${meterOrProgress === '|' ? "meter" : "progress"} value="${value}" max="${max}" title="${title ? title : ""}"></${meterOrProgress === '|' ? "meter" : "progress"}>`
     ],
     [
-        /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\]"(.+?)"(?:\[(.+)\])?/g,
+        /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\](.+?)\|(?:\[(.+)\])?/g,
         (_, bType, bDecoration, text, title) => {
             let borderType = "";
             switch (bType) {
@@ -246,6 +246,10 @@ const regexes = [
             }
             return `<span title="${title}" style="${borderType}: ${bDecoration}">${text}</span>`;
         }
+    ],
+    [
+        /(?<!\\|\.)(?:\[([0-9]+.{2,4})?(?::|x)([0-9]+.{2,4})?])?\[(.*?)](.+?)\|/g,
+        "<c-textbox width='$1' height='$2' style='$3'>$4</c-textbox>"
     ],
     [
         /(?<!\\)\{b('|")(.*?)\1 ?(.*?)\}/g,
@@ -318,10 +322,6 @@ const regexes = [
     [
         /(?<!\\)(?:\[(.*?)\])?\*-(.+?)-\*(?:\[(.+?)\])?/g,
         "<mark title='$3' style='background-color:$1'>$2</mark>"
-    ],
-    [
-        /(?<!\\|\.)(?:\[([0-9]+.{2,4})?(?::|x)([0-9]+.{2,4})?])?\[(.*?)](.+?)\|/g,
-        "<c-textbox width='$1' height='$2' style='$3'>$4</c-textbox>"
     ],
     [
         /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})(?:-{3,}|<hr>)/g,
