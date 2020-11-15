@@ -1,3 +1,8 @@
+:root{
+--button-transition-time: 100ms;
+--editing-bar-transition-time: 100ms;
+}
+
 body{
     font-size:1rem;
     font-family:arial;
@@ -34,6 +39,7 @@ body{
   border: 1px solid black;
   font-size:1.1em;
   padding-bottom: 5px;
+  transition: color var(--button-transition-time), background-color var(--button-transition-time);
 }
 .editing-button{
   border-radius: 4px;
@@ -50,6 +56,7 @@ body{
 .editing-bar{
   padding-left:1.2%;
   background-color:#fafafa;
+  transition: color var(--editing-bar-transition-time), background-color var(--editing-bar-transition-time);
 }
 
 .editing-bar .bar-section-off{
@@ -132,6 +139,7 @@ span.divider[dashed]{
   border:2px inset orange;
   font-size:1.6em;
   margin-left:.2vw;
+  transition: color var(--editing-bar-transition-time), background-color var(--editing-bar-transition-time);
 }
 .bar-section-on{
   visibility: visible;
