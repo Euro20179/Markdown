@@ -175,6 +175,10 @@ const regexes = [
         "<span style='$2'>$3</span>"
     ],
     [
+        /(?<!\\)\*\[(.*?)\](.*?)\|(?:\[(.*?)\])?/g,
+        "<span style='$1' title='$3'>$2</span>"
+    ],
+    [
         /(?<!\\)\[(\.)?( |x)\]\s?(?!\()/g,
         (_, interactive, checked) => `<input type="checkbox" ${checked === "x" ? "checked" : ""} ${!interactive ? "disabled" : ""}>`
     ],

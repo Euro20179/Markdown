@@ -41,6 +41,12 @@ for (let queary of urlParams) {
         case "lightmode":
             DarkMode = false;
             break;
+        case "preview":
+            preview.style.backgroundColor = value;
+            break;
+        case "previewtext":
+            preview.style.color = value;
+            break;
     }
 }
 setDarkMode();

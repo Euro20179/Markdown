@@ -8,6 +8,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * darkmode: sets to darkmode
 * editor=color: the color of the editor
 * editortext=color: the color of the text of the editor
+* preview=color: the color of the preview
+* previewtext=color: the color of the preview text
 
 # Documentation
 
