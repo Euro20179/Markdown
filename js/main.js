@@ -561,6 +561,9 @@ document.addEventListener("keydown", e => {
                 e.preventDefault();
                 break;
         }
+        if (document.activeElement == textEditor) {
+            keyPresses(e);
+        }
     }
     else if (document.activeElement == textEditor) {
         keyPresses(e);
