@@ -64,6 +64,10 @@ const regexes = [
         }
     ],
     [
+        /(?<!\\):reg:([a-z]):/g,
+        ":regional_indicator_$1:"
+    ],
+    [
         /(?<!\\):([a-z0-9_]+):/g,
         (_, name) => {
             if (EMOJIS[name])
@@ -282,10 +286,6 @@ const regexes = [
     [
         /(?<!\\)\<-->/g,
         "↔"
-    ],
-    [
-        /(?<!\\):reg:([a-z]):/g,
-        ":regional&lowbar;indicator_$1:"
     ],
     [
         /(?<!\\)^(.+?)-->(.+)<--(.*?)$/gm,
