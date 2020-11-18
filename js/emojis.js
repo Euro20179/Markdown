@@ -1292,3 +1292,21 @@ function addCustomEmote(name, value) {
 function removeCustomEmote(name) {
     delete userDefinedEmotes[name];
 }
+function generateCustomEmojiOptions() {
+    let selection = document.getElementById("custom-emoji-dropdown");
+    for (let emoji in userDefinedEmotes) {
+        if (document.getElementById(emoji)) {
+            continue;
+        }
+        let value = userDefinedEmotes[emoji];
+        let option = document.createElement("option");
+        option.value = emoji;
+        option.title = value;
+        option.innerHTML = emoji;
+        option.id = emoji;
+        selection.appendChild(option);
+    }
+}
+function removeCustomEmojiOption() {
+    document.getElementById('custom-emoji-dropdown').removeChild(document.getElementById(document.getElementById('remove-custom-emote').value));
+}

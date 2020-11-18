@@ -310,7 +310,11 @@
                 </label>
                 <span class="divider" dashed></span>
                 <label>Remove custom emoji <input type="text" title="Custom emoji name" id="remove-custom-emote" placeholder="name" style="width:6em"></label>
-                <button class="editing-button" onclick="removeCustomEmote(document.getElementById('remove-custom-emote').value)">Remove emoji</button>
+                <button class="editing-button" onclick="removeCustomEmote(document.getElementById('remove-custom-emote').value); removeCustomEmojiOption()">Remove emoji</button>
+                <span class="divider"></span>
+                <label>Custom emojis</label>
+                <select name="custom-emoji" id="custom-emoji-dropdown" value="" title="Custom Emoji" onclick="generateCustomEmojiOptions()" oninput="addTextTypeInTextArea(`:${this.value}:`)"></select>
+                <input type="text" id="custom-emoji-copy-zone" style="width:1px;position:absolute;z-index:-1">
             </fieldset>
         </div>
         <div id="insert" class="bar-section">
