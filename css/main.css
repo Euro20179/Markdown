@@ -54,9 +54,21 @@ body{
   background-color: white;
 }
 .editing-bar{
+  transform: translateY(0);
   padding-left:1.2%;
   background-color:#fafafa;
-  transition: color var(--editing-bar-transition-time), background-color var(--editing-bar-transition-time);
+  transition: color var(--editing-bar-transition-time), background-color var(--editing-bar-transition-time), transform var(--editing-bar-transition-time);
+}
+
+.preview,
+.text-editor{
+  transition: top var(--editing-bar-transition-time);
+}
+
+.editing-bar-off ~ .preview, 
+.editing-bar-off ~ .text-editor{
+  top:0;
+  position: absolute;
 }
 
 .editing-bar .bar-section-off{
@@ -166,14 +178,16 @@ span.divider[dashed]{
 }
 
 .editing-bar-off{
-  visibility: hidden;
-  height:0;
+  transform: translateY(-100%);
+  padding-left:1.2%;
   overflow:hidden;
+  transition: transform var(--editing-bar-transition-time);
+  background-color:#fafafa;
+  width:100%;
+  position: absolute;
 }
-.editing-bar-off *{
-  visibility: hidden;
-  height:0;
-  overflow:hidden;
+.darkmode .editing-bar-off{
+  background-color: grey;
 }
 
 .darkmode{
