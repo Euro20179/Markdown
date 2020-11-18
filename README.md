@@ -177,8 +177,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * "summary"...details
 * "text"\[title]
 * \[word]part of speech (optional): (definition)
-* \EMOJI :name: value\
-    * defines a custom emoji
 * \[text]\*number
     * makes it so that text is duplicated by number
 

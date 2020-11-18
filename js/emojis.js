@@ -1286,3 +1286,9 @@ const imgEmotes = {
 };
 const hiddenEmotes = {};
 let userDefinedEmotes = JSON.parse(localStorage.getItem("customEmojis")) || {};
+function addCustomEmote(name, value) {
+    userDefinedEmotes[name] = value;
+}
+function removeCustomEmote(name) {
+    delete userDefinedEmotes[name];
+}

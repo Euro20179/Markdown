@@ -174,9 +174,6 @@
             <button title="command text (yes they are different) (ctrl + shift + ;)" class="editing-button" onclick="startEndTypeInTextArea('{cmd:', '}')"><cmd>A</cmd></button>
             <button title="samp text (yes they are different)" class="editing-button" onclick="startEndTypeInTextArea('{samp:', '}')"><samp>A</samp></button>
             <span class="divider"></span>
-            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
-            <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
-            <span class="divider"></span>
             <button class="editing-button" onclick="let more = document.getElementById('text-more');if(more.style.visibility === 'visible'){more.style.visibility = 'hidden';more.style.height=0;more.style.marginTop='0%';more.style.display='none'}else{more.style.visibility = 'visible';more.style.height='initial';more.style.marginTop='1%';more.style.display='block'}" id="more-button">More</button>
             <div id="text-more" style="visibility:hidden;height:0px;margin-top:0%;display:none;margin-bottom:0%"> 
                 <label class="hider" style="padding:20px"><span style="text-decoration: underline dotted" onclick="const hidden = document.getElementById('hidden-border-options');if(hidden.classList.contains('hider-visible')){hidden.classList='hider-option'}else{hidden.classList='hider-option hider-visible'}" id="border-hider-display">Border Options</span>
@@ -373,8 +370,20 @@
                 <option value="c-prompt prompt=''">prompt</option>
                 <option value="c-rotate rotate='20deg'">rotate</option>
                 <option value="c-textbox width='100px' height='100px'">textbox</option>
-                <option value='spin speed="1000ms"'>spin (must have INCLUDE:SPIN)</option>
             </select>
+            <span class="divider"></span>
+            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
+            <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
+            <span class="divider" dashed></span>
+            <label>
+                Custom emoji
+                <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
+                <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
+                <button class="editing-button" onclick="addCustomEmote(document.getElementById('add-custom-emote-name').value, document.getElementById('add-custom-emote-value').value)">Add emoji</button>
+            </label>
+            <span class="divider" dashed></span>
+            <label>Remove custom emoji <input type="text" title="Custom emoji name" id="remove-custom-emote" placeholder="name" style="width:6em"></label>
+            <button class="editing-button" onclick="removeCustomEmote(document.getElementById('remove-custom-emote').value)">Remove emoji</button>
             </fieldset>
         </div>
     </div>
