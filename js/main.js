@@ -758,6 +758,7 @@ textEditor.addEventListener("scroll", (e) => {
 });
 async function save() {
     localStorage.setItem("textEditorValue", textEditor.value);
+    localStorage.setItem("customEmojis", JSON.stringify(userDefinedEmotes));
 }
 function findMatchingRegexes(log = true) {
     return (new Promise((resolve, reject) => {

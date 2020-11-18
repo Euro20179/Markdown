@@ -62,10 +62,22 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\)\\(?:DEF(?:INE)?)?EMOJI ?:(.+?): ?(.+?)\\/g,
-        (_, name, value) => {
+        /(?<!\\)\\(?:DEF(?:INE)?)?EMOJI(?: ?:(.+?): ?(.+?)\\|\{(.*?)\}\{(.*?)\})/gi,
+        (_, name, value, name2, value2) => {
+            name = name2 ?? name;
+            value = value2 ?? value;
             if (!(name in userDefinedEmotes)) {
                 userDefinedEmotes[name] = value;
+            }
+            return "";
+        }
+    ],
+    [
+        /(?<!\\)\\undef(?:emoji)?(?:\{(.*?)\}| :?(.*?):?\\)/gi,
+        (_, name, name2) => {
+            name = name2 ?? name;
+            if (name in userDefinedEmotes) {
+                delete userDefinedEmotes[name];
             }
             return "";
         }

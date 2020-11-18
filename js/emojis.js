@@ -1285,4 +1285,4 @@ const imgEmotes = {
     autohotkey: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.warer.com%2Fmedia%2Fauto_hotkey-logo.png&f=1&nofb=1",
 };
 const hiddenEmotes = {};
-let userDefinedEmotes = {};
+let userDefinedEmotes = JSON.parse(localStorage.getItem("customEmojis")) || {};
