@@ -410,3 +410,5 @@ customElements.define("c-alert", Alert)
 customElements.define("c-confirm", Confirm)
 customElements.define("c-prompt", Prompt)
 customElements.define("c-rotate", Rotate)
+
+document.querySelector("body").removeChild(document.getElementById("loading-screen"))
