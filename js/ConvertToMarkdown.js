@@ -43,7 +43,7 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\):U_([0-9]+):/g,
+        /(?<!\\):U_([0-9]+):/gi,
         (_, chr) => {
             return String.fromCodePoint(chr);
         }
@@ -51,7 +51,14 @@ const regexes = [
     [
         /(?<!\\)\\EMOJI\\/g,
         () => {
-            return String.fromCodePoint(Math.floor(Math.random() * (129003 - 127744) + 127744));
+            let emojis = [EMOJIS, imgEmotes, hiddenEmotes, userDefinedEmotes];
+            let listChoice = {};
+            while (Object.values(listChoice).length == 0)
+                listChoice = emojis[Math.floor(Math.random() * emojis.length)];
+            if (Object.values(listChoice)[0] == Object.values(imgEmotes)[0]) {
+                return `<img src="${Object.values(listChoice)[Math.floor(Math.random() * Object.values(listChoice).length)]}" align="absmiddle" style="width:1em">`;
+            }
+            return Object.values(listChoice)[Math.floor(Math.random() * Object.values(listChoice).length)];
         }
     ],
     [
