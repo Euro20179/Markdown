@@ -782,20 +782,3 @@ function findMatchingRegexes(log = true) {
         return [];
     });
 }
-function findFirstMatchingRegex() {
-    return (new Promise((resolve, reject) => {
-        const matches = findMatchingRegexes(false)[0];
-        if (!matches) {
-            reject("no match");
-        }
-        matches[2] = typeof matches[2] == "function" ? matches[2].toString() : matches[2];
-        console.log(matches[0], matches[1], matches[2]);
-        resolve(matches);
-    })).then((value) => {
-        return value;
-    })
-        .catch((reason) => {
-        console.log(reason);
-        return [];
-    });
-}
