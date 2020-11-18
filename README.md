@@ -179,6 +179,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \[word]part of speech (optional): (definition)
 * \[text]\*number
     * makes it so that text is duplicated by number
+* \n a &lt;br> element
 
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100

@@ -156,6 +156,16 @@ const regexes = [
         "&ge;"
     ],
     [
+        /(?<!\\)\\n/g,
+        "<br>"
+    ],
+    [
+        /(?<!\\)(\\u[0-9a-f]{4})/gi,
+        (_, point) => {
+            return eval(`"${point}"`);
+        }
+    ],
+    [
         /(?<!\\)> ?''(.*)''(?:\[(.+?)\])?/g,
         (_, quote, author = null) => {
             if (author) {
@@ -169,7 +179,7 @@ const regexes = [
         "❝$1❞"
     ],
     [
-        /(?<!\\)\((\*| )\)\s?(?!\()/g,
+        /(?<!\\)\((\*| )\)(?!\()/g,
         (_, checked) => `<input type="radio" ${checked === "*" ? "checked" : ""} disabled>`
     ],
     [
@@ -181,7 +191,7 @@ const regexes = [
         "<span style='$1' title='$3'>$2</span>"
     ],
     [
-        /(?<!\\)\[(\.)?( |x)\]\s?(?!\()/g,
+        /(?<!\\)\[(\.)?( |x)\](?!\()/g,
         (_, interactive, checked) => `<input type="checkbox" ${checked === "x" ? "checked" : ""} ${!interactive ? "disabled" : ""}>`
     ],
     [
