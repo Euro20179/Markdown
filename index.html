@@ -24,6 +24,9 @@
         <button id="insert-title" class="bar-section-title" title="insert">
             Ins
         </button>
+        <button id="emojis-title" class="bar-section-title" title="Unicode">
+            &#12484;
+        </button>
         <button id="help-title" class="bar-section-title" title="Help">
             ?
         </button>
@@ -294,7 +297,22 @@
                 <wbr>
             </fieldset>
         </div>
-
+        <div id="emojis" class="bar-section">
+            <fieldset>
+                <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
+                <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
+                <span class="divider"></span>
+                <label>
+                    Custom emoji
+                    <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
+                    <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
+                    <button class="editing-button" onclick="addCustomEmote(document.getElementById('add-custom-emote-name').value, document.getElementById('add-custom-emote-value').value)">Add emoji</button>
+                </label>
+                <span class="divider" dashed></span>
+                <label>Remove custom emoji <input type="text" title="Custom emoji name" id="remove-custom-emote" placeholder="name" style="width:6em"></label>
+                <button class="editing-button" onclick="removeCustomEmote(document.getElementById('remove-custom-emote').value)">Remove emoji</button>
+            </fieldset>
+        </div>
         <div id="insert" class="bar-section">
             <fieldset>
             <wbr>
@@ -370,20 +388,7 @@
                 <option value="c-prompt prompt=''">prompt</option>
                 <option value="c-rotate rotate='20deg'">rotate</option>
                 <option value="c-textbox width='100px' height='100px'">textbox</option>
-            </select>
-            <span class="divider"></span>
-            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
-            <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
-            <span class="divider" dashed></span>
-            <label>
-                Custom emoji
-                <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
-                <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
-                <button class="editing-button" onclick="addCustomEmote(document.getElementById('add-custom-emote-name').value, document.getElementById('add-custom-emote-value').value)">Add emoji</button>
-            </label>
-            <span class="divider" dashed></span>
-            <label>Remove custom emoji <input type="text" title="Custom emoji name" id="remove-custom-emote" placeholder="name" style="width:6em"></label>
-            <button class="editing-button" onclick="removeCustomEmote(document.getElementById('remove-custom-emote').value)">Remove emoji</button>
+            </select>            
             </fieldset>
         </div>
     </div>

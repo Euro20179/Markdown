@@ -133,6 +133,7 @@ const optionsTab = new Tab(document.getElementById("options"), document.getEleme
 const UIOptionsTab = new Tab(document.getElementById("ui-options"), document.getElementById("ui-title"));
 const helpTab = new Tab(document.getElementById("help"), document.getElementById("help-title"));
 const countTab = new Tab(document.getElementById("count"), document.getElementById("count-title"));
+const emojisTab = new Tab(document.getElementById("emojis"), document.getElementById("emojis-title"));
 let currTab = homeTab;
 turnOffAllOtherTabs(currTab);
 var SyncScrolling = document.getElementById("syncscrolling").checked;
