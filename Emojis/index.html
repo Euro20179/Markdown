@@ -19,16 +19,24 @@
     <div id="regular-emoji-shortcuts">
         <h1>Emojis</h1>
     </div>
+    <div id="img-emoji-shortcuts">
+        <h1>Img Emojis</h1>
+    </div>
     <script>
-        for(let emoji in EMOJIS){
+        let emojiAlphabetized = Object.keys(EMOJIS).sort((a, b)=>a >= b ? 1 : -1)
+        let imgEmojiAlphabetized = Object.keys(imgEmotes).sort((a, b)=> a >= b ? 1 : -1)
+        const regDiv = document.getElementById("regular-emoji-shortcuts")
+        const imgDiv = document.getElementById("img-emoji-shortcuts")
+        for(let emoji of emojiAlphabetized){
             let emojiPara = document.createElement("p")
             emojiPara.innerHTML = `${emoji}: ${EMOJIS[emoji]}`
-            document.getElementById("regular-emoji-shortcuts").appendChild(emojiPara)
+            regDiv.appendChild(emojiPara)
         }
-        for(let emoji in imgEmotes){
+
+        for(let emoji of imgEmojiAlphabetized){
             let emojiPara = document.createElement("p")
             emojiPara.innerHTML = `${emoji}: <img src="${imgEmotes[emoji]}" style="width:1em">`
-            document.getElementById("regular-emoji-shortcuts").appendChild(emojiPara)
+            imgDiv.appendChild(emojiPara)
         }
     </script>
 </body>
