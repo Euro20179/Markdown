@@ -57,7 +57,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \SPACING:line-height\ the whole page will have lineheight of line-height
 * spaceing<->text
     * spaces the letters in the words
-* \[width:height](\[style])textbox|
+* \[width:height]textbox|
 
 ### Align
 
