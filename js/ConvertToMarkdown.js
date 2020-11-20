@@ -653,6 +653,18 @@ color: #f00;
         '<span style="letter-spacing:$1">$2</span>'
     ],
     [
+        /(?<!\\)\\import(?:\((g)\))?(?:\{(.*?)\}|(?::| )(.*?)\\)/g,
+        (_, g, link, link2) => {
+            console.log(link, link2);
+            link = link2 ?? link;
+            if (g)
+                link = link.replaceAll(",", "&family=").replaceAll("&family= ", "&family=");
+            return g
+                ? `<link href="https://fonts.googleapis.com/css2?family=${link}&display=swap" rel="stylesheet">`
+                : `<link href="${link}" rel="stylesheet">`;
+        }
+    ],
+    [
         /(?<!\\)\\(font|size|color|custom|lineheight|spacing)(?:\{(.*)\}|(?::| )(.*)\\)/gi,
         (_, type, value, value2) => {
             value = value2 ?? value;
@@ -759,7 +771,7 @@ color: #f00;
         ""
     ],
 ];
-function convert(value, custom = true) {
+function convert(value, custom = true, nonCustom = true) {
     if (custom) {
         //handles the [$x=2] thing
         for (let x of value.matchAll(/(?:\[|<)(?:var:|\$)([^=]*)=([^\]]+)(?:\]|>)/g)) {
@@ -784,5 +796,5 @@ function convert(value, custom = true) {
             value = value.replace(regexReplace[0], regexReplace[1]);
         }
     }
-    return marked(value);
+    return nonCustom ? marked(value) : value;
 }
