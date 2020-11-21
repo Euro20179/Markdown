@@ -655,7 +655,6 @@ color: #f00;
     [
         /(?<!\\)\\import(?:\((g)\))?(?:\{(.*?)\}|(?::| )(.*?)\\)/g,
         (_, g, link, link2) => {
-            console.log(link, link2);
             link = link2 ?? link;
             if (g)
                 link = link.replaceAll(",", "&family=").replaceAll("&family= ", "&family=");
