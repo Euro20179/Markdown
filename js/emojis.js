@@ -1265,11 +1265,11 @@ const EMOJIS = {
     orange_circle: "🟠",
     axe: "🪓",
     kite: "🪁",
-    light_skin: "🏻",
-    medium_light_skin: "🏼",
-    medium_skin: "🏽",
-    medium_dark_skin: "🏾",
-    dark_skin: "🏿",
+    skin_1: "🏻",
+    skin_2: "🏼",
+    skin_3: "🏽",
+    skin_4: "🏾",
+    skin_5: "🏿",
     jsmile: "&#12484;",
     shrug: "¯\\&lowbar;(ツ)\_/¯",
     upsidedown_e: "¡",
@@ -1570,6 +1570,7 @@ const imgEmotes = {
     html: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-download.com%2Fwp-content%2Fuploads%2F2017%2F07%2FHTML5_badge.png&f=1&nofb=1",
     css: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmaxcdn.icons8.com%2FShare%2Ficon%2FLogos%2Fcss31600.png&f=1&nofb=1",
     autohotkey: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.warer.com%2Fmedia%2Fauto_hotkey-logo.png&f=1&nofb=1",
+    cs: "../imgs/c%23.png"
 };
 const hiddenEmotes = {};
 let userDefinedEmotes = JSON.parse(localStorage.getItem("customEmojis")) || {};
