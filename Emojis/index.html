@@ -51,6 +51,7 @@
     </style>
 </head>
 <body style="text-align: center;font-size:large;font-family:Arial, Helvetica, sans-serif">
+    <input type="text" style="visibility:none;width:1px;background-color:transparent;color:transparent;z-index:-1" id="emoji-copy">
     <div style="text-align: center;">
         <h1>Use like this -> :shortcut:</h1>
     </div>
@@ -70,13 +71,28 @@
         const imgDiv = document.getElementById("img-emoji-shortcuts")
         for(let emoji of emojiAlphabetized){
             let emojiPara = document.createElement("div")
+            let emojiTip = document.createElement("div")
             new Promise((resolve, reject)=>{
-                let emojiTip = document.createElement("div")
                 emojiTip.classList.add("emoji-tooltip")
                 emojiTip.innerText = emoji
                 resolve(emojiTip)
             }).then(emojiTip=>{
                 emojiPara.appendChild(emojiTip)
+            })
+            new Promise((resolve, reject)=>{
+                emojiPara.addEventListener("click", e=>{
+                    let inp = document.getElementById("emoji-copy")
+                    inp.value = `:${emojiTip.innerText}:`
+                    inp.select()
+                    document.execCommand("copy")
+                })
+                emojiPara.addEventListener("contextmenu", e=>{
+                    e.preventDefault()
+                    let inp = document.getElementById("emoji-copy")
+                    inp.value = emojiPara.innerHTML.split("<br>")[0]
+                    inp.select()
+                    document.execCommand("copy")
+                })
             })
             emojiPara.innerHTML = EMOJIS[emoji]
             emojiPara.appendChild(document.createElement('br'))
