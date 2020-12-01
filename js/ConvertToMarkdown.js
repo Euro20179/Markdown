@@ -653,7 +653,7 @@ color: #f00;
         '<span style="letter-spacing:$1">$2</span>'
     ],
     [
-        /(?<!\\)\\import(?:\((g)\))?(?:\{(.*?)\}|(?::| )(.*?)\\)/g,
+        /(?<!\\)\\import(?:\((gf)\))?(?:\{(.*?)\}|(?::| )(.*?)\\)/g,
         (_, g, link, link2) => {
             link = link2 ?? link;
             if (g)
