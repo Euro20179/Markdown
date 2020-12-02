@@ -48,10 +48,20 @@
             border-radius: 10%;
             border: var(--borer-width) solid lightblue;
         }
+        .search{
+            height:5vh;
+            width:50%;
+            font-size:2em;
+        }
+        .result-counter{
+            font-size:2.5em;
+        }
     </style>
 </head>
 <body style="text-align: center;font-size:large;font-family:Arial, Helvetica, sans-serif">
-    <input type="text" style="visibility:none;width:1px;background-color:transparent;color:transparent;z-index:-1" id="emoji-copy">
+    <input type="text" style="visibility:hidden;width:1px;background-color:transparent;color:transparent;z-index:-1;height:1px;" id="emoji-copy">
+    <input type="text" name="search" id="search" class="search" value="" placeholder="search">
+    <span class="result-counter" id="results-counter">Results: </span>
     <div style="text-align: center;">
         <h1>Use like this -> :shortcut:</h1>
     </div>
@@ -67,11 +77,16 @@
     <script>
         let emojiAlphabetized = Object.keys(EMOJIS).sort((a, b)=>a >= b ? 1 : -1)
         let imgEmojiAlphabetized = Object.keys(imgEmotes).sort((a, b)=> a >= b ? 1 : -1)
+
         const regDiv = document.getElementById("regular-emoji-container")
         const imgDiv = document.getElementById("img-emoji-shortcuts")
+
         for(let emoji of emojiAlphabetized){
             let emojiPara = document.createElement("div")
+            emojiPara.id = emoji;
+            emojiPara.classList.add("data-emoji-div")
             let emojiTip = document.createElement("div")
+
             new Promise((resolve, reject)=>{
                 emojiTip.classList.add("emoji-tooltip")
                 emojiTip.innerText = emoji
@@ -79,6 +94,7 @@
             }).then(emojiTip=>{
                 emojiPara.appendChild(emojiTip)
             })
+
             new Promise((resolve, reject)=>{
                 emojiPara.addEventListener("click", e=>{
                     let inp = document.getElementById("emoji-copy")
@@ -86,6 +102,7 @@
                     inp.select()
                     document.execCommand("copy")
                 })
+
                 emojiPara.addEventListener("contextmenu", e=>{
                     e.preventDefault()
                     let inp = document.getElementById("emoji-copy")
@@ -94,6 +111,7 @@
                     document.execCommand("copy")
                 })
             })
+
             emojiPara.innerHTML = EMOJIS[emoji]
             emojiPara.appendChild(document.createElement('br'))
             regDiv.appendChild(emojiPara)
@@ -110,9 +128,11 @@
             }).then(emojiTip=>{
                 emojiPara.appendChild(emojiTip)
             })
+
             emojiPara.innerHTML =  `<img src="${imgEmotes[emoji]}" style="width:3em;">`
             emojiPara.appendChild(document.createElement("br"))
             imgDiv.appendChild(emojiPara)
         }
     </script>
+    <script src="emoji.js"></script>
 </body>
