@@ -393,6 +393,69 @@ class Textbox extends HTMLElement{
         return this.style.resize || "both"
     }
 }
+class Curisve extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+            }
+            else if(Close){
+                if("abcdefghijklmnopqrstuvwxyz".indexOf(char.toLocaleLowerCase()) > -1) newStr += `&${char}scr;`
+                else newStr += char
+                continue;
+            }
+            else if(char == ">"){
+                Close = true;
+            }
+            newStr += char;
+        }
+        this.innerHTML = newStr;
+    }
+}
+class Midieval extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+            }
+            else if(Close){
+                if("abcdefghijklmnopqrstuvwxyz".indexOf(char.toLocaleLowerCase()) > -1) newStr += `&${char}fr;`
+                else newStr += char
+                continue;
+            }
+            else if(char == ">"){
+                Close = true;
+            }
+            newStr += char;
+        }
+        this.innerHTML = newStr;
+    }
+}
+class Hollow extends HTMLElement{
+    connectedCallback(){
+        let newStr = "";
+        let Close = true;
+        for(let char of this.innerHTML){
+            if(char == "<"){
+                Close = false;
+            }
+            else if(Close){
+                if("abcdefghijklmnopqrstuvwxyz".indexOf(char.toLocaleLowerCase()) > -1) newStr += `&${char}opf;`
+                else newStr += char
+                continue;
+            }
+            else if(char == ">"){
+                Close = true;
+            }
+            newStr += char;
+        }
+        this.innerHTML = newStr;
+    }
+}
 
 customElements.define("c-textbox", Textbox)
 customElements.define("c-variables", Variables)
@@ -410,5 +473,6 @@ customElements.define("c-alert", Alert)
 customElements.define("c-confirm", Confirm)
 customElements.define("c-prompt", Prompt)
 customElements.define("c-rotate", Rotate)
-
-document.querySelector("body").removeChild(document.getElementById("loading-screen"))
+customElements.define("c-cursive", Curisve)
+customElements.define("c-midieval", Midieval)
+customElements.define("c-hollow", Hollow)

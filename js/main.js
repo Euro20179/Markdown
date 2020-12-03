@@ -782,3 +782,4 @@ function findMatchingRegexes(log = true) {
         return [];
     });
 }
+document.querySelector("body").removeChild(document.getElementById("loading-screen"));

@@ -1576,6 +1576,7 @@ const hiddenEmotes = {};
 let userDefinedEmotes = JSON.parse(localStorage.getItem("customEmojis")) || {};
 function addCustomEmote(name, value) {
     userDefinedEmotes[name] = value;
+    localStorage.setItem("customEmojis", JSON.stringify(userDefinedEmotes));
 }
 function removeCustomEmote(name) {
     delete userDefinedEmotes[name];
