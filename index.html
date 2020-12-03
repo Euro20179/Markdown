@@ -329,11 +329,11 @@
                 <label>
                     <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
                     <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
-                    <button class="editing-button" onclick="let name = document.getElementById('add-custom-emote-name'); let value = document.getElementById('add-custom-emote-value'); addCustomEmote(name.value, convert(value.value, cusotmMdChkbx, false)); alert(`Added: '${name.value}' that represents the emote: '${value.value}'`); name.value = ''; value.value = ''">Add emoji</button>
+                    <button id="add-emoji-button" class="editing-button" onclick="let name = document.getElementById('add-custom-emote-name'); let value = document.getElementById('add-custom-emote-value'); addCustomEmote(name.value, convert(value.value, cusotmMdChkbx, false)); alert(`Added: '${name.value}' that represents the emote: '${value.value}'`); name.value = ''; value.value = ''">Add emoji</button>
                 </label>
                 <span class="divider" dashed></span>
                 <label><input type="text" title="Custom emoji name" id="remove-custom-emote" placeholder="name" style="width:6em"></label>
-                <button class="editing-button" onclick="let inp = document.getElementById('remove-custom-emote'); removeCustomEmote(inp.value); removeCustomEmojiOption(); alert(`Removed: ${inp.value}`); inp.value = ''">Remove emoji</button>
+                <button id="remove-emoji-button" class="editing-button" onclick="let inp = document.getElementById('remove-custom-emote'); removeCustomEmote(inp.value); removeCustomEmojiOption(); alert(`Removed: ${inp.value}`); inp.value = ''">Remove emoji</button>
                 <span class="divider"></span>
                 <label>Custom emojis</label>
                 <select name="custom-emoji" id="custom-emoji-dropdown" value="" title="Custom Emoji" onclick="generateCustomEmojiOptions()" oninput="addTextTypeInTextArea(`:${this.value}:`)"></select>

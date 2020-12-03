@@ -782,4 +782,14 @@ function findMatchingRegexes(log = true) {
         return [];
     });
 }
+document.getElementById("add-custom-emote-value").addEventListener("keydown", e => {
+    if (e.key == "Enter") {
+        document.getElementById("add-emoji-button").click();
+    }
+});
+document.getElementById("remove-custom-emote").addEventListener("keydown", e => {
+    if (e.key == "Enter") {
+        document.getElementById("remove-emoji-button").click();
+    }
+});
 document.querySelector("body").removeChild(document.getElementById("loading-screen"));

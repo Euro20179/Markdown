@@ -1577,6 +1577,7 @@ let userDefinedEmotes = JSON.parse(localStorage.getItem("customEmojis")) || {};
 function addCustomEmote(name, value) {
     userDefinedEmotes[name] = value;
     localStorage.setItem("customEmojis", JSON.stringify(userDefinedEmotes));
+    generateCustomEmojiOptions();
 }
 function removeCustomEmote(name) {
     delete userDefinedEmotes[name];
@@ -1597,5 +1598,9 @@ function generateCustomEmojiOptions() {
     }
 }
 function removeCustomEmojiOption() {
-    document.getElementById('custom-emoji-dropdown').removeChild(document.getElementById(document.getElementById('remove-custom-emote').value));
+    try {
+        document.getElementById('custom-emoji-dropdown').removeChild(document.getElementById(document.getElementById('remove-custom-emote').value));
+    }
+    catch (err) {
+    }
 }
