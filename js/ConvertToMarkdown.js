@@ -49,9 +49,18 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\)\\EMOJI\\/g,
-        () => {
+        /(?<!\\)\\EMOJI(?:\{([0-9]+)(?:(?: |,(?: )?)?(.*?))\})?\\/gi,
+        (_, amount, seperator) => {
             let emojis = { ...EMOJIS, ...hiddenEmotes, ...userDefinedEmotes };
+            let keys = Object.keys(emojis);
+            let sep = seperator ?? "";
+            if (amount) {
+                let str = "";
+                for (let i = 0; i < amount; i++) {
+                    str += emojis[keys[Math.floor(Math.random() * keys.length)]] + sep;
+                }
+                return str;
+            }
             return emojis[Object.keys(emojis)[Math.floor(Math.random() * Object.keys(emojis).length)]];
         }
     ],
