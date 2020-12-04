@@ -159,6 +159,8 @@
 
         for(let emoji of imgEmojiAlphabetized){
             let emojiPara = document.createElement("div")
+            emojiPara.id = emoji;
+            emojiPara.classList.add("data-emoji-div")
             new Promise((resolve, reject)=>{
                 let emojiTip = document.createElement("div")
                 emojiTip.classList.add("emoji-tooltip")
