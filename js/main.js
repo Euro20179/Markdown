@@ -15,11 +15,17 @@ let currTypingElem = [];
 let extraElemTextLength = 0;
 let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
+function highlightCode() {
+    preview.querySelectorAll("pre code").forEach(block => {
+        Prism.highlightAll();
+    });
+}
 if (localStorage.getItem("textEditorValue")) {
     textEditor.value = localStorage.getItem("textEditorValue");
     preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
     if (useMathJaxCheckbox.checked)
         mathJax();
+    highlightCode();
 }
 textEditor.style.backgroundColor = document.getElementById("text-editor-color").value;
 textEditor.style.color = document.getElementById("text-editor-text-color").value;
@@ -255,6 +261,7 @@ function keyPresses(e) {
             case "F1":
                 textEditor.style.cursor = "wait";
                 preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                highlightCode();
                 if (useMathJaxCheckbox.checked)
                     mathJax();
                 textEditor.style.cursor = "initial";
@@ -692,6 +699,7 @@ cusotmMdChkbx.addEventListener('click', e => {
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
         if (useMathJaxCheckbox.checked)
             mathJax();
+        highlightCode();
     }
 });
 //updates the preview when the texteditor value changes
@@ -702,9 +710,7 @@ textEditor.addEventListener('input', (e) => {
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
         if (useMathJaxCheckbox.checked)
             mathJax();
-        preview.querySelectorAll("pre code").forEach(block => {
-            Prism.highlightAll();
-        });
+        highlightCode();
     }
     save().then();
 });
@@ -731,6 +737,7 @@ fileReader.addEventListener("change", (e) => {
         preview.innerHTML = convert(fr.result, cusotmMdChkbx.checked);
         if (useMathJaxCheckbox.checked)
             mathJax();
+        highlightCode();
     };
     fr.readAsText(fileReader.files[0]);
 });

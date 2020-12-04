@@ -9,6 +9,7 @@ function dropHandler(e) {
     fr.onload = () => {
         textEditor.value = fr.result;
         preview.innerHTML = convert(fr.result, cusotmMdChkbx.checked);
+        highlightCode();
     };
     fr.readAsText(e.dataTransfer.files[0]);
 }
@@ -76,6 +77,7 @@ function typeInTextarea(newText, endSpot = 1) {
         end += endSpot;
     el.setSelectionRange(end + endSpot, end + endSpot);
     preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
+    highlightCode();
 }
 /**
  *
@@ -114,11 +116,13 @@ function startEndTypeInTextArea(startText, endText, options = null) {
     }
     el.setSelectionRange(cursorStart, cursorStart);
     preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
+    highlightCode();
 }
 function addTextTypeInTextArea(text, selectType = "end") {
     let el = textEditor;
     el.setRangeText(text, el.selectionStart, el.selectionEnd, selectType);
     preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
+    highlightCode();
 }
 String.prototype.multiply = function (times) {
     let newString = this;
