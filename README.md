@@ -143,6 +143,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * KBD: css for the kbd element
 * SAMP: css for the samp element
 * CMD: css for a cmd element (same css as SAMP)
+* HIGHLIGHT: css for code-block syntax highlighting
+* L#: css for line-numbers in code-blocks
 
 ---
 

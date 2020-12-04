@@ -9,7 +9,6 @@
     <link rel="shortcut icon" type="image/png" href="./imgs/fav.png">
     <link rel="stylesheet" type="text/css" href="./css/hidden-buttons.css">
     <link rel="stylesheet" type="text/css" href="./css/contextmenu.css">
-    <link rel="stylesheet" href="./css/prism.css">
     <style>
         #loading-screen{
             width:100%;
@@ -385,7 +384,7 @@
                 <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
             <span class="divider"></span>
             <label>Includes</label>
-            <select name="includes" id="includes" title="elements" oninput="addTextTypeInTextArea(`\\INCLUDE:${this.value}\\`)">
+            <select name="includes" id="includes" title="elements" oninput="addTextTypeInTextArea(`\\include{${this.value}}`)">
                 <optgroup label="Elements">
                     <option value="BLINK" title="&lt;blink> element">Blink</option>
                     <option value="SOFTBLINK" title="&lt;softblink> element">Soft Blink</option>
@@ -397,6 +396,8 @@
                 <optgroup label="Element Styling">
                     <option value="KBD" title="makes the kbd element nicer">Kbd</option>
                     <option value="SAMP" title="makes the samp element look like command line">samp</option>
+                    <option value="HIGHLIGHT" title="syntax highlighting for code blocks">highlight</option>
+                    <option value="L#" title="line numbers for code blocks">line numbers</option>
                 </optgroup>
             </select>
             <wbr>
@@ -428,7 +429,7 @@
     </div>
     <div class="main-content">
         <textarea class="text-editor" style="resize:horizontal" id="text-editor" spellcheck placeholder="# text here" autofocus>\font{arial}</textarea>
-        <div class="preview" style="resize: horizontal;overflow: auto;width:50%" id="preview"></div>
+        <div class="preview line-numbers" style="resize: horizontal;overflow: auto;width:50%" id="preview"></div>
     </div>
     <div class="context-menu-container hidden" id="context-menu">
         <h4 class="context-menu-header"><u>Debug Menu</u></h4>
