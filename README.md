@@ -145,6 +145,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * CMD: css for a cmd element (same css as SAMP)
 * HIGHLIGHT: css for code-block syntax highlighting
 * L#: css for line-numbers in code-blocks
+* LINECOLOR: css color preview for code blocks
 
 ---
 
