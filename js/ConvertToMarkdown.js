@@ -66,7 +66,7 @@ const regexes = [
         ":regional_indicator_$1:"
     ],
     [
-        /(?<!\\):(.+):/g,
+        /(?<!\\):(.+?):/g,
         (_, name) => {
             if (EMOJIS[name])
                 return EMOJIS[name];
