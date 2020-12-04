@@ -1647,7 +1647,21 @@ const EMOJIS = {
     safety_pin: "\u{1F9F7}",
     lotion_bottle: "\u{1F9F4}",
     petri_dish: "\u{1F9EB}",
-    goggles: "\u{1F97D}"
+    goggles: "\u{1F97D}",
+    hiking_boot: "\u{1F97E}",
+    flat_shoe: "\u{1F97F}",
+    supervillian: "\u{1F9B9}",
+    superhero: "\u{1F9B8}",
+    stunt_cat: "\u{1F431}&zwj;\u{1F3CD}",
+    ninja_cat: "\u{1F431}&zwj:\u{1F464}",
+    astro_cat: "\u{1F431}&zwj;\u{1F680}",
+    dino_cat: "\u{1F431}&zwj;\u{1F409}",
+    hacker_cat: "\u{1F431}&zwj;\u{1F4BB}",
+    hipster_cat: "\u{1F431}&zwj;\u{1F453}",
+    bald: "\u{1F9B2}",
+    red_hair: "\u{1F9B0}",
+    curly_hair: "\u{1F9B1}",
+    white_hair: "\u{1F9B3}"
 };
 const imgEmotes = {
     java: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.softexia.com%2Fwp-content%2Fuploads%2F2017%2F04%2FJava-logo.png&f=1&nofb=1",

@@ -51,14 +51,8 @@ const regexes = [
     [
         /(?<!\\)\\EMOJI\\/g,
         () => {
-            let emojis = [EMOJIS, imgEmotes, hiddenEmotes, userDefinedEmotes];
-            let listChoice = {};
-            while (Object.values(listChoice).length == 0)
-                listChoice = emojis[Math.floor(Math.random() * emojis.length)];
-            if (Object.values(listChoice)[0] == Object.values(imgEmotes)[0]) {
-                return `<img src="${Object.values(listChoice)[Math.floor(Math.random() * Object.values(listChoice).length)]}" align="absmiddle" style="width:1em">`;
-            }
-            return Object.values(listChoice)[Math.floor(Math.random() * Object.values(listChoice).length)];
+            let emojis = { ...EMOJIS, ...hiddenEmotes, ...userDefinedEmotes };
+            return emojis[Object.keys(emojis)[Math.floor(Math.random() * Object.keys(emojis).length)]];
         }
     ],
     [
