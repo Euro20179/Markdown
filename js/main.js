@@ -702,6 +702,9 @@ textEditor.addEventListener('input', (e) => {
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
         if (useMathJaxCheckbox.checked)
             mathJax();
+        preview.querySelectorAll("pre code").forEach(block => {
+            Prism.highlightAll();
+        });
     }
     save().then();
 });
@@ -790,6 +793,11 @@ document.getElementById("add-custom-emote-value").addEventListener("keydown", e 
 document.getElementById("remove-custom-emote").addEventListener("keydown", e => {
     if (e.key == "Enter") {
         document.getElementById("remove-emoji-button").click();
+    }
+});
+document.getElementById("add-custom-emote-name").addEventListener("keydown", e => {
+    if (e.key == "Enter") {
+        document.getElementById("add-emoji-button").click();
     }
 });
 document.querySelector("body").removeChild(document.getElementById("loading-screen"));

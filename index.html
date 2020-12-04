@@ -9,6 +9,7 @@
     <link rel="shortcut icon" type="image/png" href="./imgs/fav.png">
     <link rel="stylesheet" type="text/css" href="./css/hidden-buttons.css">
     <link rel="stylesheet" type="text/css" href="./css/contextmenu.css">
+    <link rel="stylesheet" href="./css/prism.css">
     <style>
         #loading-screen{
             width:100%;
@@ -434,18 +435,22 @@
         <div class="context-menu-item" onclick="findMatchingRegexes()">Log regex matches</div>
     </div>
     <input type="color" id="context-menu-color-picker" class="context-menu-item" style="display:none;z-index:2" oninput="addTextTypeInTextArea(contextMenuColorpicker.value.split('#')[1], 'select')">
-    <script src="https://cdn.jsdelivr.net/npm/mathjs@7.5.1/dist/math.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-    <script src="./js/emojis.js" defer></script>
-    <script src="./js/utility.js" defer></script>
-    <script src="./js/ConvertToMarkdown.js" defer></script>
-    <script src="./js/main.js" defer></script>
-    <script src="./js/DOMElements.js" defer></script>
-    <script src="./js/html2pdf.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@7.5.1/dist/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/prism.js">
+    window.Prism = window.Prism || {}
+    Prism.manual = true</script>
+    <script src="./js/emojis.js"></script>
+    <script src="./js/utility.js"></script>
+    <script src="./js/ConvertToMarkdown.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/DOMElements.js"></script>
+    <script src="./js/html2pdf.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
     <script>
         let TextEditorColorInversion = document.getElementById("text-editor-color-inversion").checked;
         let PreviewColorInversion = document.getElementById("preview-color-inversion").checked;
     </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js"></script>
 </body>
 </html>
