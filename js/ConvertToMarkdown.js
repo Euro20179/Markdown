@@ -66,7 +66,7 @@ const regexes = [
         ":regional_indicator_$1:"
     ],
     [
-        /(?<!\\):([a-z0-9_]+):/g,
+        /(?<!\\):(.+):/g,
         (_, name) => {
             if (EMOJIS[name])
                 return EMOJIS[name];
@@ -664,7 +664,7 @@ color: #f00;
         }
     ],
     [
-        /(?<!\\)\\(font|size|color|custom|lineheight|spacing)(?:\{(.*)\}|(?::| )(.*)\\)/gi,
+        /(?<!\\)\\(font|size|color|custom|lineheight|spacing)(?:\{((?:.|\s)*?)\}|(?::| )(.*)\\)/gi,
         (_, type, value, value2) => {
             value = value2 ?? value;
             switch (type.toUpperCase()) {
@@ -749,6 +749,18 @@ color: #f00;
     [
         /(?<!\\)\/=/g,
         "&ne;"
+    ],
+    [
+        /(?<!\\):=/g,
+        "&Assign;"
+    ],
+    [
+        /(?<!\\)<\.\.\./g,
+        "&#8672;"
+    ],
+    [
+        /(?<!\\)\.\.\.>/g,
+        "&#8674;"
     ],
     [
         /(?<!\\)\[(.*?)\]\*([0-9]+)/g,

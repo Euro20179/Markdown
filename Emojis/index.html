@@ -85,7 +85,7 @@
 
         const regDiv = document.getElementById("regular-emoji-container")
         const cusDiv = document.getElementById("user-defined-emoji-container")
-        const imgDiv = document.getElementById("img-emoji-shortcuts")
+        const imgDiv = document.getElementById("img-emoji-container")
 
         for(let emoji of emojiAlphabetized){
             let emojiPara = document.createElement("div")
@@ -163,13 +163,12 @@
                 let emojiTip = document.createElement("div")
                 emojiTip.classList.add("emoji-tooltip")
                 emojiTip.innerText = emoji
-                emojiTip.style.fontSize = "2em"
                 resolve(emojiTip)
             }).then(emojiTip=>{
                 emojiPara.appendChild(emojiTip)
             })
 
-            emojiPara.innerHTML =  `<img src="${imgEmotes[emoji]}" style="width:3em;">`
+            emojiPara.innerHTML =  `<img src="${imgEmotes[emoji]}" style="width:1em;">`
             emojiPara.appendChild(document.createElement("br"))
             imgDiv.appendChild(emojiPara)
         }
