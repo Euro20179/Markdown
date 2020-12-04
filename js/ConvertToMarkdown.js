@@ -160,7 +160,7 @@ const regexes = [
         "<br>"
     ],
     [
-        /(?<!\\)(\\u[0-9a-f]{4})/gi,
+        /(?<!\\)(\\u[0-9a-f]{4}|\\u\{[0-9a-f]+\})/gi,
         (_, point) => {
             return eval(`"${point}"`);
         }

@@ -179,6 +179,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \[text]\*number
     * makes it so that text is duplicated by number
 * \n a &lt;br> element
+* \\u00ff: unicode escape
+* \\u{00f90209f0e098} unicode escape
 
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100
