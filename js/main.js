@@ -5,6 +5,7 @@ const fileReader = document.getElementById("fileReader");
 const contextMenuColorpicker = document.getElementById("context-menu-color-picker");
 const contextMenu = document.getElementById("context-menu");
 const useMathJaxCheckbox = document.getElementById("mathjax");
+const useSyntaxHighlighting = document.getElementById("syntax-parsing");
 let contextOn = false;
 let InterprateLive = document.getElementById("live-interprate").checked;
 let Preview = document.getElementById("previews").checked;
@@ -16,9 +17,8 @@ let extraElemTextLength = 0;
 let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
 function highlightCode() {
-    preview.querySelectorAll("pre code").forEach(block => {
+    if (useSyntaxHighlighting.checked)
         Prism.highlightAll();
-    });
 }
 if (localStorage.getItem("textEditorValue")) {
     textEditor.value = localStorage.getItem("textEditorValue");
