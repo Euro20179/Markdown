@@ -27,12 +27,6 @@ for (let x = 1; x < 52; x++) {
 }
 const regexes = [
     [
-        /(?<!\\)<evaluate>\s?(.+?)\s?(?:<\/evaluate>)/g,
-        (_, evaluate) => {
-            return eval(evaluate);
-        }
-    ],
-    [
         /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
         (_, one = null, two = null) => {
             if (!one) {
@@ -43,21 +37,23 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\):U_([0-9]+):/gi,
-        (_, chr) => {
-            return String.fromCodePoint(chr);
-        }
-    ],
-    [
-        /(?<!\\)\\EMOJI(?:\{([0-9]+)(?:(?: |,(?: )?)?(.*?))\})?\\/gi,
+        /(?<!\\)\\EMOJI(?:(?:\{([0-9]+)(?:(?: |, ?)(.*?))?\})|\\)/gi,
         (_, amount, seperator) => {
-            let emojis = { ...EMOJIS, ...hiddenEmotes, ...userDefinedEmotes };
+            let emojis = { ...EMOJIS, ...hiddenEmotes, ...userDefinedEmotes, ...imgEmotes };
             let keys = Object.keys(emojis);
+            let imgEmoteValues = Object.values(imgEmotes);
             let sep = seperator ?? "";
             if (amount) {
                 let str = "";
+                let emoji;
                 for (let i = 0; i < amount; i++) {
-                    str += emojis[keys[Math.floor(Math.random() * keys.length)]] + sep;
+                    emoji = emojis[keys[Math.floor(Math.random() * keys.length)]];
+                    if (imgEmoteValues.indexOf(emoji) >= 0) {
+                        str += `<img src="${emoji}" align="absmiddle" style="width:1em">` + sep;
+                    }
+                    else {
+                        str += emoji + sep;
+                    }
                 }
                 return str;
             }
@@ -65,7 +61,7 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\):reg:([a-z]):/g,
+        /(?<!\\):reg(?::|_)([a-z]):/g,
         ":regional_indicator_$1:"
     ],
     [
@@ -83,7 +79,7 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\)\|(?:(.*?))?->(.+?)<-(?:(.*?))?\|/g,
+        /(?<!\\)\|(.*?)->(.+?)<-(.*?)\|/g,
         "<center style='margin-left:$1;margin-right:$3'>$2</center>"
     ],
     [
@@ -532,14 +528,6 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)#\[(.*)\]/g,
-        '<BLANK id="$1"></BLANK>'
-    ],
-    [
-        /(?<!\\)([^\s<]+)<->(.+)/g,
-        '<span style="letter-spacing:$1">$2</span>'
-    ],
-    [
         /(?<!\\)\\import(?:\((gf)\))?(?:\{(.*?)\}|(?::| )(.*?)\\)/g,
         (_, g, link, link2) => {
             link = link2 ?? link;
@@ -551,7 +539,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\(font|size|color|custom|lineheight|spacing)(?:\{((?:.|\s)*?)\}|(?::| )(.*)\\)/gi,
+        /(?<!\\)\\(font|size|color|custom|lineheight|spacing|wordspacing|letterspacing)(?:\{((?:.|\s)*?)\}|(?::| )(.*)\\)/gi,
         (_, type, value, value2) => {
             value = value2 ?? value;
             switch (type.toUpperCase()) {
@@ -566,11 +554,15 @@ ${selector} li{
                 case "LINEHEIGHT":
                 case "SPACING":
                     return `<div style='line-height:${value}>`;
+                case "WORDSPACING":
+                    return `<div style='word-spacing:${value}'>`;
+                case "LETTERSPACING":
+                    return `<div style='letter-spacing:${value}'>`;
             }
         }
     ],
     [
-        /(?<!\\)\\END(F|S|#|C|L)(?:\{(.*?)\}| (.*?)\\)/gi,
+        /(?<!\\)\\END(F|S|#|C|H|W|L)(?:\{(.*?)\}| (.*?)\\)/gi,
         (_, type, newValue, newValue2) => {
             newValue = newValue2 ?? newValue;
             switch (type.toUpperCase()) {
@@ -582,8 +574,12 @@ ${selector} li{
                     return `</div><div style="color: ${newValue}">`;
                 case "C":
                     return `</div><div style="${newValue}">`;
-                case "L":
+                case "H":
                     return `</div><div style="line-height: ${newValue}">`;
+                case "W":
+                    return `</div><div style="word-spacing: ${newValue}">`;
+                case "L":
+                    return `</div><div style="letter-spacing: ${newValue}">`;
             }
         }
     ],

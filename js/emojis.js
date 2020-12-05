@@ -1708,3 +1708,4 @@ function removeCustomEmojiOption() {
     catch (err) {
     }
 }
+generateCustomEmojiOptions();

@@ -364,10 +364,6 @@ function keyPresses(e) {
                 startEndTypeInTextArea("[](", ")", { cursor: 1 });
                 e.preventDefault();
                 break;
-            case "y":
-                startEndTypeInTextArea("[", "]:()", { cursor: -1, defaultCursor: 1 });
-                e.preventDefault();
-                break;
             case "'":
                 addOLULInclude();
                 e.preventDefault();
