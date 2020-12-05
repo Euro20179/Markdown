@@ -98,8 +98,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \[.x] checked clickable checkbox
 * ( ) radio unselected
 * (*) radio selected
-* \[=1 out 10=] a progress bar at 1 out of 10
-* |=1 out 10=| a meter bar at 1 out of 10
 
 ---
 

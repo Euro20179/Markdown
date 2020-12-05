@@ -254,10 +254,6 @@ const regexes = [
         "<span title='$3' style='font-family:$1'>$2</span>"
     ],
     [
-        /(?<!\\)(\[|\|)\=([0-9]+)(?: ?out ?| ?outof ?)([0-9]+)\=(?:\]|\|)(?:\[(.+?)\])?/g,
-        (_, meterOrProgress, value, max, title) => `<${meterOrProgress === '|' ? "meter" : "progress"} value="${value}" max="${max}" title="${title ? title : ""}"></${meterOrProgress === '|' ? "meter" : "progress"}>`
-    ],
-    [
         /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\](.+?)\|(?:\[(.+)\])?/g,
         (_, bType, bDecoration, text, title) => {
             let borderType = "";
@@ -321,8 +317,8 @@ const regexes = [
         '<span title="$4">$1$3</span>'
     ],
     [
-        /(?<!\\)"(.+?)"\s?\.{3}(.*)/g,
-        "<details><summary>$1</summary>$2</details>"
+        /(?<!\\)"(.+?)"(?:::(.+?)(?:\/(.+?))?)?\s?\.{3}(.*)/g,
+        "<details><summary data-marker='$2' data-marker-open='$3'>$1</summary>$4</details>"
     ],
     [
         /(?<!\\)\{(k(?:ey)?|(?:cmd|samp|k(?:ey)?)):(.+?)\}/g,
@@ -337,7 +333,7 @@ const regexes = [
         '<hr style="background-color:$1;color:$1;border-color:$1" />'
     ],
     [
-        /(?<![\\#])(#{1,6}) ?(.+) \[#?(.+?)\]/g,
+        /(?<![\\#])(#{1,6}) (.+) \[#?(.+?)\]/g,
         (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
     ],
     [
@@ -498,7 +494,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\include(?:\{(softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
+        /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
         (_, include, include2) => {
             include = include2 ?? include;
             switch (include.toUpperCase()) {
@@ -524,6 +520,8 @@ ${selector} li{
                     return `<style>pre[class*="language-"].line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}pre[class*="language-"].line-numbers > code{position:relative;white-space:inherit}.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:0;font-size:100%;left:-3.8em;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.line-numbers-rows > span{display:block;counter-increment:linenumber}.line-numbers-rows > span:before{content:counter(linenumber);color:#999;display:block;padding-right:0.8em;text-align:right}</style>`;
                 case "CSSCOLOR":
                     return `<style>span.inline-color-wrapper{background:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyIDIiPjxwYXRoIGZpbGw9ImdyYXkiIGQ9Ik0wIDBoMnYySDB6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0wIDBoMXYxSDB6TTEgMWgxdjFIMXoiLz48L3N2Zz4=");background-position:center;background-size:110%;display:inline-block;height:1.333ch;width:1.333ch;margin:0 0.333ch;box-sizing:border-box;border:1px solid white;outline:1px solid rgba(0,0,0,.5);overflow:hidden}span.inline-color{display:block;height:120%;width:120%}</style>`;
+                case "SUMMARYMARKER":
+                    return `<style>summary[data-marker]::marker{content: attr(data-marker)}details[open] summary[data-marker-open]::marker{content: attr(data-marker-open)}</style>`;
             }
         }
     ],
@@ -669,14 +667,13 @@ function convert(value, custom = true, nonCustom = true) {
             value = value.replace(x[0], "");
             value = value.replace(regex, x[2]);
         }
-        //does custom regexes first
-        for (let regexReplace of userDefinedRegexes) {
-            value = value.replace(regexReplace[0], regexReplace[1]);
-        }
         //loops through the lists of regexes
-        for (let regexReplace of regexes) {
-            value = value.replace(regexReplace[0], regexReplace[1]);
-        }
+        userDefinedRegexes.forEach(item => {
+            value = value.replace(item[0], item[1]);
+        });
+        regexes.forEach(item => {
+            value = value.replace(item[0], item[1]);
+        });
     }
     return nonCustom ? marked(value) : value;
 }
