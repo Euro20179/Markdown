@@ -505,145 +505,22 @@ ${selector} li{
             include = include2 ?? include;
             switch (include.toUpperCase()) {
                 case "LIMARKER":
-                    return `
-<style>
-li[marker]::marker{
-content:attr(marker);
-}
-</style>`;
+                    return `<style>li[marker]::marker{content:attr(marker)}</style>`;
                 case "SOFTBLINK":
-                    return `
-<style>
-softblink{
-animation: soft-blinking linear infinite;
-animation-duration:1000ms;
-}
-@keyframes soft-blinking{
-	0%{
-		color:inherit;
-        text-shadow:inherit;
-	}
-	50%{
-		color:transparent;
-        text-shadow:none;
-	}
-}
-</style>
-`;
+                    return `<style>softblink{animation:soft-blinking linear infinite;animation-duration:1000ms}@keyframes soft-blinking{0%{color:inherit;text-shadow:inherit}50%{color:transparent;text-shadow:none}}</style>`;
                 case "BLINK":
-                    return `
-<style>
-blink{
-animation: blinking linear infinite;
-animation-duration:1000ms;
-}
-@keyframes blinking{
-	0%{
-		color:inherit;
-		background-color:inherit;
-        text-shadow:inherit;
-	}   
-	49%{
-		color:inherit;
-		background-color:inherit;
-        text-shadow:inherit;
-	}
-	50%{
-		color:transparent;	
-		background-color:transparent;
-        text-shadow:none;
-	}
-	100%{
-		color:transparent;
-		background-color:transparent;
-        text-shadow:none;
-	}
-}
-</style>
-`;
+                    return `<style>blink{animation:blinking linear infinite;animation-duration:1000ms}@keyframes blinking{0%{color:inherit;background-color:inherit;text-shadow:inherit}49%{color:inherit;background-color:inherit;text-shadow:inherit}50%{color:transparent;background-color:transparent;text-shadow:none}100%{color:transparent;background-color:transparent;text-shadow:none}}</style>`;
                 case "PLACEHOLDER":
-                    return `
-<style>
-placeholder{
-color: grey;
-user-select:none;
-}
-</style>
-`;
+                    return `<style>placeholder{color:grey;user-select:none}</style>`;
                 case "KBD":
-                    return `<style>
-kbd{
-background-color:#fafbfc;
-border:1px solid #d1d5da;
-border-bottom-color:#c6cbd1;
-border-radius:3px;
-box-shadow:inset 0 -1px 0 #c6cbd1;
-color:#444d56;display:inline-block;
-font:.8em SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
-line-height:.9em;
-padding:3px 5px;
-vertical-align:middle
-}</style>`;
+                    return `<style>kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:0.8em SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:0.9em;padding:3px 5px;vertical-align:middle}</style>`;
                 case "SAMP":
                 case "CMD":
-                    return `<style>
-${include}{
-    font-family:monospace, monospace;
-    color:green;
-    background-color:black;
-    padding:2px;
-}
-${include}::selection{
-    background-color:white;
-}</style>`;
+                    return `<style>${include}{font-family:monospace, monospace;color:green;background-color:black;padding:2px}${include}::selection{background-color:white}</style>`;
                 case "SPIN":
-                    return `<style>
-spin{
-transform: rotate(0deg);
-display:inline-block;
-animation-name: spin-animation;
-animation-iteration-count: infinite;
-animation-timing-function: linear;
-}
-
-@keyframes spin-animation{
-0%{
-transform: rotate(0deg);
-}
-100%{
-transform: rotate(360deg);
-}
-</style>`;
+                    return `<style>spin{transform:rotate(0deg);display:inline-block;animation-name:spin-animation;animation-iteration-count:infinite;animation-duration:200ms;animation-timing-function:linear}@keyframes spin-animation{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}</style>`;
                 case "RAINBOW":
-                    return `<style>
-rainbow{
-animation: rainbow-an 2000ms linear infinite;
-color: blue;
-}
-@keyframes rainbow-an{
-0%{
-color: #f00;
-}
-16%{
-color: #ffff00;
-}
-32%{
-color: #00ff00;
-}
-48%{
-color: #00ffff;
-}
-64%{
-color: #0000ff;
-}
-80%{
-color: #ff00ff;
-}
-100%{
-color: #f00;
-}
-}
-</style>`;
+                    return `<style>rainbow{animation:rainbow-an 2000ms linear infinite;color:blue}@keyframes rainbow-an{0%{color:#f00}16%{color:#ffff00}32%{color:#00ff00}48%{color:#00ffff}64%{color:#0000ff}80%{color:#ff00ff}100%{color:#f00}}</style>`;
                 case "HIGHLIGHT":
                     return `<style>code[class*="language-"],pre[class*="language-"]{color:black;background:none;text-shadow:0 1px white;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]::-moz-selection,pre[class*="language-"] ::-moz-selection,code[class*="language-"]::-moz-selection,code[class*="language-"] ::-moz-selection{text-shadow:none;background:#b3d4fc}pre[class*="language-"]::selection,pre[class*="language-"] ::selection,code[class*="language-"]::selection,code[class*="language-"] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*="language-"],pre[class*="language-"]{text-shadow:none}}pre[class*="language-"]{padding:1em;margin:0.5em 0;overflow:auto}:not(pre) > code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre) > code[class*="language-"]{padding:0.1em;border-radius:0.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:slategray}.token.punctuation{color:#999}.token.namespace{opacity:0.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#9a6e3a;background:hsla(0, 0%, 100%, .5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.class-name,.token.function{color:#DD4A68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}</style>`;
                 case "L#":

@@ -1661,7 +1661,8 @@ const EMOJIS = {
     bald: "\u{1F9B2}",
     red_hair: "\u{1F9B0}",
     curly_hair: "\u{1F9B1}",
-    white_hair: "\u{1F9B3}"
+    white_hair: "\u{1F9B3}",
+    transgender: "\u26A7\uFE0F"
 };
 const imgEmotes = {
     java: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.softexia.com%2Fwp-content%2Fuploads%2F2017%2F04%2FJava-logo.png&f=1&nofb=1",

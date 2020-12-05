@@ -114,7 +114,7 @@
                 <button style="cursor:help" title="Alt Click the preview" class="editing-button" onclick="setPreviewMode()">Fullscreen Preview</button>
                 <button style="cursor:help" title="Alt Click the editor" class="editing-button" onclick="setEditMode()">Editing Mode</button>
                 <span class="divider"></span>   
-                <button class="editing-button" style="cursor:help" onclick='window.open("./Emojis/index.html", "_blank")'>Emoji List</button>
+                <button class="editing-button" style="cursor:pointer" onclick='window.open("./Emojis/index.html", "_blank")'>Emoji List</button>
                 <span class="divider"></span>
                 <button class="editing-button" style="cursor: pointer;" title="V 1.0.1" onclick="window.open('./Update.html', '_blank')">Updates</button>
                 <span class="divider"></span>
@@ -327,6 +327,9 @@
         </div>
         <div id="emojis" class="bar-section">
             <fieldset>
+                <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
+                <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
+                <span class="divider"></span>
                 <label>
                     <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
                     <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
@@ -344,45 +347,40 @@
         <div id="insert" class="bar-section">
             <fieldset>
             <wbr>
-            <label class="hider"><span id="ol-ul-span-hider" style="text-decoration:underline dotted" onclick="const hidden = document.getElementById('ol-ul-marker');if(hidden.classList.contains('hider-visible')){hidden.classList='hider-option'}else{hidden.classList='hider-option hider-visible'}">Change Marker for Lists</span>
-                <div class="hider-option" id="ol-ul-marker">
-                    <select id="ul-ol" value="ul" title="type of list">
-                        <option value="ol" title="unordered list">ol</option>
-                        <option value="ul" title="ordered list">ul</option>
-                    </select>
-                    <input type="number" min="1" step="1" title="layer" value="1" style="width:75px;height:25px" id="list-layer">
-                    <input type="text" id="marker-text" title="the marker" style="height:25px;width:100px" oninput="document.getElementById('ul-ol-types').value = ''">
-                    <label>Or pick a type</label>
-                    <select id="ul-ol-types" value="" title="types">
-                        <option value="" title="No Selection"></option>
-                        <option value="disc" title="filled circled">Filled circle</option>
-                        <option value="circle" title="circle">circle</option>
-                        <option value="square" title="square">Square</option>
-                        <option value="lower-alpha" title="alphabetical">alpha-lower</option>
-                        <option value="decimal" title="number">Number</option>
-                        <option value="decimal-leading-zero" title="number with 0 in front">0 Leading Number</option>
-                        <option value="lower-greek" title="greek">greek-lower</option>
-                        <option value="lower-latin" title="latin">latin-lower</option>
-                        <option value="lower-roman" title="roman">roman numerals lower</option>
-                        <option value="upper-alpha" title="alphabetical">ALPHA-UPPER</option>
-                        <option value="upper-greek" title="greek">GREEK-UPPER</option>
-                        <option value="upper-latin" title="latin">LATIN-UPPER</option>
-                        <option value="armenian" title="traditional armenian numbering">Armenian</option>
-                        <option value="cjk-ideographic" title="ideographic numbers">Ideographic Numbers idk</option>
-                        <option value="georgian" title="Georgian Numbering">Georgian</option>
-                        <option value="hebrew" title="Hebrew Numbering">Hebrew</option>
-                        <option value="hiragana" title="Hiragana numbering">Hiragana</option>
-                        <option value="hiragana-iroha" title="Hiragana Iroha numbering">Hiragana Iroha</option>
-                        <option value="katakana" title="katakana numbering">Katakana</option>
-                        <option value="katakana-iroha" title="katakana iroha numbering">Katakana Iroha</option>
-                        <option value="none" title="no marker">None</option>
-                    </select>
-                    <button class="editing-button" onclick="addOLULInclude()">Add</button>
-                </div>
-            </label>
-            <span class="divider"></span>
-            <input id="unicode-character-copy-area" value="&#12484;" type="text" style="width:1px;height:0;background-color: transparent;color: transparent;border-color: transparent;border-style: none;">
-                <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
+            <label for="">Change style of bullet</label>
+            <select id="ul-ol" value="ul" title="type of list">
+                <option value="ol" title="unordered list">ol</option>
+                <option value="ul" title="ordered list">ul</option>
+            </select>
+            <input type="number" min="1" step="1" title="layer" value="1" style="width:75px;height:25px" id="list-layer">
+            <input type="text" id="marker-text" title="the bullet" style="height:25px;width:100px" oninput="document.getElementById('ul-ol-types').value = ''">
+            <label>Or pick a type</label>
+            <select id="ul-ol-types" value="" title="types">
+                <option value="" title="No Selection"></option>
+                <option value="disc" title="filled circled">Filled circle</option>
+                <option value="circle" title="circle">circle</option>
+                <option value="square" title="square">Square</option>
+                <option value="lower-alpha" title="alphabetical">alpha-lower</option>
+                <option value="decimal" title="number">Number</option>
+                <option value="decimal-leading-zero" title="number with 0 in front">0 Leading Number</option>
+                <option value="lower-greek" title="greek">greek-lower</option>
+                <option value="lower-latin" title="latin">latin-lower</option>
+                <option value="lower-roman" title="roman numerals">roman numerals lower</option>
+                <option value="upper-roman" title="uppercase roman numerals">roman numerals upper</option>
+                <option value="upper-alpha" title="alphabetical">ALPHA-UPPER</option>
+                <option value="upper-greek" title="greek">GREEK-UPPER</option>
+                <option value="upper-latin" title="latin">LATIN-UPPER</option>
+                <option value="armenian" title="traditional armenian numbering">Armenian</option>
+                <option value="cjk-ideographic" title="ideographic numbers">Ideographic Numbers</option>
+                <option value="georgian" title="Georgian Numbering">Georgian</option>
+                <option value="hebrew" title="Hebrew Numbering">Hebrew</option>
+                <option value="hiragana" title="Hiragana numbering">Hiragana</option>
+                <option value="hiragana-iroha" title="Hiragana Iroha numbering">Hiragana Iroha</option>
+                <option value="katakana" title="katakana numbering">Katakana</option>
+                <option value="katakana-iroha" title="katakana iroha numbering">Katakana Iroha</option>
+                <option value="none" title="no marker">None</option>
+            </select>
+            <button class="editing-button" onclick="addOLULInclude()">Add</button>
             <span class="divider"></span>
             <label>Includes</label>
             <select name="includes" id="includes" title="elements" oninput="addTextTypeInTextArea(`\\include{${this.value}}`)">
@@ -442,8 +440,9 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjs@7.5.1/dist/math.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="js/prism.js">
-    window.Prism = window.Prism || {}
-    Prism.manual = true</script>
+        window.Prism = window.Prism || {}
+        Prism.manual = true
+    </script>
     <script src="./js/emojis.js"></script>
     <script src="./js/utility.js"></script>
     <script src="./js/ConvertToMarkdown.js"></script>
