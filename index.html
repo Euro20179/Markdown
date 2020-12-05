@@ -54,6 +54,9 @@
         <button id="emojis-title" class="bar-section-title" title="Unicode">
             &#12484;
         </button>
+        <button id="custom-regex-title" class="bar-section-title" title="Custom find-replace">
+            Re
+        </button>
         <button id="help-title" class="bar-section-title" title="Help">
             ?
         </button>
@@ -63,6 +66,17 @@
         <button id="ui-title" class="bar-section-title" title="ui colors" style="float:right;margin-right:1.5vw">
             UI ⚙️
         </button>
+        <div id="custom-regex" class="bar-section">
+            <fieldset>
+                <input type="text" id="custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">
+                <input type="text" id="custom-regex-replacer" placeholder="Replace string" style="width:15%" title="the string that will replace the find">            
+                <button class="editing-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
+                <span class="divider" dashed></span>
+                <input type="text" id="remove-custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">         
+                <button class="editing-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
+                <button class="editing-button" onclick="window.open('./Searches/index.html', '_blank')">Custom Searches</button>
+            </fieldset>
+        </div>
         <div id="count" class="bar-section">
             <fieldset>
                 <label>Find <input type="search" id="find-search" style="width:10vw"></label>
@@ -429,7 +443,7 @@
     </div>
     <div class="main-content">
         <textarea class="text-editor" style="resize:horizontal" id="text-editor" spellcheck placeholder="# text here" autofocus>\font{arial}</textarea>
-        <div class="preview line-numbers" style="resize: horizontal;overflow: auto;width:50%" id="preview"></div>
+        <div class="preview line-numbers" style="resize: horizontal;overflow: auto;" id="preview"></div>
     </div>
     <div class="context-menu-container hidden" id="context-menu">
         <h4 class="context-menu-header"><u>Debug Menu</u></h4>

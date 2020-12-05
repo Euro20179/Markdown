@@ -1,0 +1,31 @@
+.regular-expression-container{
+    display: grid;
+    font-size:2rem;
+    text-align: center;
+    align-items: center;
+    grid-row-gap: 2em;
+    grid-template-columns: repeat(5, 1fr)
+}
+.regular-expression{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.tool-tip{
+    --transition-effects: 100ms linear;
+    color:white;
+    text-align: center;
+    visibility: hidden;
+    transition: 
+        color var(--transition-effects),
+        border var(--transition-effects),
+        background-color var(--transition-effects)
+}
+
+.regular-expression:hover .tool-tip{
+    visibility: visible;
+    background-color:#000000dd;
+    border-radius: 10%;
+    border: 4px solid lightblue;
+}

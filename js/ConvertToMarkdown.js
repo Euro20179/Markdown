@@ -25,6 +25,40 @@ const circleLetters = {
 for (let x = 1; x < 52; x++) {
     circleLetters[CHARS[x]] = circleLetters["A"] + x;
 }
+Object.defineProperty(RegExp.prototype, "toJSON", {
+    value: RegExp.prototype.toString
+});
+function addCustomRegex(searcher, replace) {
+    userDefinedRegexes.push([new RegExp(searcher, "g"), replace]);
+    localStorage.setItem("customRegularExpressions", JSON.stringify(userDefinedRegexes));
+}
+function removeCustomRegex(searcher) {
+    let searcher2 = new RegExp(searcher, "g");
+    for (let i = 0; i < userDefinedRegexes.length; i++) {
+        let regex = userDefinedRegexes[i];
+        if (regex[0].source == searcher2.source) {
+            userDefinedRegexes.splice(i, 1);
+        }
+    }
+    localStorage.setItem("customRegularExpressions", JSON.stringify(userDefinedRegexes));
+}
+let userDefinedRegexes = [];
+function loadRegexes() {
+    let temp = JSON.parse(localStorage.getItem('customRegularExpressions'));
+    for (let regex of temp) {
+        regex[0] = regex[0].split("/");
+        regex[0] = regex[0].slice(1, regex[0].length - 1).join("/");
+        regex[0] = new RegExp(regex[0], "g");
+        console.log(regex);
+        userDefinedRegexes.push(regex);
+    }
+}
+if (localStorage.getItem("customRegularExpressions")) {
+    loadRegexes();
+}
+else {
+    userDefinedRegexes = [];
+}
 const regexes = [
     [
         /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
@@ -424,6 +458,12 @@ const regexes = [
         "<audio controls='controls' src='$1'>"
     ],
     [
+        /(?<!\\)YT!\[(.+?)\](?:\(([0-9]*)(?: |, ?)([0-9]*)\))?/g,
+        (_, link, width, height) => {
+            return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
+        }
+    ],
+    [
         /(?<!\\)\{(?:scroll|move|shift):?(?:(?:dir)?:?(?:"|')(.+?)(?:"|'))? ?(?:w?(?:idth)?:?(?:"|')(.+?)(?:"|'))? ?(?:h?(?:eight)?:?(?:"|')(.+?)(?:"|'))? ?(?:s?(?:croll)?(?:amount)?(?:peed)?:?(?:"|')(.+?)(?:"|'))?:? ?(.+?)\}/g,
         "<marquee direction='$1' height='$3' width='$2' scrollamount='$4'>$5</marquee>"
     ],
@@ -684,6 +724,10 @@ function convert(value, custom = true, nonCustom = true) {
             else
                 value[1] = value[1].replaceAll(match[1], match[2]); //for non-regex replace
             value = value.join("");
+        }
+        //does custom regexes first
+        for (let regexReplace of userDefinedRegexes) {
+            value = value.replace(regexReplace[0], regexReplace[1]);
         }
         //loops through the lists of regexes
         for (let regexReplace of regexes) {
