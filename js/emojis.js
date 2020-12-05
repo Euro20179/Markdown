@@ -1653,7 +1653,7 @@ const EMOJIS = {
     supervillian: "\u{1F9B9}",
     superhero: "\u{1F9B8}",
     stunt_cat: "\u{1F431}&zwj;\u{1F3CD}",
-    ninja_cat: "\u{1F431}&zwj:\u{1F464}",
+    ninja_cat: "\u{1F431}&zwj;\u{1F464}",
     astro_cat: "\u{1F431}&zwj;\u{1F680}",
     dino_cat: "\u{1F431}&zwj;\u{1F409}",
     hacker_cat: "\u{1F431}&zwj;\u{1F4BB}",
