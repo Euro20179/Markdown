@@ -95,6 +95,10 @@ const regexes = [
         }
     ],
     [
+        /(?<!\\)\\calc\{(.*?)\}/g,
+        (_, ev) => eval(ev)
+    ],
+    [
         /(?<!\\):reg(?::|_)([a-z]):/g,
         ":regional_indicator_$1:"
     ],
@@ -216,10 +220,6 @@ const regexes = [
         (_, checked) => `<input type="radio" ${checked === "*" ? "checked" : ""} disabled>`
     ],
     [
-        /(?<!\\)\{(?:\*|style|css)('|")(.+?)\1 ?(.+?)\}/g,
-        "<span style='$2'>$3</span>"
-    ],
-    [
         /(?<!\\)\*\[(.*?)\](.*?)\|(?:\[(.*?)\])?/g,
         "<span style='$1' title='$3'>$2</span>"
     ],
@@ -236,12 +236,6 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)\{#:?(.+?)(?::| )(.+?)\}(?:\[(.+?)\])?/g,
-        (_, color, content, title) => {
-            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
-        }
-    ],
-    [
         /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         (_, color, content, title) => {
             return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
@@ -254,10 +248,6 @@ const regexes = [
     [
         /(?<!\\)s\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         "<span style='font-size:$1' title='$3'>$2</span>"
-    ],
-    [
-        /(?<!\\)\{f(?:"|')(.+?)(?:"|')(?::| )?(.*?)\}/g,
-        "<span style='font-family:$1'>$2</span>"
     ],
     [
         /(?<!\\)f\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
@@ -297,30 +287,6 @@ const regexes = [
         (_, width, height, resize, text) => {
             return `<c-textbox width="${width ?? ""}" height="${height ?? ""}"${resize ? ' style="resize:none;"' : ""}>${text}</c-textbox>`;
         }
-    ],
-    [
-        /(?<!\\)\{b('|")(.*?)\1 ?(.*?)\}/g,
-        "<span style='border: $2'>$3</span>"
-    ],
-    [
-        /(?<!\\)\{b\^:?('|")(.*?)\1 ?(.*?)\}/g,
-        "<span style='border-top: $2'>$3</span>"
-    ],
-    [
-        /(?<!\\)\{bv:?('|")(.*?)\1 ?(.*?)\}/g,
-        "<span style='border-bottom: $2'>$3</span>"
-    ],
-    [
-        /(?<!\\)\{b(?:l|<):?('|")(.*?)\1 ?(.*?)\}/g,
-        "<span style='border-left: $2'>$3</span>"
-    ],
-    [
-        /(?<!\\)\{b>:?('|")(.*?)\1 ?(.*?)\}/g,
-        "<span style='border-right: $2'>$3</span>"
-    ],
-    [
-        /(?<!\\)\{bg(?:#|:)?([^ \n]+)(.*?)\}(?:\[(.*?)\])?/g,
-        '<span style="background-color:$1" title="$3">$2</span>'
     ],
     [
         /(?<!\\)\((C|R)\)/g,
@@ -439,10 +405,6 @@ const regexes = [
         "<span style='text-shadow:$2'>$3</span>"
     ],
     [
-        /(?<!\\)\{(?:\.|class)("|')(.+?)\1 ?(.+?)\}/g,
-        '<span class="$2">$3</span>'
-    ],
-    [
         /(?<!\\)(?:\.|class)\[(.+?)\](.*?)\|/g,
         '<span class="$1">$2</span>'
     ],
@@ -458,7 +420,7 @@ const regexes = [
         "<audio controls='controls' src='$1'>"
     ],
     [
-        /(?<!\\)YT!\[(.+?)\](?:\(([0-9]*)(?: |, ?)([0-9]*)\))?/g,
+        /(?<!\\)YT!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
         (_, link, width, height) => {
             return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
         }
@@ -536,12 +498,10 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\include(?:\{(.*?)\}|(?::|  )(.*?)\\)/g,
+        /(?<!\\)\\include(?:\{(softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
         (_, include, include2) => {
             include = include2 ?? include;
             switch (include.toUpperCase()) {
-                case "LIMARKER":
-                    return `<style>li[marker]::marker{content:attr(marker)}</style>`;
                 case "SOFTBLINK":
                     return `<style>softblink{animation:soft-blinking linear infinite;animation-duration:1000ms}@keyframes soft-blinking{0%{color:inherit;text-shadow:inherit}50%{color:transparent;text-shadow:none}}</style>`;
                 case "BLINK":
@@ -654,10 +614,6 @@ ${selector} li{
         '<span style="cursor:$1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)\*\[(.+?)\] (.*)/g,
-        "<li marker='$1&nbsp;'>$2</li>"
-    ],
-    [
         /(?<!\\)~=/g,
         "&asymp;"
     ],
@@ -686,7 +642,7 @@ ${selector} li{
         "&#8674;"
     ],
     [
-        /(?<!\\)\[(.*?)\]\*([0-9]+)/g,
+        /(?<!\\)\[(.+?)\]\*([0-9]+)/g,
         (_, chars, count) => {
             return chars.multiply(Number(count));
         }
@@ -712,18 +668,6 @@ function convert(value, custom = true, nonCustom = true) {
             let regex = new RegExp(`(?:\\[|<)${x[1]}(?:>|\\])`, "g");
             value = value.replace(x[0], "");
             value = value.replace(regex, x[2]);
-        }
-        let replaces = [...value.matchAll(/(?<!\\)\\replace:?(.+)\n(.*)((?:\n)re)?\\/g)];
-        for (let match of replaces) {
-            //makes it replace only the text after the declartation
-            value = value.split(match[0]);
-            //for regex replace
-            if (match[3]) {
-                value[1] = value[1].replace(new RegExp(match[1], "gm"), match[2]);
-            }
-            else
-                value[1] = value[1].replaceAll(match[1], match[2]); //for non-regex replace
-            value = value.join("");
         }
         //does custom regexes first
         for (let regexReplace of userDefinedRegexes) {

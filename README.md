@@ -20,11 +20,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * any text below \\COLOR:color\\ will be that color
 * any text below \\FONT:font\\ will be that font
 * any text below \\SIZE:size\\ will be that size
-* {f'font' any text in here will be font}
 * f\[font]text in here will be font|\[title (optional)]
-* {ssize any text in here will be of size size}
 * s\[size]text will be size|\[title (optional)]
-* {#color any text in here will be color}\[title (optional)]
 * #\[color]text here will be color|\[title (optional)]
 * {bg:color any text in here will have a background color of color}\[title (optional)]
 * {cursor:type:text} any text will have a cursor of type
@@ -207,36 +204,3 @@ re\
 
 * replaces that with how many times the search shows up
     * NOTE: it will be one convert behind since it searches the preview's textContent not the value of the textarea
-
-### Find Replace
-```
-replace:(search)
-(replacement)\
-```
-OR
-```
-replace:(regex)
-(replacement)
-re\
-```
-
-#### Examples
-
-```
-\replace:red
-{#red red}\
-```
-searches through the input and makes the string "red" red
-
-```
-\replace:(.red.)
-{bg:red $1}
-re\
-```
-matches the regular expression .red. and makes the background red
-
-```
-\replace:underline
-{*'text-decoration:underline double;' underline}\
-```
-matches "underline" and gives it a double underline
