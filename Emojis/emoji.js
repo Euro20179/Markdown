@@ -13,7 +13,7 @@ let emojiCount = emojis.length;
 const search = document.getElementById("search");
 search.addEventListener("input", e => {
     new Promise((resolve, reject) => {
-        let value = search.value;
+        let value = new RegExp(search.value, "i");
         for (let elem of emojis) {
             visibilitizeElement(elem);
             if (!elem.id.match(value)) {
