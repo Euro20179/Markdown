@@ -16,8 +16,12 @@ let currTypingElem = [];
 let extraElemTextLength = 0;
 let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
+let tabOverAmount = 0;
+let lastKeyStrokeWasEnter = false;
+let autoTab = document.getElementById("auto-tab");
 function highlightCode() {
     if (useSyntaxHighlighting.checked)
+        //@ts-ignore
         Prism.highlightAll();
 }
 if (localStorage.getItem("textEditorValue")) {
@@ -66,6 +70,7 @@ function setDarkMode() {
 }
 function mathJax() {
     // TeX-AMS_HTML
+    //@ts-ignore
     MathJax.Hub.Config({
         jax: [
             'input/TeX',
@@ -103,7 +108,10 @@ function mathJax() {
         positionToHash: false
     });
     // set specific container to render, can be delayed too
-    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview']);
+    //@ts-ignore
+    MathJax.Hub.Queue(
+    //@ts-ignore
+    ['Typeset', MathJax.Hub, 'preview']);
 }
 function turnOffAllOtherTabs(currTab) {
     for (let tab of tabs) {
@@ -234,8 +242,27 @@ function keyPresses(e) {
     //non-combo key presses
     if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
         switch (e.key) {
+            case "Enter":
+                if (autoTab.checked) {
+                    if (lastKeyStrokeWasEnter) {
+                        if (tabOverAmount > 0) {
+                            tabOverAmount--;
+                        }
+                    }
+                    if (tabOverAmount > 0) {
+                        //@ts-ignore
+                        startEndTypeInTextArea("\n" + mulString("	", tabOverAmount), "");
+                    }
+                    else {
+                        startEndTypeInTextArea("\n", "");
+                    }
+                    lastKeyStrokeWasEnter = true;
+                    e.preventDefault();
+                }
+                break;
             case "Tab":
                 startEndTypeInTextArea("	", "");
+                tabOverAmount++;
                 e.preventDefault();
                 break;
             case "F6":
@@ -271,6 +298,8 @@ function keyPresses(e) {
             default:
                 break;
         }
+        if (e.key != "Enter")
+            lastKeyStrokeWasEnter = false;
     }
     //ctrl + key
     else if (e.ctrlKey && !e.shiftKey && !e.altKey) {

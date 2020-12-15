@@ -2,7 +2,9 @@ const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const LOWER = "abcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
+//@ts-ignore
 const parser = math.parser();
+//@ts-ignore
 math.config({
     number: 'BigNumber',
     // 'number' (default), 'BigNumber', or 'Fraction'
@@ -56,9 +58,6 @@ function loadRegexes() {
 if (localStorage.getItem("customRegularExpressions")) {
     loadRegexes();
 }
-else {
-    userDefinedRegexes = [];
-}
 const regexes = [
     [
         /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
@@ -82,12 +81,8 @@ const regexes = [
                 let emoji;
                 for (let i = 0; i < amount; i++) {
                     emoji = emojis[keys[Math.floor(Math.random() * keys.length)]];
-                    if (imgEmoteValues.indexOf(emoji) >= 0) {
-                        str += `<img src="${emoji}" align="absmiddle" style="width:1em">` + sep;
-                    }
-                    else {
-                        str += emoji + sep;
-                    }
+                    str += imgEmoteValues.indexOf(emoji) >= 0 ?
+                        `<img src="${emoji}" align="absmiddle" style="width:1em">` + sep : emoji + sep;
                 }
                 return str;
             }
@@ -598,6 +593,7 @@ ${selector} li{
                 return "";
             }
             else if (re == "simplify") {
+                //@ts-ignore
                 const evaled = math.simplify(expr);
                 return settings != "nohover" ? `<span title="${expr}">${evaled}</span>` : evaled;
             }
@@ -675,5 +671,6 @@ function convert(value, custom = true, nonCustom = true) {
             value = value.replace(item[0], item[1]);
         });
     }
+    //@ts-ignore
     return nonCustom ? marked(value) : value;
 }

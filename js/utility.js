@@ -27,6 +27,7 @@ function saveFile() {
 }
 function savePDF() {
     (new Promise((resolve, reject) => {
+        //@ts-ignore
         html2pdf()
             .set({
             image: { type: "png" },
@@ -131,3 +132,10 @@ String.prototype.multiply = function (times) {
     }
     return newString;
 };
+function mulString(str, amount) {
+    let newStr = "";
+    for (let i = 0; i < amount; i++) {
+        newStr += str;
+    }
+    return newStr;
+}
