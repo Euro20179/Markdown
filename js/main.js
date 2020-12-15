@@ -388,14 +388,22 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "5":
-                helpTab.tabTitle.click();
+                emojisTab.tabTitle.click();
                 e.preventDefault();
                 break;
             case "6":
-                UIOptionsTab.tabTitle.click();
+                regexTab.tabTitle.click();
                 e.preventDefault();
                 break;
             case "7":
+                helpTab.tabTitle.click();
+                e.preventDefault();
+                break;
+            case "8":
+                UIOptionsTab.tabTitle.click();
+                e.preventDefault();
+                break;
+            case "9":
                 optionsTab.tabTitle.click();
                 e.preventDefault();
                 break;
