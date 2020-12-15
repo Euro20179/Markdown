@@ -242,6 +242,15 @@ function keyPresses(e) {
     //non-combo key presses
     if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
         switch (e.key) {
+            case "Backspace":
+                if (autoTab.checked) {
+                    if (lastKeyStrokeWasEnter) {
+                        if (tabOverAmount > 0) {
+                            tabOverAmount--;
+                        }
+                    }
+                }
+                break;
             case "Enter":
                 if (autoTab.checked) {
                     if (lastKeyStrokeWasEnter) {
