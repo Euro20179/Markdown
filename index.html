@@ -70,10 +70,10 @@
             <fieldset>
                 <input type="text" id="custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">
                 <input type="text" id="custom-regex-replacer" placeholder="Replace string" style="width:15%" title="the string that will replace the find">            
-                <button class="editing-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
+                <button class="editing-button" id="add-regex-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
                 <span class="divider" dashed></span>
                 <input type="text" id="remove-custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">         
-                <button class="editing-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
+                <button class="editing-button" id="remove-regex-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
                 <button class="editing-button" onclick="window.open('./Searches/index.html', '_blank')">Custom Searches</button>
             </fieldset>
         </div>

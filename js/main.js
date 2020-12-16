@@ -880,4 +880,14 @@ document.getElementById("add-custom-emote-name").addEventListener("keydown", e =
         document.getElementById("add-emoji-button").click();
     }
 });
+document.getElementById("custom-regex-replacer").addEventListener("keydown", e => {
+    if (e.key == "Enter") {
+        document.getElementById("add-regex-button").click();
+    }
+});
+document.getElementById("remove-custom-regex-searcher").addEventListener('keydown', e => {
+    if (e.key == "Enter") {
+        document.getElementById("remove-regex-button").click();
+    }
+});
 document.querySelector("body").removeChild(document.getElementById("loading-screen"));
