@@ -440,6 +440,36 @@ function keyPresses(e) {
                 addBorder();
                 e.preventDefault();
                 break;
+            case "6":
+                DarkMode = !DarkMode;
+                setDarkMode();
+                e.preventDefault();
+                break;
+            case "9":
+                useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                else
+                    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                e.preventDefault();
+                break;
+            case "4":
+                document.getElementById("custom").click();
+                e.preventDefault();
+                break;
+            case "2":
+                document.getElementById("live-interprate").click();
+                e.preventDefault();
+                break;
+            case "1":
+                textEditor.style.cursor = "wait";
+                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                highlightCode();
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                textEditor.style.cursor = "initial";
+                e.preventDefault();
+                break;
         }
     }
     //ctrl + shift + key
