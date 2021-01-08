@@ -115,8 +115,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * c-spacer: puts whitespace
 * c-shadow: shadow element
 * c-alert: has alert when clicked
-* c-confirm: has confirm when clicked
-* c-prompt: has prompt when clicked
 * c-rotate: rotates text
 * c-textbox: textbox
 
