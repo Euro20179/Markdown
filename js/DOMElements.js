@@ -169,50 +169,6 @@ class Alert extends HTMLElement{
     }
 }
 
-class Confirm extends HTMLElement{
-    connectedCallback(){
-        this.onclick = ()=>{
-            if(confirm(this.prompt)){
-                if(this.getAttribute("onconfirm")){
-                    Function(this.getAttribute("onconfirm"))()
-                }
-            }
-            else{
-                if(this.getAttribute("onreject")){
-                    Function(this.getAttribute("onreject"))()
-                }
-            }
-        }
-    }
-    get prompt(){
-        return this.getAttribute("prompt") ?? this.textContent
-    }
-}
-
-class Prompt extends HTMLElement{
-    connectedCallback(){
-        this.onclick = ()=>{
-            let value = prompt(this.prompt)
-            if(value){
-                this.oninput(value)
-            }
-            else{
-                if(this.getAttribute("onreject")){
-                    Function(this.getAttribute("onreject"))()
-                }
-            }
-        }
-    }
-    get oninput(){
-        return this.getAttribute("oninput") ? Function(this.getAttribute("oninput")) : value=>{
-            this.innerHTML = value;
-        }
-    }
-    get prompt(){
-        return this.getAttribute("prompt") ?? this.textContent
-    }
-}
-
 class Variables extends HTMLElement{
     connectedCallback(){
         for(let attr of this.getAttributeNames()){
