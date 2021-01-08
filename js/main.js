@@ -783,14 +783,18 @@ cusotmMdChkbx.addEventListener('click', e => {
 //updates the preview when the texteditor value changes
 textEditor.addEventListener('input', (e) => {
     if (InterprateLive) {
-        let { value } = e.target;
-        //matches the variable things like [VAR:x=y]
-        preview.innerHTML = convert(value, cusotmMdChkbx.checked);
-        if (useMathJaxCheckbox.checked)
-            mathJax();
-        highlightCode();
+        new Promise(resolve => {
+            let { value } = e.target;
+            //matches the variable things like [VAR:x=y]
+            preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+            if (useMathJaxCheckbox.checked)
+                mathJax();
+            highlightCode();
+            resolve("");
+        }).then(() => save());
     }
-    save().then();
+    else
+        save().then();
 });
 //when ctrl + right click, opens color picker
 textEditor.addEventListener("contextmenu", (e) => {
