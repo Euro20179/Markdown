@@ -6,6 +6,7 @@ const contextMenuColorpicker = document.getElementById("context-menu-color-picke
 const contextMenu = document.getElementById("context-menu");
 const useMathJaxCheckbox = document.getElementById("mathjax");
 const useSyntaxHighlighting = document.getElementById("syntax-parsing");
+const saveIcon = document.getElementById("save-icon");
 let contextOn = false;
 let InterprateLive = document.getElementById("live-interprate").checked;
 let Preview = document.getElementById("previews").checked;
@@ -782,19 +783,17 @@ cusotmMdChkbx.addEventListener('click', e => {
 });
 //updates the preview when the texteditor value changes
 textEditor.addEventListener('input', (e) => {
-    if (InterprateLive) {
-        new Promise(resolve => {
+    save().then(() => {
+        if (InterprateLive) {
             let { value } = e.target;
             //matches the variable things like [VAR:x=y]
             preview.innerHTML = convert(value, cusotmMdChkbx.checked);
             if (useMathJaxCheckbox.checked)
                 mathJax();
             highlightCode();
-            resolve("");
-        }).then(() => save());
-    }
-    else
+        }
         save().then();
+    });
 });
 //when ctrl + right click, opens color picker
 textEditor.addEventListener("contextmenu", (e) => {
