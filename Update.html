@@ -7,6 +7,9 @@
     <title>Update Log</title>
     <script src="./js/DOMElements.js"></script>
     <style>
+        :root{
+            --changed-color: #8da000;
+        }
         html{
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -36,13 +39,26 @@
         }
         .changed{
             text-decoration: underline;
-            color:rgb(207, 207, 87);
+            color:var(--changed-color);
+        }
+        .quality-of-life{
+            color:limegreen;
+            text-decoration: underline dotted var(--changed-color);
         }
         #toc a:visited{
             color:blue;
         }
         #toc a:hover{
             color:green;
+        }
+        #toc ul li{
+            list-style-type: upper-alpha;
+        }
+        #toc ul ul li{
+            list-style-type:upper-roman;
+        }
+        #toc ul ul ul li{
+            list-style-type:lower-alpha;
         }
         #home-link{
             color:blue;
@@ -81,6 +97,9 @@
             </ul>
             <li><a href="#1.5">1.5</a></li>
             <li><a href="#1.6">1.6</a></li>
+            <ul>
+                <li><a href="#1.6.1">1.6.1</a></li>
+            </ul>
         </ul>
     </ul>
     </div>
@@ -88,6 +107,40 @@
     <h1 style="font-size:3.8em;"><a href="./index.html" id="home-link">Home</a></h1>
     <h1 style="font-size:3.5em">Updates</h1>
     <hr>
+    <div class="version-container" id="1.6.1">
+        <h2 class="version-num">1.6.1</h2>
+        <h3 class="added">Additions</h3>
+        <ul>
+            <li>Auto tab</li>
+            <li>Descriptions for each setting in options tab</li>
+            <li>Save at the top that says if it is saved</li>
+        </ul>
+        <h3 class="quality-of-life">Quality of life</h3>
+        <ul>
+            <li>Pressing enter for adding/removing custom regexes will perform the action</li>
+            <li>Home button in emojis page</li>
+        </ul>
+        <h3 class="changed">Changes</h3>
+        <ul>
+            <li>List item markers on the update Table of Contents</li>
+        </ul>
+        <h3 class="fixed">Fixes</h3>
+        <ul>
+            <li>Ctrl + number now goes to the right tab</li>
+            <li>Optimized emoji search</li>
+            <li>Using closing tag will not do auto-close if autocomplete html elements is on</li>
+        </ul>
+        <h3 class="removed">Removed</h3>
+        <ul>
+            <li>c-time</li>
+            <li>c-unicode</li>
+            <li>c-upsidedown</li>
+            <li>c-prompt</li>
+            <li>c-confirm</li>
+        </ul>
+    </div>
+    <hr>
+    <br>
     <div class="version-container" id="1.6">
         <h2 class="version-num">1.6</h2>
         <h3 class="added">Additions</h3>

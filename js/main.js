@@ -6,6 +6,7 @@ const contextMenuColorpicker = document.getElementById("context-menu-color-picke
 const contextMenu = document.getElementById("context-menu");
 const useMathJaxCheckbox = document.getElementById("mathjax");
 const useSyntaxHighlighting = document.getElementById("syntax-parsing");
+const saveIcon = document.getElementById("save-icon");
 let contextOn = false;
 let InterprateLive = document.getElementById("live-interprate").checked;
 let Preview = document.getElementById("previews").checked;
@@ -16,8 +17,12 @@ let currTypingElem = [];
 let extraElemTextLength = 0;
 let elementInnerHTML;
 let AutoCompleteElements = document.getElementById("autocomplete-elements").checked;
+let tabOverAmount = 0;
+let lastKeyStrokeWasEnter = false;
+let autoTab = document.getElementById("auto-tab");
 function highlightCode() {
     if (useSyntaxHighlighting.checked)
+        //@ts-ignore
         Prism.highlightAll();
 }
 if (localStorage.getItem("textEditorValue")) {
@@ -66,6 +71,7 @@ function setDarkMode() {
 }
 function mathJax() {
     // TeX-AMS_HTML
+    //@ts-ignore
     MathJax.Hub.Config({
         jax: [
             'input/TeX',
@@ -103,7 +109,10 @@ function mathJax() {
         positionToHash: false
     });
     // set specific container to render, can be delayed too
-    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview']);
+    //@ts-ignore
+    MathJax.Hub.Queue(
+    //@ts-ignore
+    ['Typeset', MathJax.Hub, 'preview']);
 }
 function turnOffAllOtherTabs(currTab) {
     for (let tab of tabs) {
@@ -209,6 +218,11 @@ function keyPresses(e) {
             TypingElem = true;
             e.preventDefault();
         }
+        else if (TypingElem && e.key == "/") {
+            TypingElem = false;
+            currTypingElem = [];
+            elementInnerHTML = [];
+        }
         //ends the typing element
         else if (TypingElem && e.key == ">") {
             if (["hr", "wbr", "br"].indexOf(currTypingElem.join("")) < 0) {
@@ -234,8 +248,36 @@ function keyPresses(e) {
     //non-combo key presses
     if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
         switch (e.key) {
+            case "Backspace":
+                if (autoTab.checked) {
+                    if (lastKeyStrokeWasEnter) {
+                        if (tabOverAmount > 0) {
+                            tabOverAmount--;
+                        }
+                    }
+                }
+                break;
+            case "Enter":
+                if (autoTab.checked) {
+                    if (lastKeyStrokeWasEnter) {
+                        if (tabOverAmount > 0) {
+                            tabOverAmount--;
+                        }
+                    }
+                    if (tabOverAmount > 0) {
+                        //@ts-ignore
+                        startEndTypeInTextArea("\n" + mulString("	", tabOverAmount), "");
+                    }
+                    else {
+                        startEndTypeInTextArea("\n", "");
+                    }
+                    lastKeyStrokeWasEnter = true;
+                    e.preventDefault();
+                }
+                break;
             case "Tab":
                 startEndTypeInTextArea("	", "");
+                tabOverAmount++;
                 e.preventDefault();
                 break;
             case "F6":
@@ -271,6 +313,8 @@ function keyPresses(e) {
             default:
                 break;
         }
+        if (e.key != "Enter")
+            lastKeyStrokeWasEnter = false;
     }
     //ctrl + key
     else if (e.ctrlKey && !e.shiftKey && !e.altKey) {
@@ -350,14 +394,22 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "5":
-                helpTab.tabTitle.click();
+                emojisTab.tabTitle.click();
                 e.preventDefault();
                 break;
             case "6":
-                UIOptionsTab.tabTitle.click();
+                regexTab.tabTitle.click();
                 e.preventDefault();
                 break;
             case "7":
+                helpTab.tabTitle.click();
+                e.preventDefault();
+                break;
+            case "8":
+                UIOptionsTab.tabTitle.click();
+                e.preventDefault();
+                break;
+            case "9":
                 optionsTab.tabTitle.click();
                 e.preventDefault();
                 break;
@@ -392,6 +444,36 @@ function keyPresses(e) {
                 break;
             case "b":
                 addBorder();
+                e.preventDefault();
+                break;
+            case "6":
+                DarkMode = !DarkMode;
+                setDarkMode();
+                e.preventDefault();
+                break;
+            case "9":
+                useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                else
+                    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                e.preventDefault();
+                break;
+            case "4":
+                document.getElementById("custom").click();
+                e.preventDefault();
+                break;
+            case "2":
+                document.getElementById("live-interprate").click();
+                e.preventDefault();
+                break;
+            case "1":
+                textEditor.style.cursor = "wait";
+                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                highlightCode();
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                textEditor.style.cursor = "initial";
                 e.preventDefault();
                 break;
         }
@@ -701,15 +783,17 @@ cusotmMdChkbx.addEventListener('click', e => {
 });
 //updates the preview when the texteditor value changes
 textEditor.addEventListener('input', (e) => {
-    if (InterprateLive) {
-        let { value } = e.target;
-        //matches the variable things like [VAR:x=y]
-        preview.innerHTML = convert(value, cusotmMdChkbx.checked);
-        if (useMathJaxCheckbox.checked)
-            mathJax();
-        highlightCode();
-    }
-    save().then();
+    save().then(() => {
+        if (InterprateLive) {
+            let { value } = e.target;
+            //matches the variable things like [VAR:x=y]
+            preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+            if (useMathJaxCheckbox.checked)
+                mathJax();
+            highlightCode();
+        }
+        save().then();
+    });
 });
 //when ctrl + right click, opens color picker
 textEditor.addEventListener("contextmenu", (e) => {
@@ -802,6 +886,16 @@ document.getElementById("remove-custom-emote").addEventListener("keydown", e => 
 document.getElementById("add-custom-emote-name").addEventListener("keydown", e => {
     if (e.key == "Enter") {
         document.getElementById("add-emoji-button").click();
+    }
+});
+document.getElementById("custom-regex-replacer").addEventListener("keydown", e => {
+    if (e.key == "Enter") {
+        document.getElementById("add-regex-button").click();
+    }
+});
+document.getElementById("remove-custom-regex-searcher").addEventListener('keydown', e => {
+    if (e.key == "Enter") {
+        document.getElementById("remove-regex-button").click();
     }
 });
 document.querySelector("body").removeChild(document.getElementById("loading-screen"));

@@ -66,14 +66,15 @@
         <button id="ui-title" class="bar-section-title" title="ui colors" style="float:right;margin-right:1.5vw">
             UI ⚙️
         </button>
+        <span class="save-icon">Saved</span>
         <div id="custom-regex" class="bar-section">
             <fieldset>
                 <input type="text" id="custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">
                 <input type="text" id="custom-regex-replacer" placeholder="Replace string" style="width:15%" title="the string that will replace the find">            
-                <button class="editing-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
+                <button class="editing-button" id="add-regex-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
                 <span class="divider" dashed></span>
                 <input type="text" id="remove-custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">         
-                <button class="editing-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
+                <button class="editing-button" id="remove-regex-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
                 <button class="editing-button" onclick="window.open('./Searches/index.html', '_blank')">Custom Searches</button>
             </fieldset>
         </div>
@@ -109,16 +110,19 @@
         </div>
         <div id="options" class="bar-section" style="text-align:right">
             <fieldset>
-                <label class="option-item"><input type="checkbox" id="live-interprate" checked onclick="InterprateLive=!InterprateLive" title="(F2)">Convert Live?</label>
+                <label class="option-item" title="Whether or not it should convert every time you change the input value"><input type="checkbox" id="live-interprate" checked onclick="InterprateLive=!InterprateLive" title="(F2)">Convert Live?</label>
                 <span class="divider"></span>
-                <label class="option-item"><input title="(F4)" type="checkbox" id="custom" checked>Custom markdown?</label>
-                <span class="divider" dashed></span><label for="" class="option-item"><input type="checkbox" id="mathjax" checked="checked" title="Use Mathjax (F9)">Mathjax?</label>
-                <label class="option-item"><input type="checkbox" id="syntax-parsing" checked>Syntax Highlighting?</label>
+                <label class="option-item" title="Whether or not to use the markdown i made, and you added"><input title="(F4)" type="checkbox" id="custom" checked>Custom markdown?</label>
+                <span class="divider" dashed></span>
+                <label for="" class="option-item" title="enables standard mathjax"><input type="checkbox" id="mathjax" checked="checked" title="Use Mathjax (F9)">Mathjax?</label>
+                <label class="option-item" title="When doing code blocks the code will be highlighted"><input type="checkbox" id="syntax-parsing" checked>Syntax Highlighting?</label>
                 <span class="divider"></span>
-                <label class="option-item"><input type="checkbox" id="syncscrolling" onclick="SyncScrolling = !SyncScrolling">Sync Scrolling?</label>                    <span class="divider"></span>
+                <label class="option-item" title="scrolling in the preview will scroll in the text editor and vice versa"><input type="checkbox" id="syncscrolling" onclick="SyncScrolling = !SyncScrolling">Sync Scrolling?</label>                    <span class="divider"></span>
                 <label class="option-item" style="cursor:help" title="stuff like the background color puts the value in the editor on update"><input type="checkbox" id="previews" checked="checked" onclick="Preview=!Preview">Previews?</label>
                 <span class="divider"></span>
-                <label class="option-item"><input type="checkbox" id="autocomplete-elements" onclick="AutoCompleteElements=!AutoCompleteElements">Autocomplete Elements?</label>
+                <label class="option-item" title="when typing an element, it will automatically close it"><input type="checkbox" id="autocomplete-elements" onclick="AutoCompleteElements=!AutoCompleteElements">Autocomplete Elements?</label>
+                <span class="divider"></span>
+                <labal class="option-item" title="when you press tab and go to a new line, it will automatically be tabbed over that much"><input type="checkbox" name="auto-tab" id="auto-tab">Auto Tab?</labal>
             </fieldset>
         </div>
         <div id="help" class="bar-section">
@@ -430,7 +434,6 @@
                 <option value="c-random min=0 max=100 round=0'" title="put $1 or {value} where you want the number to go, (ctrl + shift + 7)">random</span></option>
                 <option value="c-spacer" title="(ctrl + shift + 8)">spacer</option>
                 <option value='c-variables x="2"'>variables</option>
-                <option value="c-time">time</option>
                 <option value='c-shadow  left=".2em" down=".2em" blur="2px" color="lightgrey"'>shadow</option>
                 <option value="c-alert alert=''">alert</option>
                 <option value="c-confirm prompt=''">confirm</option>
