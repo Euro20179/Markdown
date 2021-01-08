@@ -217,6 +217,11 @@ function keyPresses(e) {
             TypingElem = true;
             e.preventDefault();
         }
+        else if (TypingElem && e.key == "/") {
+            TypingElem = false;
+            currTypingElem = [];
+            elementInnerHTML = [];
+        }
         //ends the typing element
         else if (TypingElem && e.key == ">") {
             if (["hr", "wbr", "br"].indexOf(currTypingElem.join("")) < 0) {

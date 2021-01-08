@@ -1,15 +1,3 @@
-class Upsidedown extends HTMLElement{
-    connectedCallback(){
-        this.style.transform = this.transform
-        this.style.display = this.display
-    }
-    get display(){
-        return this.style.display || "inline-block"
-    }
-    get transform(){
-        return this.style.transform || "rotate(180deg)"
-    }
-}
 class Circled extends HTMLElement{
     connectedCallback(){
         let newStr = "";
@@ -343,7 +331,6 @@ class Hollow extends HTMLElement{
 
 customElements.define("c-textbox", Textbox)
 customElements.define("c-variables", Variables)
-customElements.define('c-upsidedown', Upsidedown)
 customElements.define('c-circled', Circled)
 customElements.define('c-rainbow', Rainbow)
 customElements.define("c-3d", threeDGlasses)

@@ -23,7 +23,7 @@ for (let regex of expressions) {
             document.execCommand('copy');
             e.preventDefault();
         });
-        resolve();
+        resolve("");
     }).then(() => {
         regContainer.appendChild(div);
     });

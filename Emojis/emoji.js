@@ -1,8 +1,10 @@
 function invisiblitizeElement(elem) {
-    elem.style.display = "none";
+    elem.style.visibility = "hidden";
+    elem.style.position = "absolute";
 }
 function visibilitizeElement(elem) {
-    elem.style.display = "";
+    elem.style.visibility = "unset";
+    elem.style.position = "unset";
 }
 function setResults(value) {
     document.getElementById("results-counter").innerHTML = `Results: ${value}`;
@@ -24,8 +26,8 @@ search.addEventListener("input", e => {
         }
         resolve();
     }).then(() => {
-        for (let elem of emojis) {
-            if (elem.style.display == "none") {
+        for (let i = 0; i < emojis.length; i++) {
+            if (emojis[i].style.visibility == "hidden") {
                 counter++;
             }
         }
