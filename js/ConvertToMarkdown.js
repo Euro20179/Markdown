@@ -567,11 +567,11 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)((?:\||-) .+\n?)+/g,
+        /(?<!\\)((?:\||=) .+\n?)+/g,
         (items) => {
             let str = "<dl>";
             for (let x of items.split("\n")) {
-                str += x[0] === "-" ? `<dt>${x.slice(1).trim()}</dt>` : `<dd>${x.slice(1).trim()}</dd>`;
+                str += x[0] === "=" ? `<dt>${x.slice(1).trim()}</dt>` : `<dd>${x.slice(1).trim()}</dd>`;
             }
             return str + "</dl>";
         }
