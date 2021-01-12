@@ -4,6 +4,7 @@ const cusotmMdChkbx = document.getElementById("custom");
 const fileReader = document.getElementById("fileReader");
 const contextMenuColorpicker = document.getElementById("context-menu-color-picker");
 const contextMenu = document.getElementById("context-menu");
+const useMathJaxCheckbox = document.getElementById("mathjax");
 const useSyntaxHighlighting = document.getElementById("syntax-parsing");
 const saveIcon = document.getElementById("save-icon");
 let contextOn = false;
@@ -27,6 +28,8 @@ function highlightCode() {
 if (localStorage.getItem("textEditorValue")) {
     textEditor.value = localStorage.getItem("textEditorValue");
     preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+    if (useMathJaxCheckbox.checked)
+        mathJax();
     highlightCode();
 }
 textEditor.style.backgroundColor = document.getElementById("text-editor-color").value;
@@ -65,6 +68,50 @@ function setDarkMode() {
     }
     else
         body.classList.remove("darkmode");
+}
+function mathJax() {
+    // TeX-AMS_HTML
+    //@ts-ignore
+    MathJax.Hub.Config({
+        jax: [
+            'input/TeX',
+            'output/HTML-CSS',
+        ],
+        extensions: [
+            'tex2jax.js',
+            'AssistiveMML.js',
+            'a11y/accessibility-menu.js',
+        ],
+        TeX: {
+            extensions: [
+                'AMSmath.js',
+                'AMSsymbols.js',
+                'noErrors.js',
+                'noUndefined.js',
+            ]
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\\(', '\\)'],
+            ],
+            displayMath: [
+                ['$$', '$$'],
+                ['\\[', '\\]'],
+            ],
+            processEscapes: true
+        },
+        showMathMenu: false,
+        showProcessingMessages: false,
+        messageStyle: 'none',
+        skipStartupTypeset: false,
+        positionToHash: false
+    });
+    // set specific container to render, can be delayed too
+    //@ts-ignore
+    MathJax.Hub.Queue(
+    //@ts-ignore
+    ['Typeset', MathJax.Hub, 'preview']);
 }
 function turnOffAllOtherTabs(currTab) {
     for (let tab of tabs) {
@@ -238,7 +285,11 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "F9":
-                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                else
+                    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
                 e.preventDefault();
                 break;
             case "F4":
@@ -253,6 +304,8 @@ function keyPresses(e) {
                 textEditor.style.cursor = "wait";
                 preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
                 highlightCode();
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
                 textEditor.style.cursor = "initial";
                 e.preventDefault();
                 break;
@@ -398,7 +451,11 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "9":
-                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                else
+                    preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
                 e.preventDefault();
                 break;
             case "4":
@@ -413,6 +470,8 @@ function keyPresses(e) {
                 textEditor.style.cursor = "wait";
                 preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
                 highlightCode();
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
                 textEditor.style.cursor = "initial";
                 e.preventDefault();
                 break;
@@ -716,6 +775,8 @@ cusotmMdChkbx.addEventListener('click', e => {
     if (InterprateLive) {
         let value = textEditor.value;
         preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+        if (useMathJaxCheckbox.checked)
+            mathJax();
         highlightCode();
     }
 });
@@ -726,6 +787,8 @@ textEditor.addEventListener('input', (e) => {
             let { value } = e.target;
             //matches the variable things like [VAR:x=y]
             preview.innerHTML = convert(value, cusotmMdChkbx.checked);
+            if (useMathJaxCheckbox.checked)
+                mathJax();
             highlightCode();
         }
         save().then();
@@ -752,6 +815,8 @@ fileReader.addEventListener("change", (e) => {
     fr.onload = () => {
         textEditor.value = fr.result;
         preview.innerHTML = convert(fr.result, cusotmMdChkbx.checked);
+        if (useMathJaxCheckbox.checked)
+            mathJax();
         highlightCode();
     };
     fr.readAsText(fileReader.files[0]);
