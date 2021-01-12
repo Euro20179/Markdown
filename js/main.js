@@ -76,7 +76,6 @@ function mathJax() {
         jax: [
             'input/TeX',
             'output/HTML-CSS',
-            'output/PreviewHTML',
         ],
         extensions: [
             'tex2jax.js',
@@ -105,14 +104,14 @@ function mathJax() {
         showMathMenu: false,
         showProcessingMessages: false,
         messageStyle: 'none',
-        skipStartupTypeset: true,
+        skipStartupTypeset: false,
         positionToHash: false
     });
     // set specific container to render, can be delayed too
     //@ts-ignore
     MathJax.Hub.Queue(
     //@ts-ignore
-    ['Typeset', MathJax.Hub, 'preview']);
+    ['Typeset', MathJax.Hub, 'textEditor']);
 }
 function turnOffAllOtherTabs(currTab) {
     for (let tab of tabs) {

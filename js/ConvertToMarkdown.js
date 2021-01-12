@@ -604,7 +604,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\{cur(?:sor)?: ?(.*?)(?: |:)(.+?)\}(?:\[(.*?)\])?/g,
+        /(?<!\\)\{cur(?:sor)?: ?(.*?)(?:\s|:)(.+?)\}(?:\[(.*?)\])?/g,
         '<span style="cursor:$1" title="$3">$2</span>'
     ],
     [
@@ -672,5 +672,5 @@ function convert(value, custom = true, nonCustom = true) {
         });
     }
     //@ts-ignore
-    return nonCustom ? marked(value) : value;
+    return "<style>.MJX_Assistive_MathML{display:none;}</style>" + (nonCustom ? marked(value) : value);
 }
