@@ -232,9 +232,7 @@ const regexes = [
     ],
     [
         /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        (_, color, content, title) => {
-            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
-        }
+        (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
         /(?<!\\)\{s(?!hadow|pace|amp):?([^ \n]+) (.*?)\}/g,
@@ -345,11 +343,7 @@ const regexes = [
     ],
     [
         /(?<!\\|!)\[(.*?)\]\((.+?)(?:\s(.*?))?\)/g,
-        (_, text, link, title) => {
-            if (!title)
-                return `<a title="${link}" href="${link}">${text}</a>`;
-            return `<a title="${title}" href="${link}">${text}</a>`;
-        }
+        (_, text, link, title) => `<a title="${title ?? link}" href="${link}">${text}</a>`
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^\^_(.+?)_\^\^(?:\[(.+?)\])?/g,
@@ -408,7 +402,7 @@ const regexes = [
     ],
     [
         /(?<!\\)A!\[(.+?)\]/g,
-        "<audio controls='controls' src='$1'>"
+        "<audio controls src='$1'>"
     ],
     [
         /(?<!\\)YT!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
@@ -429,39 +423,8 @@ const regexes = [
         "<c-spacer color='$1' amount='$2'></c-spacer>"
     ],
     [
-        /(?<!\\)\\olm(?:arker)?:([0-9]+)\\?(.+?)\\/g,
-        (_, layer, to) => {
-            let selector = "ol";
-            layer = parseInt(layer);
-            for (let i = 0; i < layer; i++) {
-                selector += " li ";
-            }
-            let listStyleType = null;
-            if (to.match("TYPE:")) {
-                listStyleType = to.split("TYPE:")[1];
-                return `<style>
-${selector}{
-    list-style-type: ${listStyleType}
-}
-${selector} li{
-    list-style-type:inherit;
-}
-</style>`;
-            }
-            return `<style>
-    ${selector.trim()}::marker{
-        content: "${to}\\00a0";
-    }
-    ${selector} li::marker{
-        content:inherit;
-    }
-</style>`;
-        }
-    ],
-    [
-        /(?<!\\)\\ulm(?:arker)?:([0-9]+)\\?(.+?)\\/g,
-        (_, layer, to) => {
-            let selector = "ul";
+        /(?<!\\)\\(ol|ul)m(?:arker)?:([0-9]+)(?:\s|:)(.+?)\\/g,
+        (_, selector, layer, to) => {
             layer = parseInt(layer);
             for (let i = 0; i < layer; i++) {
                 selector += " li ";
