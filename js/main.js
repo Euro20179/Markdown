@@ -501,7 +501,7 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "?":
-                startEndTypeInTextArea("> ''", "''[]");
+                startEndTypeInTextArea("> ", "\n-");
                 e.preventDefault();
                 break;
             case "F":

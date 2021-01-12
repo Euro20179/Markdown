@@ -198,12 +198,35 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\)> ?''(.*)''(?:\[(.+?)\])?/g,
-        (_, quote, author = null) => {
-            if (author) {
-                return `<blockquote>❝<i>${quote}</i>❞<br><span style='display:block;margin-left:2em;'>-<i><u>${author}</u></i></span></blockquote>`;
+        /(?<!\\)>([iub]*) ?(.*)\n-([iub]*) ?(.*)/g,
+        (_, quoteD, quote, authorD, author) => {
+            for (let d of quoteD) {
+                switch (d.toLowerCase()) {
+                    case "i":
+                        quote = `<i>${quote}</i>`;
+                        break;
+                    case "u":
+                        quote = `<u>${quote}</u>`;
+                        break;
+                    case "b":
+                        quote = `<b>${quote}</b>`;
+                        break;
+                }
             }
-            return `<blockquote>❝<i>${quote}</i>❞</blockquote>`;
+            for (let d of authorD) {
+                switch (d.toLowerCase()) {
+                    case "i":
+                        author = `<i>${author}</i>`;
+                        break;
+                    case "u":
+                        author = `<u>${author}</u>`;
+                        break;
+                    case "b":
+                        author = `<b>${author}</b>`;
+                        break;
+                }
+            }
+            return `<blockquote>${quote}<br><span style='display:block;margin-left:2em;'>-${author}</span></blockquote>`;
         }
     ],
     [
@@ -394,7 +417,7 @@ const regexes = [
         '<span class="$1">$2</span>'
     ],
     [
-        /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/g,
+        /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/gi,
         (_, PC, contents) => {
             let Pro = PC === "PRO";
             return `<span style="color:${Pro ? "green" : "red"}">${Pro ? "✓" : "☒"} ${contents}</span>`;
