@@ -567,6 +567,17 @@ ${selector} li{
         }
     ],
     [
+        /(?<!\\)((?:\||-) .+\n?)+/g,
+        (items) => {
+            console.log(items);
+            let str = "<dl>";
+            for (let x of items.split("\n")) {
+                str += x[0] === "-" ? `<dt>${x.slice(1).trim()}</dt>` : `<dd>${x.slice(1).trim()}</dd>`;
+            }
+            return str + "</dl>";
+        }
+    ],
+    [
         /(?<!\\)\{cur(?:sor)?: ?(.*?)(?:\s|:)(.+?)\}(?:\[(.*?)\])?/g,
         '<span style="cursor:$1" title="$3">$2</span>'
     ],
