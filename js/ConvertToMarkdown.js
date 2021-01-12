@@ -672,5 +672,45 @@ function convert(value, custom = true, nonCustom = true) {
         });
     }
     //@ts-ignore
-    return "<style>.MJX_Assistive_MathML{display:none;}</style>" + (nonCustom ? marked(value) : value);
+    return (nonCustom ? marked(value) : value) + `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js">MathJax.Hub.Config({
+        jax: [
+            'input/TeX',
+            'output/HTML-CSS',
+        ],
+        extensions: [
+            'tex2jax.js',
+            'AssistiveMML.js',
+            'a11y/accessibility-menu.js',
+        ],
+        TeX: {
+        extensions: [
+            'AMSmath.js',
+            'AMSsymbols.js',
+            'noErrors.js',
+            'noUndefined.js',
+        ]
+        },
+        tex2jax: {
+        inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+        ],
+        displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+        ],
+        processEscapes: true
+        },
+        showMathMenu: false,
+        showProcessingMessages: false,
+        messageStyle: 'none',
+        skipStartupTypeset: false, // disable initial rendering
+        positionToHash: false
+    })
+// set specific container to render, can be delayed too
+    //@ts-ignore
+    MathJax.Hub.Queue(
+        //@ts-ignore
+        ['Typeset', MathJax.Hub, 'preview']
+    )</script>`;
 }
