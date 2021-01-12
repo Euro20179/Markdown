@@ -294,8 +294,8 @@ const regexes = [
         "<span style='display:inline-block;margin-left:$1'>$2</span>"
     ],
     [
-        /(?<!\\)^(.+?)->(.+?)$/gm,
-        "<span style='display:inline-block;text-indent:$1'>$2</span>"
+        /(?<!\\)^(.*?)->(.+?)$/gm,
+        (_, indent, text) => `<span style="display:inline-block; text-indent: ${indent || "2em"}">${text}</span>`
     ],
     [
         /(?<!\\)(.+?)<--(.+?)$/gm,
@@ -569,7 +569,6 @@ ${selector} li{
     [
         /(?<!\\)((?:\||-) .+\n?)+/g,
         (items) => {
-            console.log(items);
             let str = "<dl>";
             for (let x of items.split("\n")) {
                 str += x[0] === "-" ? `<dt>${x.slice(1).trim()}</dt>` : `<dd>${x.slice(1).trim()}</dd>`;
