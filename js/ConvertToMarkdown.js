@@ -77,6 +77,10 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
+        /(?<!\\)\\function ?=> ?([^]+?)\nEND/g,
+        (_, ev) => Function(ev)()
+    ],
+    [
         /(?<!\\):reg(?::|_)([a-z]):/g,
         ":regional_indicator_$1:"
     ],

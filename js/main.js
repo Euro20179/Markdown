@@ -62,12 +62,11 @@ for (let queary of urlParams) {
 }
 setDarkMode();
 function setDarkMode() {
-    const body = document.getElementsByTagName("body")[0];
     if (DarkMode) {
-        body.classList.add("darkmode");
+        document.body.classList.add("darkmode");
     }
     else
-        body.classList.remove("darkmode");
+        document.body.classList.remove("darkmode");
 }
 function mathJax() {
     // TeX-AMS_HTML
