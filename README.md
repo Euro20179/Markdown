@@ -24,7 +24,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * s\[size]text will be size|\[title (optional)]
 * #\[color]text here will be color|\[title (optional)]
 * {bg:color any text in here will have a background color of color}\[title (optional)]
-* {cursor:type:text} any text will have a cursor of type
+* cursor\[type\]text| any text will have a cursor of type
 * \[angle]*text* text will be skewed by angle
 <br>
 <br>

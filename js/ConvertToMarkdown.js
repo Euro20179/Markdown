@@ -77,7 +77,7 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\)\\function ?=> ?([^]+?)\nEND/g,
+        /(?<!\\)\\function ?=> ?([^]+?)\n?END/g,
         (_, ev) => Function(ev)()
     ],
     [
@@ -587,7 +587,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\{cur(?:sor)?: ?(.*?)(?:\s|:)(.+?)\}(?:\[(.*?)\])?/g,
+        /(?<!\\)cur(?:sor)?\[(.*?)\](.*?)\|(?:\[(.*?)\])?/g,
         '<span style="cursor:$1" title="$3">$2</span>'
     ],
     [
