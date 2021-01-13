@@ -321,7 +321,7 @@ const regexes = [
     ],
     [
         /(?<!\\)"(.+?)"(?:::(.+?)(?:\/(.+?))?)?\s?\.{3}(.*)/g,
-        "<details><summary data-marker='$2' data-marker-open='$3'>$1</summary>$4</details>"
+        "<details><summary data-marker='$2 ' data-marker-open='$3 '>$1</summary>$4</details>"
     ],
     [
         /(?<!\\)\{(k(?:ey)?|(?:cmd|samp|k(?:ey)?)):(.+?)\}/g,
