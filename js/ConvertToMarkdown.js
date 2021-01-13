@@ -462,6 +462,10 @@ ${selector} li{
         }
     ],
     [
+        /(?<!\\)\\theme\{(.*?)\}/g,
+        `<link rel="stylesheet" href="$1">`
+    ],
+    [
         /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
         (_, include, include2) => {
             include = include2 ?? include;
@@ -650,7 +654,7 @@ function convert(value, custom = true, nonCustom = true) {
         });
     }
     //@ts-ignore
-    return (nonCustom ? marked(value) : value) + `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js">MathJax.Hub.Config({
+    return "<main class='_html'>" + (nonCustom ? marked(value) : value) + `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js">MathJax.Hub.Config({
         jax: [
             'input/TeX',
             'output/HTML-CSS',
@@ -690,5 +694,5 @@ function convert(value, custom = true, nonCustom = true) {
     MathJax.Hub.Queue(
         //@ts-ignore
         ['Typeset', MathJax.Hub, 'preview']
-    )</script>`;
+    )</script></main>`;
 }
