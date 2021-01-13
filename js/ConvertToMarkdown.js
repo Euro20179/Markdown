@@ -241,20 +241,20 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
+        /(?<!\\)#\[?([a-z0-9]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
         (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
         /(?<!\\)\{s(?!hadow|pace|amp):?([^ \n]+) (.*?)\}/g,
-        "<span style='font-size:$1'>$2</span>"
+        '<span style="font-size:$1">$2</span>'
     ],
     [
-        /(?<!\\)s\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        "<span style='font-size:$1' title='$3'>$2</span>"
+        /(?<!\\)s\[?([a-z0-9]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
+        '<span style="font-size:$1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)f\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        "<span title='$3' style='font-family:$1'>$2</span>"
+        /(?<!\\)f\[?([a-z0-9 ]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
+        '<span title="$3" style="font-family:$1">$2</span>'
     ],
     [
         /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\](.+?)\|(?:\[(.+)\])?/g,
@@ -302,10 +302,6 @@ const regexes = [
     [
         /(?<!\\)^(.+?)-->(.+?)$/gm,
         "<span style='display:inline-block;margin-left:$1'>$2</span>"
-    ],
-    [
-        /(?<!\\)^(.*?)->(.+?)$/gm,
-        (_, indent, text) => `<span style="display:inline-block; text-indent: ${indent || "2em"}">${text}</span>`
     ],
     [
         /(?<!\\)(.+?)<--(.+?)$/gm,
@@ -617,6 +613,10 @@ ${selector} li{
     [
         /(?<!\\)\.\.\.>/g,
         "&#8674;"
+    ],
+    [
+        /(?<!\\)^(.*?)->(.+?)$/gm,
+        (_, indent, text) => `<span style="display:inline-block; text-indent: ${indent || "2em"}">${text}</span>`
     ],
     [
         /(?<!\\)\[([^]+?)\]\*([0-9]+)/g,
