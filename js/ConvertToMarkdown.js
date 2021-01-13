@@ -332,8 +332,8 @@ const regexes = [
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
     [
-        /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})(?:-{3,}|<hr>)/g,
-        '<hr style="background-color:$1;color:$1;border-color:$1" />'
+        /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})?(?:-{3,}|<hr>)/g,
+        '<hr style="background-color:$1;color:$1;border-color:$1" id="$2" />'
     ],
     [
         /(?<![\\#])(#{1,6}) (.+) \[#?(.+?)\]/g,
@@ -637,8 +637,8 @@ ${selector} li{
 function convert(value, custom = true, nonCustom = true) {
     if (custom) {
         //handles the [$x=2] thing
-        for (let x of value.matchAll(/(?:\[|<)(?:var:|\$)([^=]*)=([^\]]+)(?:\]|>)/g)) {
-            let regex = new RegExp(`(?:\\[|<)${x[1]}(?:>|\\])`, "g");
+        for (let x of value.matchAll(/(?:var:|\$)([^=]*)=([^]+?)\sEND/g)) {
+            let regex = new RegExp(`(?:\\[|<|%)${x[1]}(?:>|\\]|%)`, "g");
             value = value.replace(x[0], "");
             value = value.replace(regex, x[2]);
         }
