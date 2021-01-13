@@ -340,7 +340,7 @@ const regexes = [
         (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
     ],
     [
-        /(?<!\\)\[(\.)?([0-9]+)->([0-9]+)\](?:\{?([0-9]+)\})?/g,
+        /(?<!\\)\[(\.)?([0-9]+)-([0-9]+)\](?:\{?([0-9]+)\})?/g,
         (_, disabled, min, max, value) => `${min}<input type="range" min="${min}" max="${max}" value="${value}" ${!disabled ? "disabled" : ""}>${max}`
     ],
     [
