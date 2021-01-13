@@ -241,7 +241,7 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)#(?:\[)?(.+?)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/g,
+        /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
@@ -249,11 +249,11 @@ const regexes = [
         "<span style='font-size:$1'>$2</span>"
     ],
     [
-        /(?<!\\)s ?(?:\[)?(.+?)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/g,
+        /(?<!\\)s\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         "<span style='font-size:$1' title='$3'>$2</span>"
     ],
     [
-        /(?<!\\)f ?(?:\[)?(.+?)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/g,
+        /(?<!\\)f\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
         "<span title='$3' style='font-family:$1'>$2</span>"
     ],
     [
