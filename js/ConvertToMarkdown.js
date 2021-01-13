@@ -636,11 +636,10 @@ ${selector} li{
 ];
 function convert(value, custom = true, nonCustom = true) {
     if (custom) {
-        //handles the [$x=2] thing
+        //handles the $x=2 END thing
         for (let x of value.matchAll(/(?:var:|\$)([^=]*)=([^]+?)\sEND/g)) {
             let regex = new RegExp(`%${x[1]}%`, "g");
-            value = value.replace(x[0], "");
-            value = value.replace(regex, x[2]);
+            value = value.replace(x[0], "").replace(regex, x[2]);
         }
         //loops through the lists of regexes
         userDefinedRegexes.forEach(item => {
