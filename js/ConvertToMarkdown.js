@@ -638,7 +638,7 @@ function convert(value, custom = true, nonCustom = true) {
     if (custom) {
         //handles the [$x=2] thing
         for (let x of value.matchAll(/(?:var:|\$)([^=]*)=([^]+?)\sEND/g)) {
-            let regex = new RegExp(`(?:\\[|<|%)${x[1]}(?:>|\\]|%)`, "g");
+            let regex = new RegExp(`%${x[1]}%`, "g");
             value = value.replace(x[0], "");
             value = value.replace(regex, x[2]);
         }
