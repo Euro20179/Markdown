@@ -21,6 +21,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * any text below \\FONT:font\\ will be that font
 * any text below \\SIZE:size\\ will be that size
 * f\[font]text in here will be font|\[title (optional)]
+* ffont -> text|
 * s\[size]text will be size|\[title (optional)]
 * ssize -> text|
 * #color -> text here will be color|\[title (optional)]
