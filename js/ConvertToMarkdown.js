@@ -43,7 +43,7 @@ if (localStorage.getItem("customRegularExpressions")) {
 }
 const regexes = [
     [
-        /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
+        /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/gi,
         (_, one = null, two = null) => {
             if (!one) {
                 one = 0;
@@ -81,7 +81,7 @@ const regexes = [
         (_, ev) => Function(ev)()
     ],
     [
-        /(?<!\\):reg(?::|_)([a-z]):/g,
+        /(?<!\\):reg(?::|_|-)([a-z]):/g,
         ":regional_indicator_$1:"
     ],
     [
