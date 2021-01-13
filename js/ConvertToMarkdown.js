@@ -241,7 +241,7 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
+        /(?<!\\)#(?:\[)?(.+?)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/g,
         (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
@@ -415,7 +415,7 @@ const regexes = [
         "<audio controls src='$1'>"
     ],
     [
-        /(?<!\\)YT!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
+        /(?<!\\)(?:YT|V)!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
         (_, link, width, height) => {
             return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
         }
