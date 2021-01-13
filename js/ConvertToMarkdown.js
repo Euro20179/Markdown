@@ -577,7 +577,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)((?:\||=) .+\n?)+/g,
+        /(?<!\\)(^(?:\||=) .+\n?)+/gm,
         (items) => {
             let str = "<dl>";
             for (let x of items.split("\n")) {
