@@ -10,23 +10,6 @@ math.config({
     // 'number' (default), 'BigNumber', or 'Fraction'
     precision: 64 // Number of significant digits for BigNumbers
 });
-const circleLetters = {
-    A: 9398,
-    " ": 32,
-    0: 9450,
-    1: 9312,
-    2: 9313,
-    3: 9314,
-    4: 9315,
-    5: 9316,
-    6: 9317,
-    7: 9318,
-    8: 9319,
-    9: 9320
-};
-for (let x = 1; x < 52; x++) {
-    circleLetters[CHARS[x]] = circleLetters["A"] + x;
-}
 Object.defineProperty(RegExp.prototype, "toJSON", {
     value: RegExp.prototype.toString
 });

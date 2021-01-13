@@ -141,7 +141,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 ## Emojis
 
-[List](https://euro20179.github.io/Emojis.html)
+[List](./Emojis/index.html)
 
 ---
 

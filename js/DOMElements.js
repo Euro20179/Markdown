@@ -1,24 +1,3 @@
-class Circled extends HTMLElement{
-    connectedCallback(){
-        let newStr = "";
-        let Close = true;
-        for(let char of this.innerHTML){
-            if(char == "<"){
-                Close = false;
-            }
-            else if(Close){
-                if(char in circleLetters) newStr += String.fromCharCode(circleLetters[char])
-                else newStr += char;
-                continue;
-            }
-            else if(char == ">"){
-                Close = true;
-            }
-            newStr += char;
-        }
-        this.innerHTML = newStr;
-    }
-}
 class threeDGlasses extends HTMLElement{
     connectedCallback(){
         this.style.textShadow = this.textShadow
@@ -287,7 +266,6 @@ class Hollow extends HTMLElement{
 
 customElements.define("c-textbox", Textbox)
 customElements.define("c-variables", Variables)
-customElements.define('c-circled', Circled)
 customElements.define('c-rainbow', Rainbow)
 customElements.define("c-3d", threeDGlasses)
 customElements.define("c-choose", Choose)
