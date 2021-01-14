@@ -29,6 +29,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * {bg:color any text in here will have a background color of color}\[title (optional)]
 * cursor\[type\]text| any text will have a cursor of type
 * \[angle]*text* text will be skewed by angle
+* ||text||: text will be hidden, clicking will lighten, right clicken will darken
 <br>
 <br>
 
