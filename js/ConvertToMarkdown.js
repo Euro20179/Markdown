@@ -241,19 +241,15 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)#\[?([a-z0-9]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
+        /(?<!\\)#\[?([a-z0-9]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
         (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
-        /(?<!\\)\{s(?!hadow|pace|amp):?([^ \n]+) (.*?)\}/g,
-        '<span style="font-size:$1">$2</span>'
-    ],
-    [
-        /(?<!\\)s\[?([a-z0-9]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
+        /(?<!\\)s\[?([a-z0-9]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
         '<span style="font-size:$1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)f\[?([a-z0-9 ]+)(?:\]| ?-> ?)(.+?)\|(?:\[(.+?)\])?/gi,
+        /(?<!\\)f\[?([a-z0-9 ]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
         '<span title="$3" style="font-family:$1">$2</span>'
     ],
     [
@@ -332,8 +328,12 @@ const regexes = [
         '<hr style="background-color:$1;color:$1;border-color:$1" id="$2" />'
     ],
     [
-        /(?<![\\#])(#{1,6}) (.+) \[#?(.+?)\]/g,
-        (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
+        /(?<![\\#])(^#{1,6})(?:_\[(.*?)\])? ([^#]+)(?:#(.+))?/gm,
+        (_, heading, border, contents, id) => {
+            return border
+                ? `<h${heading.length} id="${id ?? ""}" style="display:block;border-bottom:${border};">${contents}</h${heading.length}>`
+                : `<h${heading.length} id=${id}>${contents}</h${heading.length}>`;
+        }
     ],
     [
         /(?<!\\)\[(\.)?([0-9]+)-([0-9]+)\](?:\{?([0-9]+)\})?/g,
