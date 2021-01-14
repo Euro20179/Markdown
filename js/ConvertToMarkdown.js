@@ -188,9 +188,7 @@ const regexes = [
     ],
     [
         /(?<!\\)(\\u[0-9a-f]{4}|\\u\{[0-9a-f]+\})/gi,
-        (_, point) => {
-            return eval(`"${point}"`);
-        }
+        (_, point) => eval(`"${point}"`)
     ],
     [
         /(?<!\\)\|{2}(.*?)\|{2}/g,
