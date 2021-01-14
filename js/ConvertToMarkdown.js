@@ -626,15 +626,12 @@ ${selector} li{
     ],
     [
         /(?<!\\)\\count:([^\n]+)((?:\n)re)?\\/g,
-        (_, search, Re) => {
-            if (Re) {
-                return [...preview.innerText.matchAll(search)].length;
-            }
-            return preview.innerText.split(search).length - 1;
-        }
+        (_, search, Re) => Re
+            ? [...preview.innerText.matchAll(search)].length
+            : preview.innerText.split(search).length - 1
     ],
     [
-        /(?<!\\)\\s\\/g,
+        /(?<!\\)(?:\\s\\|\\\$)/g,
         ""
     ],
 ];

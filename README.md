@@ -159,6 +159,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ## Misc
 
 * \\s\\: special escape, escapes out of my markdown because i'm bad
+    * \\$: does the same
 
 * \>PRO: pro
 * \>CON: con
