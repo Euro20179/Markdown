@@ -77,8 +77,16 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)\n?END/g,
+        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)END/g,
         (_, ev) => Function(ev)()
+    ],
+    [
+        /(?<!\\)"(.*?)" ?c> ?([^]+?)END/g,
+        `<p onclick='$2'>$1</p>`
+    ],
+    [
+        /(?<!\\)"(.*?)" ?r> ?([^]+?)END/g,
+        `<p oncontextmenu='$2; event.preventDefault()'>$1</p>`
     ],
     [
         /(?<!\\):reg(?::|_|-)([a-z]):/g,
@@ -183,6 +191,10 @@ const regexes = [
         (_, point) => {
             return eval(`"${point}"`);
         }
+    ],
+    [
+        /(?<!\\)\|{2}(.*?)\|{2}/g,
+        `<span style="background-color:black;" onclick="this.style.backgroundColor = 'white'" oncontextmenu="this.style.backgroundColor = 'black'; event.preventDefault()">$1</span>`
     ],
     [
         /(?<!\\)>([iub]*) ?(.*)\n-([iub]*) ?(.*)/g,
