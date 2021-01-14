@@ -402,10 +402,6 @@ const regexes = [
         "<p style='text-align:left;margin-left:$1'>$2</p>"
     ],
     [
-        /(?<!\\)\{shadow:?(?:('|")(.+?)\1)? ?(.*?)\}/g,
-        "<span style='text-shadow:$2'>$3</span>"
-    ],
-    [
         /(?<!\\)(?:\.|class)\[(.+?)\](.*?)\|/g,
         '<span class="$1">$2</span>'
     ],
@@ -433,10 +429,6 @@ const regexes = [
     [
         /(?<!\\)\[([0-9-]+?)\]\*(.+?)\*/g,
         '<span style="transform:skewX($1deg);display:inline-flex">$2</span>'
-    ],
-    [
-        /(?<!\\)\{(?:white)?space:? ?(?:([^\n ]+))?(?:(?: a:?)?(.+?))?\}/g,
-        "<c-spacer color='$1' amount='$2'></c-spacer>"
     ],
     [
         /(?<!\\)\\(ol|ul)m(?:arker)?:([0-9]+)(?:\s|:)(.+?)\\/g,
