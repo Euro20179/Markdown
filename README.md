@@ -184,6 +184,12 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * %now%: current time
 * %today%: today's date
 
+### Builtin Classes
+* _html: main class
+* _word: word to define class
+* _speech: part of speech for word
+* _definition: definition for word
+
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100
 * \RAND{50 56}\\: random number from 1 to 56

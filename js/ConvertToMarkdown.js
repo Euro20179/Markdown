@@ -351,7 +351,7 @@ const regexes = [
     ],
     [
         /(?<!\\)\[(.+?)\](?: ?(.*))?:(?: |\n(?: |    )?)?(?:\[|\()(.*)(?:\)|\])/g,
-        (_, word, speech, def) => `<u>${word}</u>${speech ? " (" + speech + ")" : ""}:<br><dfn style='margin-left:1.5em;display:block'>${def}</dfn>`
+        (_, word, speech, def) => `<span class="_word">${word}</span><span class="_word-speech">${speech ? " (" + speech + ")" : ""}</span>:<br><span class="_definition" style='margin-left:1.5em;display:block'>${def}</span>`
     ],
     [
         /(?<!\\)#\[(.*?)\]/g,
