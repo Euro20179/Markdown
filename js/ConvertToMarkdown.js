@@ -458,8 +458,15 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\theme\{(.*?)\}/g,
-        `<link rel="stylesheet" href="$1">`
+        /(?<!\\)%today%/g,
+        () => {
+            let d = new Date();
+            return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+        }
+    ],
+    [
+        /(?<!\\)%now%/g,
+        () => (new Date()).toLocaleTimeString()
     ],
     [
         /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,

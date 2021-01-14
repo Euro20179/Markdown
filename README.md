@@ -179,6 +179,10 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \\u00ff: unicode escape
 * \\u{00f90209f0e098} unicode escape
 
+### Builtin Variables
+* %now%: current time
+* %today%: today's date
+
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100
 * \RAND{50 56}\\: random number from 1 to 56
