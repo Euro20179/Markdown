@@ -339,11 +339,9 @@ const regexes = [
     ],
     [
         /(?<![\\#])(^#{1,6})(?:_\[(.*?)\])? ([^#]+)(?:#(.+))?/gm,
-        (_, heading, border, contents, id) => {
-            return border
-                ? `<h${heading.length} id="${id ?? ""}" style="display:block;border-bottom:${border};">${contents}</h${heading.length}>`
-                : `<h${heading.length} id=${id}>${contents}</h${heading.length}>`;
-        }
+        (_, heading, border, contents, id) => border
+            ? `<h${heading.length} id="${id ?? ""}" style="display:block;border-bottom:${border};">${contents}</h${heading.length}>`
+            : `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
     ],
     [
         /(?<!\\)\[(\.)?([0-9]+)-([0-9]+)\](?:\{?([0-9]+)\})?/g,
@@ -354,7 +352,7 @@ const regexes = [
         (_, word, speech, def) => `<span class="_word">${word}</span><span class="_word-speech">${speech ? " (" + speech + ")" : ""}</span>:<br><span class="_definition" style='margin-left:1.5em;display:block'>${def}</span>`
     ],
     [
-        /(?<!\\)#\[(.*?)\]/g,
+        /(?<!\\)^#([^\s]*)$/gm,
         "<div id='$1'></div>"
     ],
     [
