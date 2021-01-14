@@ -77,7 +77,7 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\)\\function ?=> ?([^]+?)\n?END/g,
+        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)\n?END/g,
         (_, ev) => Function(ev)()
     ],
     [
@@ -628,9 +628,9 @@ ${selector} li{
         /(?<!\\)\\count:([^\n]+)((?:\n)re)?\\/g,
         (_, search, Re) => {
             if (Re) {
-                return [...preview.textContent.matchAll(search)].length;
+                return [...preview.innerText.matchAll(search)].length;
             }
-            return preview.textContent.split(search).length - 1;
+            return preview.innerText.split(search).length - 1;
         }
     ],
     [
