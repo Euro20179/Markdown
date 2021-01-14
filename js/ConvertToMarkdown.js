@@ -318,8 +318,8 @@ const regexes = [
         (_, upDown, contents, title) => `<${upDown === "^" ? "sup" : "sub"} title='${title ? title : ""}'>${contents}</${upDown === "^" ? "sup" : "sub"}>`
     ],
     [
-        /(?<!\\)(?:D(?:ISP(?:LAY)?)?=? ?\[(.*?)\]|("|')(.+?)\2)\s*?T?(?:OOL)?T?(?:IP)?=? ?\[(.*?)\]/g,
-        '<span title="$4">$1$3</span>'
+        /(?<!\\)("|')(.+?)\1\[(.*?)\]/g,
+        '<span title="$3">$2</span>'
     ],
     [
         /(?<!\\)"(.+?)"(?:::(.+?)(?:\/(.+?))?)?\s?\.{3}(.*)/g,
