@@ -77,15 +77,29 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)END/g,
+        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)\s;$/gm,
         (_, ev) => Function(ev)()
     ],
     [
-        /(?<!\\)"(.*?)" ?c> ?([^]+?)END/g,
+        /(?<!\\)\\load ? (?:=|-)> ?([^]+?)\s;$/gm,
+        (_, ev) => {
+            let id = (() => {
+                let str = "";
+                let chars = "abcdefghijklmnopqrstuvwxyz12345676890-";
+                for (let i = 0; i < 10; i++) {
+                    str += chars[Math.floor(Math.random() * chars.length)];
+                }
+                return str;
+            })();
+            return `<span id="${id}"></span><script>${ev.replace(/replaceThis\((.*?)\)/g, `document.getElementById("${id}").innerHTML = $1`)}</script>`;
+        }
+    ],
+    [
+        /(?<!\\)"(.*?)" ?c> ?([^]+?)\s;$/gm,
         `<p onclick='$2'>$1</p>`
     ],
     [
-        /(?<!\\)"(.*?)" ?r> ?([^]+?)END/g,
+        /(?<!\\)"(.*?)" ?r> ?([^]+?)\s;$/gm,
         `<p oncontextmenu='$2; event.preventDefault()'>$1</p>`
     ],
     [
@@ -338,10 +352,10 @@ const regexes = [
         '<hr style="background-color:$1;color:$1;border-color:$1" id="$2" />'
     ],
     [
-        /(?<![\\#])(^#{1,6})(?:_\[(.*?)\])? ([^#]+)(?:#(.+))?/gm,
+        /(?<![\\#])(^#{1,6})(?:_\[(.*?)\])? ([^#\n]+)(?:#(.+))?/gm,
         (_, heading, border, contents, id) => border
             ? `<h${heading.length} id="${id ?? ""}" style="display:block;border-bottom:${border};">${contents}</h${heading.length}>`
-            : `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
+            : `<h${heading.length} id=${id ?? ""}>${contents}</h${heading.length}>`
     ],
     [
         /(?<!\\)\[(\.)?([0-9]+)-([0-9]+)\](?:\{?([0-9]+)\})?/g,
@@ -646,7 +660,7 @@ function convert(value, custom = true, nonCustom = true) {
     actionHistory.add();
     if (custom) {
         //handles the $x=2 END thing
-        for (let x of value.matchAll(/(?:var:|\$)([^=]*)=([^]+?)\sEND/g)) {
+        for (let x of value.matchAll(/^(?:var:|\$)([^=]*)=([^]+?)\s;$/gm)) {
             let regex = new RegExp(`%${x[1]}%`, "g");
             value = value.replace(x[0], "").replace(regex, x[2]);
         }

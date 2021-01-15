@@ -23,7 +23,7 @@ function saveFile() {
     let file = new Blob([preview.innerHTML], { type: "text/markdown" });
     downloadB.href = URL.createObjectURL(file);
     const fileName = document.getElementById("file-name").value;
-    downloadB.download = `${fileName}.md`;
+    downloadB.download = `${fileName}.html`;
 }
 function savePDF() {
     (new Promise((resolve, reject) => {
