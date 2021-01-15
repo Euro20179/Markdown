@@ -20,6 +20,18 @@ let AutoCompleteElements = document.getElementById("autocomplete-elements").chec
 let tabOverAmount = 0;
 let lastKeyStrokeWasEnter = false;
 let autoTab = document.getElementById("auto-tab");
+const actionHistory = new (class {
+    constructor() {
+        this.history = [];
+    }
+    undo() {
+        this.history.splice(this.history.length - 1, 1);
+        textEditor.value = this.history[this.history.length - 1];
+    }
+    add() {
+        this.history.push(textEditor.value);
+    }
+})();
 function highlightCode() {
     if (useSyntaxHighlighting.checked)
         //@ts-ignore
@@ -421,6 +433,10 @@ function keyPresses(e) {
                 break;
             case "k":
                 startEndTypeInTextArea("[](", ")", { cursor: 1 });
+                e.preventDefault();
+                break;
+            case "z":
+                actionHistory.undo();
                 e.preventDefault();
                 break;
             case "'":

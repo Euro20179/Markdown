@@ -643,6 +643,7 @@ ${selector} li{
     ],
 ];
 function convert(value, custom = true, nonCustom = true) {
+    actionHistory.add();
     if (custom) {
         //handles the $x=2 END thing
         for (let x of value.matchAll(/(?:var:|\$)([^=]*)=([^]+?)\sEND/g)) {
