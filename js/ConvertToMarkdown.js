@@ -13,6 +13,9 @@ math.config({
 Object.defineProperty(RegExp.prototype, "toJSON", {
     value: RegExp.prototype.toString
 });
+function generateScript(placeHolder, script, id) {
+    return '<span id="' + id + '">' + placeHolder + '</span><script>' + script.replaceAll("{ID}", id) + "</script>";
+}
 function addCustomRegex(searcher, replace) {
     userDefinedRegexes.push([new RegExp(searcher, "g"), replace]);
     localStorage.setItem("customRegularExpressions", JSON.stringify(userDefinedRegexes));
@@ -37,6 +40,14 @@ function loadRegexes() {
         console.log(regex);
         userDefinedRegexes.push(regex);
     }
+}
+function generateId(amount = 10) {
+    let chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
+    let str = "";
+    for (let i = 0; i < amount; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
 }
 if (localStorage.getItem("customRegularExpressions")) {
     loadRegexes();
@@ -479,8 +490,22 @@ ${selector} li{
         }
     ],
     [
+        /(?<!\\)%truetoday%/g,
+        () => {
+            let d = new Date();
+            return generateScript(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`, 'let d = new Date(); document.getElementById("{ID}").innerHTML = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear()', generateId());
+        }
+    ],
+    [
         /(?<!\\)%now%/g,
         () => (new Date()).toLocaleTimeString()
+    ],
+    [
+        /(?<!\\)%truenow%/g,
+        () => {
+            let id = generateId();
+            return generateScript((new Date()).toLocaleTimeString(), 'document.getElementById("{ID}").innerHTML = (new Date()).toLocaleTimeString()', generateId());
+        }
     ],
     [
         /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
