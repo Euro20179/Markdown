@@ -21,11 +21,15 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * any text below \\FONT:font\\ will be that font
 * any text below \\SIZE:size\\ will be that size
 * f\[font]text in here will be font|\[title (optional)]
+* ffont->text|
 * s\[size]text will be size|\[title (optional)]
+* ssize->text|
 * #\[color]text here will be color|\[title (optional)]
+* #color->text|
 * {bg:color any text in here will have a background color of color}\[title (optional)]
-* {cursor:type:text} any text will have a cursor of type
+* cursor\[type\]text| any text will have a cursor of type
 * \[angle]*text* text will be skewed by angle
+* ||text||: text will be hidden, clicking will lighten, right clicken will darken
 <br>
 <br>
 
@@ -46,8 +50,6 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 ### General other
 
-* {shadow'.2em .2em 0px grey' any text here will have a text shadow}
-* {.'class' any text here will be in a span with the class of class}
 * .\[class]text here will be in a span with the class of class|
 * {cmd: text}: puts text in a cmd element
 * {samp: text}: puts text in a samp element
@@ -89,7 +91,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ## Quotes
 
 * ''fancy quote''
-* \> ''block quote''\[author]
+* \> block quote<br>- author
 
 ---
 
@@ -98,6 +100,8 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \[.x] checked clickable checkbox
 * ( ) radio unselected
 * (*) radio selected
+* \[1-10\]\{5\} slider
+* \[.1-10\]\{6\} clickable slider
 
 ---
 
@@ -141,7 +145,7 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 ## Emojis
 
-[List](https://euro20179.github.io/Emojis.html)
+[List](./Emojis/index.html)
 
 ---
 
@@ -154,18 +158,17 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ## Misc
 
 * \\s\\: special escape, escapes out of my markdown because i'm bad
+    * \\$: does the same
 
 * \>PRO: pro
 * \>CON: con
 
-* |*: ⚑
-* |>: 🚩
 * (C): copyright
 * (R): registered copyright
 * \ulmarker:1\cool\\: sets unordered list marker at the 1st level to cool
 * \olmarker:2\TYPE:lower-alpha\\: sets ordered list marker at the 2nd level to the lower-alpha type
 * \EMOJI\: random "emoji"
-* 1\/2 makes it look like 1⁄2
+* 1//2 makes it look like 1⁄2
 * "summary"...details
 * "text"\[title]
 * \[word]part of speech (optional): (definition)
@@ -174,6 +177,16 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 * \n a &lt;br> element
 * \\u00ff: unicode escape
 * \\u{00f90209f0e098} unicode escape
+
+### Builtin Variables
+* %now%: current time
+* %today%: today's date
+
+### Builtin Classes
+* _html: main class
+* _word: word to define class
+* _speech: part of speech for word
+* _definition: definition for word
 
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100

@@ -20,6 +20,18 @@ let AutoCompleteElements = document.getElementById("autocomplete-elements").chec
 let tabOverAmount = 0;
 let lastKeyStrokeWasEnter = false;
 let autoTab = document.getElementById("auto-tab");
+const actionHistory = new (class {
+    constructor() {
+        this.history = [];
+    }
+    undo() {
+        this.history.splice(this.history.length - 1, 1);
+        textEditor.value = this.history[this.history.length - 1];
+    }
+    add() {
+        this.history.push(textEditor.value);
+    }
+})();
 function highlightCode() {
     if (useSyntaxHighlighting.checked)
         //@ts-ignore
@@ -62,12 +74,11 @@ for (let queary of urlParams) {
 }
 setDarkMode();
 function setDarkMode() {
-    const body = document.getElementsByTagName("body")[0];
     if (DarkMode) {
-        body.classList.add("darkmode");
+        document.body.classList.add("darkmode");
     }
     else
-        body.classList.remove("darkmode");
+        document.body.classList.remove("darkmode");
 }
 function mathJax() {
     // TeX-AMS_HTML
@@ -76,7 +87,6 @@ function mathJax() {
         jax: [
             'input/TeX',
             'output/HTML-CSS',
-            'output/PreviewHTML',
         ],
         extensions: [
             'tex2jax.js',
@@ -105,7 +115,7 @@ function mathJax() {
         showMathMenu: false,
         showProcessingMessages: false,
         messageStyle: 'none',
-        skipStartupTypeset: true,
+        skipStartupTypeset: false,
         positionToHash: false
     });
     // set specific container to render, can be delayed too
@@ -259,17 +269,25 @@ function keyPresses(e) {
                 break;
             case "Enter":
                 if (autoTab.checked) {
+                    console.log(tabOverAmount);
+                    if (tabOverAmount > 0) {
+                        //@ts-ignore
+                        if (lastKeyStrokeWasEnter) {
+                            let start = textEditor.selectionStart;
+                            textEditor.value = textEditor.value.slice(0, textEditor.selectionStart - 1) + textEditor.value.slice(textEditor.selectionStart);
+                            textEditor.selectionStart = start - 1;
+                            textEditor.selectionEnd = start - 1;
+                        }
+                        else
+                            startEndTypeInTextArea("\n" + mulString("	", tabOverAmount), "");
+                    }
+                    else {
+                        startEndTypeInTextArea("\n", "");
+                    }
                     if (lastKeyStrokeWasEnter) {
                         if (tabOverAmount > 0) {
                             tabOverAmount--;
                         }
-                    }
-                    if (tabOverAmount > 0) {
-                        //@ts-ignore
-                        startEndTypeInTextArea("\n" + mulString("	", tabOverAmount), "");
-                    }
-                    else {
-                        startEndTypeInTextArea("\n", "");
                     }
                     lastKeyStrokeWasEnter = true;
                     e.preventDefault();
@@ -417,6 +435,10 @@ function keyPresses(e) {
                 startEndTypeInTextArea("[](", ")", { cursor: 1 });
                 e.preventDefault();
                 break;
+            case "z":
+                actionHistory.undo();
+                e.preventDefault();
+                break;
             case "'":
                 addOLULInclude();
                 e.preventDefault();
@@ -494,7 +516,7 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "?":
-                startEndTypeInTextArea("> ''", "''[]");
+                startEndTypeInTextArea("> ", "\n-");
                 e.preventDefault();
                 break;
             case "F":

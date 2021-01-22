@@ -88,9 +88,9 @@
                 <span class="divider"></span>
                 <label>Count of <input type="search" id="preview-search-count" style="width:10vw"></label>
                 <input type="checkbox" id="preview-search-count-regex"><label>use regex?</label>
-                <button id="count-of-button" class="editing-button" onclick="let count;if(document.getElementById('preview-search-count-regex').checked){count = [...preview.textContent.matchAll(document.getElementById('preview-search-count').value)].length}else{count= preview.textContent.split(document.getElementById('preview-search-count').value).length - 1}alert(count)">Get Count</button> 
+                <button id="count-of-button" class="editing-button" onclick="let count;if(document.getElementById('preview-search-count-regex').checked){count = [...preview.textContent.matchAll(document.getElementById('preview-search-count').value)].length}else{count= preview.innerText.split(document.getElementById('preview-search-count').value).length - 1}alert(count)">Get Count</button> 
                 <span class="divider" dashed></span>
-                <button class="editing-button" onclick="alert([...preview.textContent.matchAll(/[^ ]+/gm)].length)">Word Count</button>
+                <button class="editing-button" onclick="alert([...preview.innerText.matchAll(/[^ ]+/gm)].length)">Word Count</button>
             </fieldset>
         </div>
         <div id="ui-options" class="bar-section" style="text-align:right">
@@ -134,7 +134,7 @@
                 <span class="divider"></span>   
                 <button class="editing-button" style="cursor:pointer" onclick='window.open("./Emojis/index.html", "_blank")'>Emoji List</button>
                 <span class="divider"></span>
-                <button class="editing-button" style="cursor: pointer;" title="V 1.0.1" onclick="window.open('./Update.html', '_blank')">Updates</button>
+                <button class="editing-button" style="cursor: pointer;" title="V 1.7.1" onclick="window.open('./Update.html', '_blank')">Updates</button>
                 <span class="divider"></span>
                 <a href="./README.md"><button class="editing-button" style="cursor: pointer;" title="help">Help</button></a>
             </fieldset>
@@ -208,9 +208,7 @@
             <span class="divider"></span>
             <wbr>
             <button class="editing-button" onclick='startEndTypeInTextArea("[", "]:()", {cursor:-1})' title="Definition Layout"><u>A</u>:<i>a</i></button>
-            <button class="editing-button popup-button-trigger" onclick="typeInTextarea(`''''`, 2)" title="Quotation, (ctrl + q)">''A''
-                <button class="editing-button popup-button" onclick="typeInTextarea('> \'\'\'\'[author]', 4)" title="Block quote (ctrl + shift + b)">> ''A''[a]</button>
-            </button>
+            <button class="editing-button" onclick="typeInTextarea(`''''`, 2)" title="Quotation, (ctrl + q)">''A''</button>
             <span class="divider" style="border-style: dashed;"></span>
             <button class="editing-button" onclick="startEndTypeInTextArea('\\^[', ']')" title="Superscript, (ctrl + .)">A<sup>a</sup></button>
             <button class="editing-button" onclick="startEndTypeInTextArea('\\_[', ']')" title="Subscript, (ctrl + ,)">A<sub>a</sub></button>
@@ -416,6 +414,7 @@
                     <option value="HIGHLIGHT" title="syntax highlighting for code blocks">highlight</option>
                     <option value="L#" title="line numbers for code blocks">line numbers</option>
                     <option value="CSSCOLOR" title="css color previews for code blocks">color</option>
+                    <option value="SUMMARYMARKER" title="summary markers for detail-summaries">summary marker</option>
                 </optgroup>
             </select>
             <wbr>
@@ -428,7 +427,6 @@
                 <option value="c-cursive">cursive</option>
                 <option value="c-midieval">midieval</option>
                 <option value="c-hollow">hollow</option>
-                <option value="c-circled" title="(ctrl + shift + 4)">circled</option>
                 <option value="c-unicode" title="(ctrl + shift + 5)">unicode</option>
                 <option value="c-choose items='item1|item2'" title="put $1 or {value} where you want the choice to go, (ctrl + shift + 6)">choose</span></option>
                 <option value="c-random min=0 max=100 round=0'" title="put $1 or {value} where you want the number to go, (ctrl + shift + 7)">random</span></option>
@@ -470,6 +468,6 @@
     <script>
         let TextEditorColorInversion = document.getElementById("text-editor-color-inversion").checked;
         let PreviewColorInversion = document.getElementById("preview-color-inversion").checked;
-    </script>
+</script>
 </body>
 </html>

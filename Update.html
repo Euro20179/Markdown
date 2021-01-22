@@ -99,7 +99,10 @@
             <li><a href="#1.6">1.6</a></li>
             <ul>
                 <li><a href="#1.6.1">1.6.1</a></li>
+                <li><a href="#1.6.2">1.6.2</a></li>
             </ul>
+            <li><a href="#1.7.0">1.7.0</a></li>
+            <li><a href="#1.8.0">1.8.0</a></li>
         </ul>
     </ul>
     </div>
@@ -107,6 +110,94 @@
     <h1 style="font-size:3.8em;"><a href="./index.html" id="home-link">Home</a></h1>
     <h1 style="font-size:3.5em">Updates</h1>
     <hr>
+    <hr>
+    <br>
+    <div class="version-container" id="1.8.0">
+        <h2 class="version-num">1.8.0</h2>
+        <h3 class="added">Additions</h3>
+        <ul>
+            <li>\load -> javascript</li>
+            <ul>
+                <li>When page is loaded it will do that</li>
+                <li>if you want there to be text use replaceThis("return value")</li>
+            </ul>
+        </ul>
+        <h3 class="changed">Changes</h3>
+        <ul>
+            <li>#[id] is now #id (must take up whole line)</li>
+            <li>how undo works</li>
+            <li>Things ending with END now end with ;</li>
+        </ul>
+    </div>
+    <div class="version-container" id="1.7.0">
+        <h2 class="version-num">1.7.0</h2>
+        <h3 class="added">Additions</h3>
+        <ul>
+            <li>\function =><br>javascript<br>END</li>
+            <li>summary markers now have a space by default</li>
+            <li>_html class for styling, covers the whole body</li>
+            <li>#color->text|</li>
+            <li>ssize->text|</li>
+            <li>ffont->text|</li>
+            <li>%today%</li>
+            <li>%now%</li>
+            <li>"text" c><br>javascript<br>END</li>
+            <li>"text" r><br>javascript<br>END</li>
+            <li>||text||</li>
+        </ul>
+        <h3 class="changed">Changes</h3>
+        <ul>
+            <li>> PRO and > CON are case insensitive</li>
+            <li>> ''text''[author] is now
+                <br>
+                > text
+                <br>
+                - author
+            </li>
+            <li>{cursor:type:text} is now cursor[type]text|</li>
+        </ul>
+        <h3 class="fixed">Fixes</h3>
+        <ul>
+            <li>\count works as intended</li>
+        </ul>
+        <h3 class="removed">Removed</h3>
+        <ul>
+            <li>&lt;c-circled&gt;</li>
+            <li>:= as shortcut for &Assign;</li>
+            <li>old way of "text"[title]</li>
+            <li>{shadow text}</li>
+            <li>{whitespace}</li>
+        </ul>
+    </div>
+    <hr>
+    <br>
+    <div class="version-container" id="1.6.2">
+        <h2 class="version-num">1.6.2</h2>
+        <h3 class="added">Additions</h3>
+        <ul>
+            <li>DataLists</li>
+            <ul>
+                <li>
+                    Usable by doing:
+                    <pre>| item1
+| item2</pre>
+                </li>
+            </ul>
+            <li>Default to indent-> text</li>
+        </ul>
+        <h3 class="changed">Changes</h3>
+        <ul>
+            <li>{cursor:type:text} can now be {cursor:type<br>text}</li>
+            <li>Improved auto tab</li>
+        </ul>
+        <h3 class="fixed">Fixes</h3>
+        <ul>
+            <li>saved isn't ontop of everything</li>
+            <li>Mathjax duplication</li>
+        </ul>
+    </div>
+    <hr>
+    <br>
     <div class="version-container" id="1.6.1">
         <h2 class="version-num">1.6.1</h2>
         <h3 class="added">Additions</h3>

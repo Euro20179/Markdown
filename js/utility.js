@@ -23,7 +23,7 @@ function saveFile() {
     let file = new Blob([preview.innerHTML], { type: "text/markdown" });
     downloadB.href = URL.createObjectURL(file);
     const fileName = document.getElementById("file-name").value;
-    downloadB.download = `${fileName}.md`;
+    downloadB.download = `${fileName}.html`;
 }
 function savePDF() {
     (new Promise((resolve, reject) => {
@@ -70,6 +70,7 @@ function printMe(elem) {
 * @param {number} endSpot
 */
 function typeInTextarea(newText, endSpot = 1) {
+    actionHistory.add();
     let el = textEditor;
     let [start, end] = [el.selectionStart, el.selectionEnd];
     el.setRangeText(newText.substring(0, endSpot), start, start, 'end');
@@ -86,6 +87,7 @@ function typeInTextarea(newText, endSpot = 1) {
  * @param {string} endText
  */
 function startEndTypeInTextArea(startText, endText, options = null) {
+    actionHistory.add();
     let el = textEditor;
     let [start, end] = [el.selectionStart, el.selectionEnd];
     if (options) {
@@ -120,6 +122,7 @@ function startEndTypeInTextArea(startText, endText, options = null) {
     highlightCode();
 }
 function addTextTypeInTextArea(text, selectType = "end") {
+    actionHistory.add();
     let el = textEditor;
     el.setRangeText(text, el.selectionStart, el.selectionEnd, selectType);
     preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);

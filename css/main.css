@@ -295,8 +295,6 @@ input[type=number]{
 }
 
 .save-icon{
-  position: absolute;
-  right:50%;
   color:green;
 }
 .darkmode .save-icon{

@@ -10,26 +10,12 @@ math.config({
     // 'number' (default), 'BigNumber', or 'Fraction'
     precision: 64 // Number of significant digits for BigNumbers
 });
-const circleLetters = {
-    A: 9398,
-    " ": 32,
-    0: 9450,
-    1: 9312,
-    2: 9313,
-    3: 9314,
-    4: 9315,
-    5: 9316,
-    6: 9317,
-    7: 9318,
-    8: 9319,
-    9: 9320
-};
-for (let x = 1; x < 52; x++) {
-    circleLetters[CHARS[x]] = circleLetters["A"] + x;
-}
 Object.defineProperty(RegExp.prototype, "toJSON", {
     value: RegExp.prototype.toString
 });
+function generateScript(placeHolder, script, id) {
+    return '<span id="' + id + '">' + placeHolder + '</span><script>' + script.replaceAll("{ID}", id) + "</script>";
+}
 function addCustomRegex(searcher, replace) {
     userDefinedRegexes.push([new RegExp(searcher, "g"), replace]);
     localStorage.setItem("customRegularExpressions", JSON.stringify(userDefinedRegexes));
@@ -55,12 +41,20 @@ function loadRegexes() {
         userDefinedRegexes.push(regex);
     }
 }
+function generateId(amount = 10) {
+    let chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
+    let str = "";
+    for (let i = 0; i < amount; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
+}
 if (localStorage.getItem("customRegularExpressions")) {
     loadRegexes();
 }
 const regexes = [
     [
-        /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/g,
+        /(?<!\\)\\RAND(?:\{([0-9]+) ([0-9]+)\})?\\/gi,
         (_, one = null, two = null) => {
             if (!one) {
                 one = 0;
@@ -94,7 +88,33 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\):reg(?::|_)([a-z]):/g,
+        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)\s;$/gm,
+        (_, ev) => Function(ev)()
+    ],
+    [
+        /(?<!\\)\\load ? (?:=|-)> ?([^]+?)\s;$/gm,
+        (_, ev) => {
+            let id = (() => {
+                let str = "";
+                let chars = "abcdefghijklmnopqrstuvwxyz12345676890-";
+                for (let i = 0; i < 10; i++) {
+                    str += chars[Math.floor(Math.random() * chars.length)];
+                }
+                return str;
+            })();
+            return `<span id="${id}"></span><script>${ev.replace(/replaceThis\((.*?)\)/g, `document.getElementById("${id}").innerHTML = $1`)}</script>`;
+        }
+    ],
+    [
+        /(?<!\\)"(.*?)" ?c> ?([^]+?)\s;$/gm,
+        `<p onclick='$2'>$1</p>`
+    ],
+    [
+        /(?<!\\)"(.*?)" ?r> ?([^]+?)\s;$/gm,
+        `<p oncontextmenu='$2; event.preventDefault()'>$1</p>`
+    ],
+    [
+        /(?<!\\):reg(?::|_|-)([a-z]):/g,
         ":regional_indicator_$1:"
     ],
     [
@@ -193,17 +213,42 @@ const regexes = [
     ],
     [
         /(?<!\\)(\\u[0-9a-f]{4}|\\u\{[0-9a-f]+\})/gi,
-        (_, point) => {
-            return eval(`"${point}"`);
-        }
+        (_, point) => eval(`"${point}"`)
     ],
     [
-        /(?<!\\)> ?''(.*)''(?:\[(.+?)\])?/g,
-        (_, quote, author = null) => {
-            if (author) {
-                return `<blockquote>❝<i>${quote}</i>❞<br><span style='display:block;margin-left:2em;'>-<i><u>${author}</u></i></span></blockquote>`;
+        /(?<!\\)\|{2}(.*?)\|{2}/g,
+        `<span style="background-color:black;" onclick="this.style.backgroundColor = 'white'" oncontextmenu="this.style.backgroundColor = 'black'; event.preventDefault()">$1</span>`
+    ],
+    [
+        /(?<!\\)>([iub]*) ?(.*)\n-([iub]*) ?(.*)/g,
+        (_, quoteD, quote, authorD, author) => {
+            for (let d of quoteD) {
+                switch (d.toLowerCase()) {
+                    case "i":
+                        quote = `<i>${quote}</i>`;
+                        break;
+                    case "u":
+                        quote = `<u>${quote}</u>`;
+                        break;
+                    case "b":
+                        quote = `<b>${quote}</b>`;
+                        break;
+                }
             }
-            return `<blockquote>❝<i>${quote}</i>❞</blockquote>`;
+            for (let d of authorD) {
+                switch (d.toLowerCase()) {
+                    case "i":
+                        author = `<i>${author}</i>`;
+                        break;
+                    case "u":
+                        author = `<u>${author}</u>`;
+                        break;
+                    case "b":
+                        author = `<b>${author}</b>`;
+                        break;
+                }
+            }
+            return `<blockquote>${quote}<br><span style='display:block;margin-left:2em;'>-${author}</span></blockquote>`;
         }
     ],
     [
@@ -231,22 +276,16 @@ const regexes = [
         "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
-        /(?<!\\)#\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        (_, color, content, title) => {
-            return `<span title="${title ? title : ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`;
-        }
+        /(?<!\\)#\[?([a-z0-9]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
+        (_, color, content, title) => `<span title="${title ?? ""}" style="color:${color.match(/(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/) ? "#" + color : color}">${content}</span>`
     ],
     [
-        /(?<!\\)\{s(?!hadow|pace|amp):?([^ \n]+) (.*?)\}/g,
-        "<span style='font-size:$1'>$2</span>"
+        /(?<!\\)s\[?([a-z0-9]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
+        '<span style="font-size:$1" title="$3">$2</span>'
     ],
     [
-        /(?<!\\)s\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        "<span style='font-size:$1' title='$3'>$2</span>"
-    ],
-    [
-        /(?<!\\)f\[(.+?)\](.+?)\|(?:\[(.+?)\])?/g,
-        "<span title='$3' style='font-family:$1'>$2</span>"
+        /(?<!\\)f\[?([a-z0-9 ]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
+        '<span title="$3" style="font-family:$1">$2</span>'
     ],
     [
         /(?<!\\)\|(\^|v|(?:l|<)|>)?\[(.+?)\](.+?)\|(?:\[(.+)\])?/g,
@@ -296,10 +335,6 @@ const regexes = [
         "<span style='display:inline-block;margin-left:$1'>$2</span>"
     ],
     [
-        /(?<!\\)^(.+?)->(.+?)$/gm,
-        "<span style='display:inline-block;text-indent:$1'>$2</span>"
-    ],
-    [
         /(?<!\\)(.+?)<--(.+?)$/gm,
         "<span style='display:inline-block;margin-right:$2'>$1</span>"
     ],
@@ -308,12 +343,12 @@ const regexes = [
         (_, upDown, contents, title) => `<${upDown === "^" ? "sup" : "sub"} title='${title ? title : ""}'>${contents}</${upDown === "^" ? "sup" : "sub"}>`
     ],
     [
-        /(?<!\\)(?:D(?:ISP(?:LAY)?)?=? ?\[(.*?)\]|("|')(.+?)\2)\s*?T?(?:OOL)?T?(?:IP)?=? ?\[(.*?)\]/g,
-        '<span title="$4">$1$3</span>'
+        /(?<!\\)("|')(.+?)\1\[(.*?)\]/g,
+        '<span title="$3">$2</span>'
     ],
     [
         /(?<!\\)"(.+?)"(?:::(.+?)(?:\/(.+?))?)?\s?\.{3}(.*)/g,
-        "<details><summary data-marker='$2' data-marker-open='$3'>$1</summary>$4</details>"
+        "<details><summary data-marker='$2 ' data-marker-open='$3 '>$1</summary>$4</details>"
     ],
     [
         /(?<!\\)\{(k(?:ey)?|(?:cmd|samp|k(?:ey)?)):(.+?)\}/g,
@@ -324,32 +359,30 @@ const regexes = [
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
     [
-        /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})(?:-{3,}|<hr>)/g,
-        '<hr style="background-color:$1;color:$1;border-color:$1" />'
+        /(?<!\\)([A-z]+|#[0-fa-fA-F]{8}|#[0-fa-fA-F]{6}|#[0-fa-fA-F]{3})?(?:-{3,}|<hr>)/g,
+        '<hr style="background-color:$1;color:$1;border-color:$1" id="$2" />'
     ],
     [
-        /(?<![\\#])(#{1,6}) (.+) \[#?(.+?)\]/g,
-        (_, heading, contents, id) => `<h${heading.length} id=${id}>${contents}</h${heading.length}>`
+        /(?<![\\#])(^#{1,6})(?:_\[(.*?)\])? ([^#\n]+)(?:#(.+))?/gm,
+        (_, heading, border, contents, id) => border
+            ? `<h${heading.length} id="${id ?? ""}" style="display:block;border-bottom:${border};">${contents}</h${heading.length}>`
+            : `<h${heading.length} id=${id ?? ""}>${contents}</h${heading.length}>`
     ],
     [
-        /(?<!\\)\[(\.)?([0-9]+)->([0-9]+)\](?:\{?([0-9]+)\})?/g,
+        /(?<!\\)\[(\.)?([0-9]+)-([0-9]+)\](?:\{?([0-9]+)\})?/g,
         (_, disabled, min, max, value) => `${min}<input type="range" min="${min}" max="${max}" value="${value}" ${!disabled ? "disabled" : ""}>${max}`
     ],
     [
         /(?<!\\)\[(.+?)\](?: ?(.*))?:(?: |\n(?: |    )?)?(?:\[|\()(.*)(?:\)|\])/g,
-        (_, word, speech, def) => `<u>${word}</u>${speech ? " (" + speech + ")" : ""}:<br><dfn style='margin-left:1.5em;display:block'>${def}</dfn>`
+        (_, word, speech, def) => `<span class="_word">${word}</span><span class="_word-speech">${speech ? " (" + speech + ")" : ""}</span>:<br><span class="_definition" style='margin-left:1.5em;display:block'>${def}</span>`
     ],
     [
-        /(?<!\\)#\[(.*?)\]/g,
+        /(?<!\\)^#([^\s]*)$/gm,
         "<div id='$1'></div>"
     ],
     [
         /(?<!\\|!)\[(.*?)\]\((.+?)(?:\s(.*?))?\)/g,
-        (_, text, link, title) => {
-            if (!title)
-                return `<a title="${link}" href="${link}">${text}</a>`;
-            return `<a title="${title}" href="${link}">${text}</a>`;
-        }
+        (_, text, link, title) => `<a title="${title ?? link}" href="${link}">${text}</a>`
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^\^_(.+?)_\^\^(?:\[(.+?)\])?/g,
@@ -392,15 +425,11 @@ const regexes = [
         "<p style='text-align:left;margin-left:$1'>$2</p>"
     ],
     [
-        /(?<!\\)\{shadow:?(?:('|")(.+?)\1)? ?(.*?)\}/g,
-        "<span style='text-shadow:$2'>$3</span>"
-    ],
-    [
         /(?<!\\)(?:\.|class)\[(.+?)\](.*?)\|/g,
         '<span class="$1">$2</span>'
     ],
     [
-        /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/g,
+        /(?<!\\)(?<=(?:\* ?)?)(?:\.|>)(PRO|CON):?(.*)/gi,
         (_, PC, contents) => {
             let Pro = PC === "PRO";
             return `<span style="color:${Pro ? "green" : "red"}">${Pro ? "✓" : "☒"} ${contents}</span>`;
@@ -408,10 +437,10 @@ const regexes = [
     ],
     [
         /(?<!\\)A!\[(.+?)\]/g,
-        "<audio controls='controls' src='$1'>"
+        "<audio controls src='$1'>"
     ],
     [
-        /(?<!\\)YT!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
+        /(?<!\\)(?:YT|V)!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
         (_, link, width, height) => {
             return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
         }
@@ -425,13 +454,8 @@ const regexes = [
         '<span style="transform:skewX($1deg);display:inline-flex">$2</span>'
     ],
     [
-        /(?<!\\)\{(?:white)?space:? ?(?:([^\n ]+))?(?:(?: a:?)?(.+?))?\}/g,
-        "<c-spacer color='$1' amount='$2'></c-spacer>"
-    ],
-    [
-        /(?<!\\)\\olm(?:arker)?:([0-9]+)\\?(.+?)\\/g,
-        (_, layer, to) => {
-            let selector = "ol";
+        /(?<!\\)\\(ol|ul)m(?:arker)?:([0-9]+)(?:\s|:)(.+?)\\/g,
+        (_, selector, layer, to) => {
             layer = parseInt(layer);
             for (let i = 0; i < layer; i++) {
                 selector += " li ";
@@ -459,33 +483,28 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\ulm(?:arker)?:([0-9]+)\\?(.+?)\\/g,
-        (_, layer, to) => {
-            let selector = "ul";
-            layer = parseInt(layer);
-            for (let i = 0; i < layer; i++) {
-                selector += " li ";
-            }
-            let listStyleType = null;
-            if (to.match("TYPE:")) {
-                listStyleType = to.split("TYPE:")[1];
-                return `<style>
-${selector}{
-    list-style-type: ${listStyleType}
-}
-${selector} li{
-    list-style-type:inherit;
-}
-</style>`;
-            }
-            return `<style>
-    ${selector.trim()}::marker{
-        content: "${to}\\00a0";
-    }
-    ${selector} li::marker{
-        content:inherit;
-    }
-</style>`;
+        /(?<!\\)%today%/g,
+        () => {
+            let d = new Date();
+            return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+        }
+    ],
+    [
+        /(?<!\\)%truetoday%/g,
+        () => {
+            let d = new Date();
+            return generateScript(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`, 'let d = new Date(); document.getElementById("{ID}").innerHTML = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear()', generateId());
+        }
+    ],
+    [
+        /(?<!\\)%now%/g,
+        () => (new Date()).toLocaleTimeString()
+    ],
+    [
+        /(?<!\\)%truenow%/g,
+        () => {
+            let id = generateId();
+            return generateScript((new Date()).toLocaleTimeString(), 'document.getElementById("{ID}").innerHTML = (new Date()).toLocaleTimeString()', generateId());
         }
     ],
     [
@@ -604,7 +623,17 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\{cur(?:sor)?: ?(.*?)(?: |:)(.+?)\}(?:\[(.*?)\])?/g,
+        /(?<!\\)(^(?:\||=) .+\n?)+/gm,
+        (items) => {
+            let str = "<dl>";
+            for (let x of items.split("\n")) {
+                str += x[0] === "=" ? `<dt>${x.slice(1).trim()}</dt>` : `<dd>${x.slice(1).trim()}</dd>`;
+            }
+            return str + "</dl>";
+        }
+    ],
+    [
+        /(?<!\\)cur(?:sor)?\[(.*?)\](.*?)\|(?:\[(.*?)\])?/g,
         '<span style="cursor:$1" title="$3">$2</span>'
     ],
     [
@@ -624,10 +653,6 @@ ${selector} li{
         "&ne;"
     ],
     [
-        /(?<!\\):=/g,
-        "&Assign;"
-    ],
-    [
         /(?<!\\)<\.\.\./g,
         "&#8672;"
     ],
@@ -636,32 +661,33 @@ ${selector} li{
         "&#8674;"
     ],
     [
-        /(?<!\\)\[(.+?)\]\*([0-9]+)/g,
+        /(?<!\\)^(.*?)->(.+?)$/gm,
+        (_, indent, text) => `<span style="display:inline-block; text-indent: ${indent || "2em"}">${text}</span>`
+    ],
+    [
+        /(?<!\\)\[([^]+?)\]\*([0-9]+)/g,
         (_, chars, count) => {
             return chars.multiply(Number(count));
         }
     ],
     [
         /(?<!\\)\\count:([^\n]+)((?:\n)re)?\\/g,
-        (_, search, Re) => {
-            if (Re) {
-                return [...preview.textContent.matchAll(search)].length;
-            }
-            return preview.textContent.split(search).length - 1;
-        }
+        (_, search, Re) => Re
+            ? [...preview.innerText.matchAll(search)].length
+            : preview.innerText.split(search).length - 1
     ],
     [
-        /(?<!\\)\\s\\/g,
+        /(?<!\\)(?:\\s\\|\\\$)/g,
         ""
     ],
 ];
 function convert(value, custom = true, nonCustom = true) {
+    actionHistory.add();
     if (custom) {
-        //handles the [$x=2] thing
-        for (let x of value.matchAll(/(?:\[|<)(?:var:|\$)([^=]*)=([^\]]+)(?:\]|>)/g)) {
-            let regex = new RegExp(`(?:\\[|<)${x[1]}(?:>|\\])`, "g");
-            value = value.replace(x[0], "");
-            value = value.replace(regex, x[2]);
+        //handles the $x=2 END thing
+        for (let x of value.matchAll(/^(?:var:|\$)([^=]*)=([^]+?)\s;$/gm)) {
+            let regex = new RegExp(`%${x[1]}%`, "g");
+            value = value.replace(x[0], "").replace(regex, x[2]);
         }
         //loops through the lists of regexes
         userDefinedRegexes.forEach(item => {
@@ -672,5 +698,45 @@ function convert(value, custom = true, nonCustom = true) {
         });
     }
     //@ts-ignore
-    return nonCustom ? marked(value) : value;
+    return "<main class='_html'>" + (nonCustom ? marked(value) : value) + `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js">MathJax.Hub.Config({
+        jax: [
+            'input/TeX',
+            'output/HTML-CSS',
+        ],
+        extensions: [
+            'tex2jax.js',
+            'AssistiveMML.js',
+            'a11y/accessibility-menu.js',
+        ],
+        TeX: {
+        extensions: [
+            'AMSmath.js',
+            'AMSsymbols.js',
+            'noErrors.js',
+            'noUndefined.js',
+        ]
+        },
+        tex2jax: {
+        inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+        ],
+        displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+        ],
+        processEscapes: true
+        },
+        showMathMenu: false,
+        showProcessingMessages: false,
+        messageStyle: 'none',
+        skipStartupTypeset: false, // disable initial rendering
+        positionToHash: false
+    })
+// set specific container to render, can be delayed too
+    //@ts-ignore
+    MathJax.Hub.Queue(
+        //@ts-ignore
+        ['Typeset', MathJax.Hub, 'preview']
+    )</script></main>`;
 }
