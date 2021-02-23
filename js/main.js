@@ -20,18 +20,16 @@ let AutoCompleteElements = document.getElementById("autocomplete-elements").chec
 let tabOverAmount = 0;
 let lastKeyStrokeWasEnter = false;
 let autoTab = document.getElementById("auto-tab");
-const actionHistory = new (class {
-    constructor() {
-        this.history = [];
-    }
+const actionHistory = {
+    history: [],
     undo() {
-        this.history.splice(this.history.length - 1, 1);
-        textEditor.value = this.history[this.history.length - 1];
-    }
+        actionHistory.history.splice(actionHistory.history.length - 1, 1);
+        textEditor.value = actionHistory.history[actionHistory.history.length - 1];
+    },
     add() {
-        this.history.push(textEditor.value);
+        actionHistory.history.push(textEditor.value);
     }
-})();
+};
 function highlightCode() {
     if (useSyntaxHighlighting.checked)
         //@ts-ignore
@@ -176,14 +174,6 @@ function addSpace() {
     let amount = document.getElementById("space-amount").value;
     let unit = document.getElementById("space-unit").value;
     addTextTypeInTextArea(`{space${color} ${amount}${unit}}`);
-}
-function addMarquee() {
-    let dir = document.getElementById("marquee-direction").value;
-    let width = document.getElementById("marquee-width").value;
-    let height = document.getElementById('marquee-height').value;
-    let speed = document.getElementById("marquee-speed").value;
-    let unit = document.getElementById("marquee-unit").value;
-    startEndTypeInTextArea(`{move[dir"${dir}"w"${width}${unit}"h"${height}${unit}"s"${speed}"] `, "}");
 }
 function addShadow() {
     let unit = document.getElementById('shadow-dir-unit').value;
