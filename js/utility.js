@@ -123,10 +123,7 @@ function startEndTypeInTextArea(startText, endText, options = null) {
 }
 function addTextTypeInTextArea(text, selectType = "end") {
     actionHistory.add();
-    let el = textEditor;
-    el.setRangeText(text, el.selectionStart, el.selectionEnd, selectType);
-    preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
-    highlightCode();
+    startEndTypeInTextArea(text, "");
 }
 String.prototype.multiply = function (times) {
     let newString = this;
@@ -136,9 +133,5 @@ String.prototype.multiply = function (times) {
     return newString;
 };
 function mulString(str, amount) {
-    let newStr = "";
-    for (let i = 0; i < amount; i++) {
-        newStr += str;
-    }
-    return newStr;
+    return str.multiply(amount);
 }
