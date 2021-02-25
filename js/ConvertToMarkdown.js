@@ -128,10 +128,6 @@ const regexes = [
         "$1⁄$2"
     ],
     [
-        /(?<!\\)<spin speed="(.*?)">/g,
-        "<spin style='animation-duration: $1'>"
-    ],
-    [
         /(?<!\\)--->/g,
         "→"
     ],
@@ -496,7 +492,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
+        /(?<!\\)\\include(?:\{(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|rainbow|highlight|l#|linenumber|csscolor)\}|(?::|  )(summarymarker|softblink|blink|placeholder|kbd|samp|cmd|spin|rainbow|highlight|l#|linenumber|csscolor)\\)/gi,
         (_, include, include2) => {
             include = include2 ?? include;
             switch (include.toUpperCase()) {
@@ -511,8 +507,6 @@ ${selector} li{
                 case "SAMP":
                 case "CMD":
                     return `<style>${include}{font-family:monospace, monospace;color:green;background-color:black;padding:2px}${include}::selection{background-color:white}</style>`;
-                case "SPIN":
-                    return `<style>spin{transform:rotate(0deg);display:inline-block;animation-name:spin-animation;animation-iteration-count:infinite;animation-duration:200ms;animation-timing-function:linear}@keyframes spin-animation{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}</style>`;
                 case "RAINBOW":
                     return `<style>rainbow{animation:rainbow-an 2000ms linear infinite;color:blue}@keyframes rainbow-an{0%{color:#f00}16%{color:#ffff00}32%{color:#00ff00}48%{color:#00ffff}64%{color:#0000ff}80%{color:#ff00ff}100%{color:#f00}}</style>`;
                 case "HIGHLIGHT":
