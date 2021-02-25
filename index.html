@@ -70,10 +70,10 @@
         <div id="custom-regex" class="bar-section">
             <fieldset>
                 <input type="text" id="custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">
-                <input type="text" id="custom-regex-replacer" placeholder="Replace string" style="width:15%" title="the string that will replace the find">            
+                <input type="text" id="custom-regex-replacer" onkeydown="if (event.key == 'Enter') document.getElementById('add-regex-button').click()" placeholder="Replace string" style="width:15%" title="the string that will replace the find">            
                 <button class="editing-button" id="add-regex-button" onclick="let searcher = document.getElementById('custom-regex-searcher'); let replacer = document.getElementById('custom-regex-replacer'); addCustomRegex(searcher.value, replacer.value);alert(`Added ${searcher.value} which replaces with:\n${replacer.value}`);searcher.value = ''; replacer.value = '';">Add</button>
                 <span class="divider" dashed></span>
-                <input type="text" id="remove-custom-regex-searcher" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">         
+                <input type="text" id="remove-custom-regex-searcher" onkeydown="if (event.key == 'Enter') document.getElementById('remove-regex-button').click()" placeholder="Search Regular expression" style="width:15%;" title="the regular expression that will be used as find">         
                 <button class="editing-button" id="remove-regex-button" onclick="let searcher = document.getElementById('remove-custom-regex-searcher'); removeCustomRegex(searcher.value); alert(`Removed: ${searcher.value}`); searcher.value = ''">remove</button>
                 <button class="editing-button" onclick="window.open('./Searches/index.html', '_blank')">Custom Searches</button>
             </fieldset>
@@ -343,8 +343,8 @@
                 <label title="copy to clipboard"><input type="number" value="12484" oninput="document.getElementById('unicode-character').textContent = String.fromCodePoint(this.value)" style="width:90px" title="unicode character value"><label id="unicode-character" style="padding:5px;border:1px inset black;background-color:white;color:black;cursor: pointer;" onclick="let copyArea = document.getElementById('unicode-character-copy-area');copyArea.value=this.textContent;copyArea.select();document.execCommand('copy');">&#12484;</label></label>
                 <span class="divider"></span>
                 <label>
-                    <input type="text" title="Custom emoji name" id="add-custom-emote-name" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`">
-                    <input type="text" title="Custom emoji value" id="add-custom-emote-value" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
+		    <input type="text" title="Custom emoji name" id="add-custom-emote-name" onkeydown="if (event.key == 'Enter') document.getElementById('add-emoji-button').click()" placeholder="name" style="width:6em" oninput="this.title=`Name: ${this.value}`" onkeydown="if (event.key == 'Enter') document.getElementById('remove-emoji-button').click()">
+                    <input type="text" title="Custom emoji value" id="add-custom-emote-value" onkeydown="if (event.key == 'Enter') document.getElementById('add-emoji-button').click()" placeholder="value" style="width:auto" oninput="this.title=`Name: ${this.value}`">
                     <button id="add-emoji-button" class="editing-button" onclick="let name = document.getElementById('add-custom-emote-name'); let value = document.getElementById('add-custom-emote-value'); addCustomEmote(name.value, convert(value.value, cusotmMdChkbx, false)); alert(`Added: '${name.value}' that represents the emote: '${value.value}'`); name.value = ''; value.value = ''">Add emoji</button>
                 </label>
                 <span class="divider" dashed></span>

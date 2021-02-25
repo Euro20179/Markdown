@@ -869,29 +869,4 @@ function findMatchingRegexes(log = true) {
         return [];
     });
 }
-document.getElementById("add-custom-emote-value").addEventListener("keydown", e => {
-    if (e.key == "Enter") {
-        document.getElementById("add-emoji-button").click();
-    }
-});
-document.getElementById("remove-custom-emote").addEventListener("keydown", e => {
-    if (e.key == "Enter") {
-        document.getElementById("remove-emoji-button").click();
-    }
-});
-document.getElementById("add-custom-emote-name").addEventListener("keydown", e => {
-    if (e.key == "Enter") {
-        document.getElementById("add-emoji-button").click();
-    }
-});
-document.getElementById("custom-regex-replacer").addEventListener("keydown", e => {
-    if (e.key == "Enter") {
-        document.getElementById("add-regex-button").click();
-    }
-});
-document.getElementById("remove-custom-regex-searcher").addEventListener('keydown', e => {
-    if (e.key == "Enter") {
-        document.getElementById("remove-regex-button").click();
-    }
-});
 document.querySelector("body").removeChild(document.getElementById("loading-screen"));
