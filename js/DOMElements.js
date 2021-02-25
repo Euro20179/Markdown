@@ -137,16 +137,6 @@ class Shadow extends HTMLElement{
         return this.getAttribute("color") ?? "lightgrey"
     }
 }
-class Alert extends HTMLElement{
-    connectedCallback(){
-        this.onclick = ()=>{
-            alert(this.alert)
-        }
-    }
-    get alert(){
-        return this.getAttribute("alert") ?? this.textContent
-    }
-}
 
 class Variables extends HTMLElement{
     connectedCallback(){
