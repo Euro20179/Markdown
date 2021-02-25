@@ -130,6 +130,11 @@ span.divider[dashed]{
   border-style:outset;
 }
 
+.darkmode .editing-button {
+    background-color: #474747; 
+    color: white;
+}
+
 .darkmode{
   background-color: black;
 }
