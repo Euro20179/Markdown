@@ -201,7 +201,7 @@ const regexes = [
     ],
     [
         /(?<!\\)\|{2}(.*?)\|{2}/g,
-        `<span style="background-color:black;" onclick="this.style.backgroundColor = 'white'" oncontextmenu="this.style.backgroundColor = 'black'; event.preventDefault()">$1</span>`
+        `<span style="cursor:pointer; background-color:black;" onclick="this.style.backgroundColor = this.style.backgroundColor == 'white' ? 'black' : 'white'">$1</span>`
     ],
     [
         /(?<!\\)>([iub]*) ?(.*)\n-([iub]*) ?(.*)/g,
@@ -250,14 +250,6 @@ const regexes = [
     [
         /(?<!\\)\[(\.)?( |x)\](?!\()/g,
         (_, interactive, checked) => `<input type="checkbox" ${checked === "x" ? "checked" : ""} ${!interactive ? "disabled" : ""}>`
-    ],
-    [
-        /(?<!\\)\{g#:?(?:"|')([^\-\n]*, ?)?rainbow(?:"|')(.*)\}/g,
-        "<span style='background-image:linear-gradient($1 #ff0000, #00ff00, #0000ff, #ff0000)'>$2</span>"
-    ],
-    [
-        /(?<!\\)\{g#:?("|')(.*), ?([^,\}]*)\1([^\}]*)\}/g,
-        "<span style='background-image:linear-gradient($2, $3)'>$4</span>"
     ],
     [
         /(?<!\\)#\[?([a-z0-9]+)(?:\]| -> )(.+?)\|(?:\[(.+?)\])?/gi,
@@ -428,10 +420,6 @@ const regexes = [
         (_, link, width, height) => {
             return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
         }
-    ],
-    [
-        /(?<!\\)\{(?:scroll|move|shift):?(?:(?:dir)?:?(?:"|')(.+?)(?:"|'))? ?(?:w?(?:idth)?:?(?:"|')(.+?)(?:"|'))? ?(?:h?(?:eight)?:?(?:"|')(.+?)(?:"|'))? ?(?:s?(?:croll)?(?:amount)?(?:peed)?:?(?:"|')(.+?)(?:"|'))?:? ?(.+?)\}/g,
-        "<marquee direction='$1' height='$3' width='$2' scrollamount='$4'>$5</marquee>"
     ],
     [
         /(?<!\\)\[([0-9-]+?)\]\*(.+?)\*/g,
