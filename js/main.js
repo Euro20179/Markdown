@@ -72,11 +72,8 @@ for (let queary of urlParams) {
 }
 setDarkMode();
 function setDarkMode() {
-    if (DarkMode) {
-        document.body.classList.add("darkmode");
-    }
-    else
-        document.body.classList.remove("darkmode");
+    //this is very normal syntax that i highly recommend
+    document.body.classList[DarkMode ? "add" : "remove"]("darkmode");
 }
 function mathJax() {
     // TeX-AMS_HTML

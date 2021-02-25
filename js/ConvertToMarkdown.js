@@ -88,10 +88,6 @@ const regexes = [
         (_, ev) => eval(ev)
     ],
     [
-        /(?<!\\)\\function ?(?:=|-)> ?([^]+?)\s;$/gm,
-        (_, ev) => Function(ev)()
-    ],
-    [
         /(?<!\\)\\load ? (?:=|-)> ?([^]+?)\s;$/gm,
         (_, ev) => {
             let id = (() => {
@@ -108,14 +104,6 @@ const regexes = [
     [
         /(?<!\\)"(.*?)" ?c> ?([^]+?)\s;$/gm,
         `<p onclick='$2'>$1</p>`
-    ],
-    [
-        /(?<!\\)"(.*?)" ?r> ?([^]+?)\s;$/gm,
-        `<p oncontextmenu='$2; event.preventDefault()'>$1</p>`
-    ],
-    [
-        /(?<!\\):reg(?::|_|-)([a-z]):/g,
-        ":regional_indicator_$1:"
     ],
     [
         /(?<!\\):(.+?):/g,
