@@ -542,14 +542,6 @@ function keyPresses(e) {
                 startEndTypeInTextArea('|', '||\n|---|---|\n|||');
                 e.preventDefault();
                 break;
-            case "K":
-                startEndTypeInTextArea("{key:", "}");
-                e.preventDefault();
-                break;
-            case ":":
-                startEndTypeInTextArea("{cmd:", "}");
-                e.preventDefault();
-                break;
             case "!":
                 startEndTypeInTextArea(`<c-3d>`, `</c-3d>`);
                 e.preventDefault();
