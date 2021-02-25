@@ -327,10 +327,6 @@ const regexes = [
         "<details><summary data-marker='$2 ' data-marker-open='$3 '>$1</summary>$4</details>"
     ],
     [
-        /(?<!\\)\{(k(?:ey)?|(?:cmd|samp|k(?:ey)?)):(.+?)\}/g,
-        (_, type, contents) => `<${type != "k" && type != "key" ? type : "kbd"}>${contents}</${type != "k" && type != "key" ? type : "kbd"}>`
-    ],
-    [
         /(?<!\\)(?:\[(.*?)\])?\*-(.+?)-\*(?:\[(.+?)\])?/g,
         "<mark title='$3' style='background-color:$1'>$2</mark>"
     ],
