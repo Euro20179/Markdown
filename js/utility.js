@@ -123,7 +123,10 @@ function startEndTypeInTextArea(startText, endText, options = null) {
 }
 function addTextTypeInTextArea(text, selectType = "end") {
     actionHistory.add();
-    startEndTypeInTextArea(text, "");
+    let el = textEditor;
+    el.setRangeText(text, el.selectionStart, el.selectionEnd, selectType);
+    preview.innerHTML = convert(el.value, cusotmMdChkbx.checked);
+    highlightCode();
 }
 String.prototype.multiply = function (times) {
     let newString = this;

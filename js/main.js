@@ -246,17 +246,12 @@ function keyPresses(e) {
     if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
         switch (e.key) {
             case "Backspace":
-                if (autoTab.checked) {
-                    if (lastKeyStrokeWasEnter) {
-                        if (tabOverAmount > 0) {
-                            tabOverAmount--;
-                        }
-                    }
+                if (autoTab.checked && lastKeyStrokeWasEnter && tabOverAmount > 0) {
+                    tabOverAmount--;
                 }
                 break;
             case "Enter":
                 if (autoTab.checked) {
-                    console.log(tabOverAmount);
                     if (tabOverAmount > 0) {
                         //@ts-ignore
                         if (lastKeyStrokeWasEnter) {
