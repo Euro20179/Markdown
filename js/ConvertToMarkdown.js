@@ -438,7 +438,7 @@ const regexes = [
         '<span style="transform:skewX($1deg);display:inline-flex">$2</span>'
     ],
     [
-        /(?<!\\)\\(ol|ul)m(?:arker)?:([0-9]+)(?:\s|:)(.+?)\\/g,
+        /(?<!\\)\\(ol|ul)m(?:arker)?\{([0-9]+),\s?(.+?)\}\\/g,
         (_, selector, layer, to) => {
             layer = parseInt(layer);
             for (let i = 0; i < layer; i++) {
