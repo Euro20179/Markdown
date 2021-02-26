@@ -506,20 +506,18 @@ document.addEventListener("keydown", e=>{
         printMe(preview)
     }
     else if(e.altKey && e.shiftKey && e.ctrlKey){
+	if ("SBP".includes(e.key)) e.preventDefault()
         switch(e.key.toUpperCase()){
             case "S": 
                 saveFile();       
                 document.getElementById("download").click()    
-                e.preventDefault()    
                 break;
             case "B":
                 savePlain();
                 document.getElementById("download-plain").click();
-                e.preventDefault()
                 break;
             case "P":
                 savePDF();
-                e.preventDefault()
                 break; 
         }
         if(document.activeElement == textEditor){
