@@ -289,12 +289,6 @@ const regexes = [
         }
     ],
     [
-        /(?<!\\|\.)(?:\[([0-9]+.{2,4})?(?::|x)([0-9]+.{2,4})?\])(!)?(.+?)\|/g,
-        (_, width, height, resize, text) => {
-            return `<c-textbox width="${width ?? ""}" height="${height ?? ""}"${resize ? ' style="resize:none;"' : ""}>${text}</c-textbox>`;
-        }
-    ],
-    [
         /(?<!\\)\((C|R)\)/g,
         (_, CR) => CR == "C" ? "©" : "®"
     ],
