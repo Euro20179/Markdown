@@ -2,6 +2,22 @@
 
 I wanted to add some "features" to markdown so I put a bunch of regular expressions in a list and ran input from a textarea through that.
 
+# LINES OF CODE
+
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+JavaScript                       9              7             66           3690\
+HTML                             4             12              0           1326\
+CSS                              6            142            139            632\
+Markdown                         1             43              0            173\
+JSON                             1              0              0              9\
+Bourne Shell                     1              1              0              6
+-------------------------------------------------------------------------------
+SUM:                            22            205            205           5836
+-------------------------------------------------------------------------------
+
+
 # Queary Strings
 * \* or %23 = #
 * lightmode: sets to lightmode
