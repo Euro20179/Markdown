@@ -348,39 +348,39 @@ const regexes = [
     ],
     [
         /(?<!\\|!)\[(.*?)\]\((.+?)(?:\s(.*?))?\)/g,
-        (_, text, link, title) => `<a title="${title ?? link}" href="${link}">${text}</a>`
+        (_, text, link, title) => `<a class="_link" title="${title ?? link}" href="${link}">${text}</a>`
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^\^_(.+?)_\^\^(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:overline double $1" title="$3">$2</span>'
+        '<span style="text-decoration:overline double $1" title="$3" class="_overline _double">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^_(.+?)_\^(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:overline $1" title="$3">$2</span>'
+        '<span style="text-decoration:overline $1" title="$3" class="_overline">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^\.(.+?)\.\^(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:overline dotted $1" title="$3">$2</span>'
+        '<span style="text-decoration:overline dotted $1" title="$3" class="_overline _dotted">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\^~(.+?)~\^(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:overline wavy $1" title="$3">$2</span>'
+        '<span style="text-decoration:overline wavy $1" title="$3" class="_wavy _overline">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?\._(.+?)_\.(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:underline dotted $1" title="$3">$2</span>'
+        '<span style="text-decoration:underline dotted $1" title="$3" id="_dotted">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?~_(.+?)_~(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:underline wavy $1" title="$3">$2</span>'
+        '<span style="text-decoration:underline wavy $1" title="$3" class="_wavy">$2</span>'
     ],
     [
         /(?<!\\)(?:\[(.+?)\])?__(.+?)__(?:\[(.+?)\])?/g,
-        '<span style="text-decoration:underline double $1" title="$3">$2</span>'
+        '<span style="text-decoration:underline double $1" title="$3" class="_underline _double">$2</span>'
     ],
     [
         /(?<!\\|_)(?:\[(.+?)\])?_(.+?)_(?:\[(.+?)\])?/g,
-        "<u style='text-decoration:underline $1' title='$3'>$2</u>"
+        "<u style='text-decoration:underline $1' title='$3' class=\"_underline\">$2</u>"
     ],
     [
         /(?<!\\)\|->(.+?)(?: ?<(.*?))?\|/g,
@@ -406,7 +406,7 @@ const regexes = [
         "<audio controls src='$1'>"
     ],
     [
-        /(?<!\\)(?:YT|V)!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
+        /(?<!\\)YT!\[(.+?)\](?:\(([0-9\.]*)(?: |, ?)([0-9\.]*)\))?/g,
         (_, link, width, height) => {
             return `<iframe width="${width}" height="${height}" src="${link.replace("watch?v=", "embed/")}"></iframe>`;
         }
@@ -611,14 +611,6 @@ ${selector} li{
     [
         /(?<!\\)\/=/g,
         "&ne;"
-    ],
-    [
-        /(?<!\\)<\.\.\./g,
-        "&#8672;"
-    ],
-    [
-        /(?<!\\)\.\.\.>/g,
-        "&#8674;"
     ],
     [
         /(?<!\\)^(.*?)->(.+?)$/gm,
