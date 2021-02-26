@@ -261,6 +261,7 @@ function keyPresses(e: KeyboardEvent){
             case "Backspace":
                 if(autoTab.checked && lastKeyStrokeWasEnter &&  tabOverAmount > 0){
 		    tabOverAmount--
+		    lastKeyStrokeWasEnter = true
                 }
                 break;
             case "Enter":
@@ -315,7 +316,7 @@ function keyPresses(e: KeyboardEvent){
             default:
                 break;
         }
-        if(e.key != "Enter")
+        if(e.key != "Enter" && e.key != "Backspace")
             lastKeyStrokeWasEnter = false;
     }
     //ctrl + key
