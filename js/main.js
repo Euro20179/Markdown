@@ -620,6 +620,15 @@ function keyPresses(e) {
                 typeInTextarea("^^__^^", 3),
                     e.preventDefault();
                 break;
+            case "C":
+                textEditor.style.cursor = "wait";
+                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
+                highlightCode();
+                if (useMathJaxCheckbox.checked)
+                    mathJax();
+                textEditor.style.cursor = "initial";
+                e.preventDefault();
+                break;
         }
     }
 }
