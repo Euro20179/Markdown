@@ -170,7 +170,7 @@ function addSpace() {
     let color = document.getElementById("space-color").value;
     let amount = document.getElementById("space-amount").value;
     let unit = document.getElementById("space-unit").value;
-    addTextTypeInTextArea(`{space${color} ${amount}${unit}}`);
+    startEndTypeInTextArea(`{space${color} ${amount}${unit}}`, "");
 }
 function addShadow() {
     let unit = document.getElementById('shadow-dir-unit').value;
@@ -184,10 +184,10 @@ function addShadow() {
 function addOLULInclude() {
     let types = document.getElementById("ul-ol-types").value;
     if (types) {
-        addTextTypeInTextArea(`\\${document.getElementById('ul-ol').value}marker:${document.getElementById('list-layer').value}\\TYPE:${types}\\`);
+        startEndTypeInTextArea(`\\${document.getElementById('ul-ol').value}marker:${document.getElementById('list-layer').value}\\TYPE:${types}\\`, "");
     }
     else
-        addTextTypeInTextArea(`\\${document.getElementById('ul-ol').value}marker:${document.getElementById('list-layer').value}\\${document.getElementById('marker-text').value}\\`);
+        startEndTypeInTextArea(`\\${document.getElementById('ul-ol').value}marker:${document.getElementById('list-layer').value}\\${document.getElementById('marker-text').value}\\`, "");
 }
 function addToCurrElem(e) {
     if (currTypingElem[currTypingElem.length - 1] === " " && TypingElem) {
@@ -223,7 +223,7 @@ function keyPresses(e) {
         //ends the typing element
         else if (TypingElem && e.key == ">") {
             if (["hr", "wbr", "br"].indexOf(currTypingElem.join("")) < 0) {
-                addTextTypeInTextArea(">");
+                startEndTypeInTextArea(">", "");
                 //+2 is the length of < and >
                 //extraElemTextLength is the stuff like style=
                 textEditor.setSelectionRange(elementInnerHTML[1] + currTypingElem.length + 2 + extraElemTextLength, elementInnerHTML[1] + currTypingElem.length + 2 + extraElemTextLength);
@@ -364,7 +364,7 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "p":
-                addTextTypeInTextArea(">PRO: ");
+                typeInTextarea(">PRO: ", 6);
                 e.preventDefault();
                 break;
             case "1":
@@ -591,7 +591,7 @@ function keyPresses(e) {
                     e.preventDefault();
                 break;
             case "p":
-                addTextTypeInTextArea(">CON: ");
+                startEndTypeInTextArea(">CON: ", "");
                 e.preventDefault();
                 break;
             case "i":
@@ -613,7 +613,7 @@ function keyPresses(e) {
                 e.preventDefault();
                 break;
             case "F":
-                addTextTypeInTextArea("\\font{arial}\n");
+                startEndTypeInTextArea("\\font{arial}\n", "");
                 e.preventDefault();
                 break;
             case "U":
