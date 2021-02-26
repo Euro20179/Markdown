@@ -301,15 +301,6 @@ function keyPresses(e) {
                 document.getElementById("live-interprate").click();
                 e.preventDefault();
                 break;
-            case "F1":
-                textEditor.style.cursor = "wait";
-                preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
-                highlightCode();
-                if (useMathJaxCheckbox.checked)
-                    mathJax();
-                textEditor.style.cursor = "initial";
-                e.preventDefault();
-                break;
             default:
                 break;
         }
@@ -318,108 +309,85 @@ function keyPresses(e) {
     }
     //ctrl + key
     else if (e.ctrlKey && !e.shiftKey && !e.altKey) {
+        if ("q,.burdhiesp1fg23456789kz'".includes(e.key))
+            e.preventDefault();
         switch (e.key) {
             case "q":
                 typeInTextarea("''''", 2);
-                e.preventDefault();
                 break;
             case ",":
                 startEndTypeInTextArea("\\_[", "]");
-                e.preventDefault();
                 break;
             case ".":
                 startEndTypeInTextArea("\\^[", "]");
-                e.preventDefault();
                 break;
             case "b":
                 typeInTextarea("****", 2);
-                e.preventDefault();
                 break;
             case "u":
                 typeInTextarea("__");
-                e.preventDefault();
                 break;
             case "r":
                 typeInTextarea("~__~", 2);
-                e.preventDefault();
                 break;
             case "d":
                 typeInTextarea(".__.", 2);
-                e.preventDefault();
                 break;
             case "h":
                 typeInTextarea("*--*", 2);
-                e.preventDefault();
                 break;
             case "i":
                 typeInTextarea('**');
-                e.preventDefault();
                 break;
             case "e":
                 typeInTextarea("``");
-                e.preventDefault();
                 break;
             case "s":
                 typeInTextarea('~~~~', 2);
-                e.preventDefault();
                 break;
             case "p":
                 typeInTextarea(">PRO: ", 6);
-                e.preventDefault();
                 break;
             case "1":
                 fileTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "f":
                 countTab.tabTitle.click();
                 document.getElementById("find-search").focus();
-                e.preventDefault();
                 break;
             case "g":
                 countTab.tabTitle.click();
                 document.getElementById("preview-search-count").focus();
-                e.preventDefault();
                 break;
             case "2":
                 countTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "3":
                 homeTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "4":
                 insertTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "5":
                 emojisTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "6":
                 regexTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "7":
                 helpTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "8":
                 UIOptionsTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "9":
                 optionsTab.tabTitle.click();
-                e.preventDefault();
                 break;
             case "k":
                 startEndTypeInTextArea("[](", ")", { cursor: 1 });
-                e.preventDefault();
                 break;
             case "z":
                 actionHistory.undo();
-                e.preventDefault();
                 break;
             case "'":
                 addOLULInclude();
@@ -429,31 +397,27 @@ function keyPresses(e) {
     }
     //alt key
     else if (e.altKey && !e.shiftKey && !e.ctrlKey) {
+        if ("pishb69421".includes(e.key))
+            e.preventDefault();
         switch (e.key) {
             case "p":
                 contextMenuColorpicker.click();
-                e.preventDefault();
                 break;
             case "i":
                 typeInTextarea("``");
-                e.preventDefault();
                 break;
             case "s":
                 addShadow();
-                e.preventDefault();
                 break;
             case "h":
                 addSpace();
-                e.preventDefault();
                 break;
             case "b":
                 addBorder();
-                e.preventDefault();
                 break;
             case "6":
                 DarkMode = !DarkMode;
                 setDarkMode();
-                e.preventDefault();
                 break;
             case "9":
                 useMathJaxCheckbox.checked = !useMathJaxCheckbox.checked;
@@ -461,15 +425,12 @@ function keyPresses(e) {
                     mathJax();
                 else
                     preview.innerHTML = convert(textEditor.value, cusotmMdChkbx.checked);
-                e.preventDefault();
                 break;
             case "4":
                 document.getElementById("custom").click();
-                e.preventDefault();
                 break;
             case "2":
                 document.getElementById("live-interprate").click();
-                e.preventDefault();
                 break;
             case "1":
                 textEditor.style.cursor = "wait";
@@ -478,42 +439,32 @@ function keyPresses(e) {
                 if (useMathJaxCheckbox.checked)
                     mathJax();
                 textEditor.style.cursor = "initial";
-                e.preventDefault();
                 break;
         }
     }
     //ctrl + shift + key
     else if (e.ctrlKey && e.shiftKey && !e.altKey) {
+        if ("URD?FESZBT!@#$%^&*{}|".includes(e.key))
+            e.preventDefault();
         switch (e.key.toUpperCase()) {
             case "U":
                 typeInTextarea('^__^', 2);
-                e.preventDefault();
                 break;
             case "R":
                 typeInTextarea('^~~^', 2);
-                e.preventDefault();
                 break;
             case "D":
                 typeInTextarea('^..^', 2);
-                e.preventDefault();
                 break;
             case "?":
                 startEndTypeInTextArea("> ", "\n-");
-                e.preventDefault();
                 break;
             case "F":
                 startEndTypeInTextArea('f[]', '|', { cursor: 2, defaultCursor: 2 });
-                e.preventDefault();
                 break;
             case "E":
                 const editingBar = document.getElementById('editing-bar');
-                if (editingBar.classList.contains("editing-bar-off")) {
-                    editingBar.classList.value = "editing-bar";
-                }
-                else {
-                    editingBar.classList.value = "editing-bar-off";
-                }
-                e.preventDefault();
+                editingBar.classList.value = editingBar.classList.contains("editing-bar-off") ? "editing-bar" : "editing-bar-off";
                 break;
             case "S":
                 let currTextSize = document.getElementById("text-size").value;
@@ -522,64 +473,49 @@ function keyPresses(e) {
                     currTextSize += currTextUnit;
                 }
                 startEndTypeInTextArea(`s[${currTextSize}]`, '|');
-                e.preventDefault();
                 break;
             case "Z":
                 const currColorSelected = document.getElementById("text-color").value;
                 startEndTypeInTextArea(`#[${currColorSelected.split("#")[1]}]`, '|');
-                e.preventDefault();
                 break;
             case "B":
                 typeInTextarea('> \'\'\'\'[author]', 4);
-                e.preventDefault();
                 break;
             case "T":
                 startEndTypeInTextArea('|', '||\n|---|---|\n|||');
-                e.preventDefault();
                 break;
             case "!":
                 startEndTypeInTextArea(`<c-3d>`, `</c-3d>`);
-                e.preventDefault();
                 break;
             case "@":
                 startEndTypeInTextArea("<c-rainbow>", "</c-rainbow>");
-                e.preventDefault();
                 break;
             case "#":
                 startEndTypeInTextArea("<c-upsidedown>", "</c-upsidedown>");
-                e.preventDefault();
                 break;
             case "$":
                 startEndTypeInTextArea("<c-circled>", "</c-circled>");
-                e.preventDefault();
                 break;
             case "%":
                 startEndTypeInTextArea("<c-unicode>", "</c-unicode>");
-                e.preventDefault();
                 break;
             case "^":
                 startEndTypeInTextArea("<c-choose items=''>", "</c-choose>");
-                e.preventDefault();
                 break;
             case "&":
                 startEndTypeInTextArea("<c-random min=0 max=100 round=0>", "</c-random>");
-                e.preventDefault();
                 break;
             case "*":
                 startEndTypeInTextArea("<c-spacer></c-spacer>", "");
-                e.preventDefault();
                 break;
             case "{":
                 startEndTypeInTextArea("|", "<-|");
-                e.preventDefault();
                 break;
             case "}":
                 startEndTypeInTextArea("|->", "|");
-                e.preventDefault();
                 break;
             case "|":
                 startEndTypeInTextArea("|->", "<-|");
-                e.preventDefault();
                 break;
         }
     }
@@ -675,18 +611,8 @@ document.getElementById("preview-search-count").addEventListener("keydown", (e) 
 });
 let EditMode = false;
 function setEditMode() {
-    if (!EditMode) {
-        const editingBar = document.getElementById("editing-bar");
-        editingBar.classList.value = "editing-bar-off";
-        textEditor.style.width = "100%";
-        preview.style.display = "none";
-    }
-    else {
-        const editingBar = document.getElementById("editing-bar");
-        editingBar.classList.value = "editing-bar";
-        textEditor.style.width = "50%";
-        preview.style.display = "initial";
-    }
+    const editingBar = document.getElementById("editing-bar");
+    [editingBar.classList.value, textEditor.style.width, preview.style.display] = EditMode ? ["editing-bar", "50%", "initial"] : ["editing-bar-off", "100%", "none"];
     EditMode = !EditMode;
 }
 let PreviewMode = false;
