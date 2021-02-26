@@ -534,7 +534,7 @@ ${selector} li{
         }
     ],
     [
-        /(?<!\\)\\END(F|S|#|C|H|W|L)(?:\{(.*?)\}| (.*?)\\)/gi,
+        /(?<!\\)\\END(.|\\)(?:\{(.*?)\}| (.*?)\\)?/gi,
         (_, type, newValue, newValue2) => {
             newValue = newValue2 ?? newValue;
             switch (type.toUpperCase()) {
@@ -552,12 +552,10 @@ ${selector} li{
                     return `</div><div style="word-spacing: ${newValue}">`;
                 case "L":
                     return `</div><div style="letter-spacing: ${newValue}">`;
+                default:
+                    return `</div>`;
             }
         }
-    ],
-    [
-        /(?<!\\)\\END(?:.*?\\|\{.*?\})/g,
-        "</div>"
     ],
     [
         /(?<!\\)\$\$(none|unit|simplify)?\$(.*?)\$(nohover)?\$\$/g,
