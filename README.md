@@ -183,8 +183,14 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 ### Builtin Classes
 * _html: main class
 * _word: word to define class
-* _speech: part of speech for word
+* _word-speech: part of speech for word
 * _definition: definition for word
+* _link: used in \[text\]\(link\)
+* _double: used in text decoration double
+* _overline: used in overline text decoration
+* _dotted: used in dotted text decoration
+* _wavy: used in wavy text decoration
+* _underline: used in underline text decoration
 
 ## NOT RECOMMENDED (usually causes lag)
 * \RAND\\: random number from 1 to 100
