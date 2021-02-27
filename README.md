@@ -2,9 +2,10 @@
 
 I wanted to add some "features" to markdown so I put a bunch of regular expressions in a list and ran input from a textarea through that.
 
-# LINES OF CODE
+# INSTALL
 
-5843
+To install run tsc (sudo npm -g install typescript)
+open index.html
 
 # Queary Strings
 * \* or %23 = #
