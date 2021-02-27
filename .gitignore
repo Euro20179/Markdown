@@ -1,5 +1,5 @@
 .vscode
-*.js
-!DOMElements.js
-!prism.js
+js/*.js
+!js/DOMElements.js
+!js/prism.js
 
