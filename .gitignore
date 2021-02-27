@@ -2,4 +2,4 @@
 js/*.js
 !js/DOMElements.js
 !js/prism.js
-
+!js/html2pdf.js
