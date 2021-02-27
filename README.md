@@ -4,8 +4,12 @@ I wanted to add some "features" to markdown so I put a bunch of regular expressi
 
 # INSTALL
 
-To install run tsc (sudo npm -g install typescript)
+To install run tsc (sudo npm -g install typescript)<br>
 open index.html
+
+# Lines of Code
+
+5731
 
 # Queary Strings
 * \* or %23 = #
